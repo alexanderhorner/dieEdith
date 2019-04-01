@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
   $('#submit').click(function() {
-    //Check if all atrivutes are given
+    //Check if all atributes are given
     if (window.teacherid != ""
       & window.category != "") {
 
