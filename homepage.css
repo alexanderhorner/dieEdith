@@ -1,0 +1,53 @@
+/*font-family: 'Cinzel', serif;
+font-family: 'Raleway', sans-serif;
+#id
+.class
+#D1D1D1
+#DBDBDB
+#85C7F2
+#636363
+#4C4C4C
+*/
+
+img {
+  cursor: pointer;
+  display: block;
+  float: left;
+  margin-right: 10px;
+  width: 300px;
+  height: 200px;
+  border-radius: 3px;
+}
+
+.subheading {
+  display: inline-block;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+p {
+  margin: 0;
+}
+
+@media only screen and (max-width: 535px) {
+  img {
+    display: block;
+    margin-bottom: 10px;
+    width: 100%;
+    height: auto;
+  }
+}
+
+#footer {
+  margin-bottom: 40px;
+}
+
+#wrapper {
+  max-width: 750px;
+}
+@media only screen and (max-width: 785px) {
+  #wrapper {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}

@@ -1,0 +1,19 @@
+{
+    "name": "Die Edith",
+    "short_name": "Die Edith",
+    "icons": [
+        {
+            "src": "android-chrome-192x192.png?v=QEJrEjO97q",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "android-chrome-512x512.png?v=QEJrEjO97q",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#303030",
+    "background_color": "#303030",
+    "display": "browser"
+}

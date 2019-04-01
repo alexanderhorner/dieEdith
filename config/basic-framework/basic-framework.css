@@ -1,0 +1,118 @@
+/*font-family: 'Cinzel', serif;
+font-family: 'Roboto', sans-serif;
+#303030 JET
+#636363 GRANIT GRAY
+#BFBFBF SILVER
+#85C7F2 BABY BLUE
+#F43A3A DEEP CARMINE PINK
+*/
+@import url('https://fonts.googleapis.com/css?family=Cinzel:700|Roboto');
+
+body,
+html {
+  min-width: 260px;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  background-color: #303030;
+  color: #BFBFBF;
+  font-family: sans-serif;
+  font-family: 'Roboto', sans-serif;
+  font-size: 18px;
+  margin: 0;
+  overflow-x: hidden;
+  padding: 0;
+  text-align: center;
+  position: relative;
+}
+
+@media only screen and (max-width: 260px) {
+  body,
+  html {
+    overflow-x: scroll;
+  }
+}
+
+.topic-box {
+  box-sizing: border-box;
+  background-color: #636363;
+  box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.75);
+  display: inline-block;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  padding: 20px;
+  text-align: justify;
+  width: 100%;
+  border-radius: 3px;
+}
+
+.topic-box:first-child {
+  text-align: center;
+}
+
+#wrapper {
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 10px 0;
+  padding-top: 165px !important;
+}
+#title-section {
+  -webkit-backdrop-filter: saturate(1000%) blur(20px);
+  backdrop-filter: saturate(1000%) blur(20px);
+  background-color: black;
+  background-color: rgba(0, 0, 0, 0.8);
+  box-shadow: 0 0 60px 0 rgba(0, 0, 0, 0.75);
+  color: #BFBFBF;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  transition: height 0.2s;
+  z-index: 5000;
+}
+
+#title-section.big {
+  height: 150px;
+}
+
+#title-section.minimized {
+  height: 50px;
+}
+
+#title {
+  font-family: 'Cinzel', serif;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  transition: font-size 0.2s;
+  width: 1000px;
+}
+
+#title.big {
+  font-size: 100px;
+}
+
+#title.minimized {
+  font-size: 30px;
+}
+
+@media only screen and (max-width: 600px) {
+  #title.big {
+    font-size: 18vw;
+  }
+}
+
+a {
+  color: #85C7F2;
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+}
+
+a.text {
+  color: #BFBFBF;
+  text-decoration: none;
+  text-shadow: none;
+}
+
+.red {
+  color: #F43A3A;
+}
