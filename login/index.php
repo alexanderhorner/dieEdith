@@ -29,7 +29,7 @@ if (isset($_GET["backto"])) {
 			<form id="loginform">
 				<input id="username_input" autocomplete="username" class="" name="username" type="text" value="" placeholder="Benutzername"><br>
 				<input id="password_input"  autocomplete="current-password" class="" name="password" type="password" placeholder="Passwort"><br>
-				<input id="form__button" type="submit" name="doLogin" value="Anmelden">
+				<input id="form__button" type="button" name="doLogin" value="Anmelden">
 			</form>
 		</div>
 	</div>
