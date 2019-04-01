@@ -1,10 +1,10 @@
 $(document).ready(function() {
-  $('#loginform').submit(function(e) {
+  $('#form__button').click(function(event) {
     $("#username_input").removeClass("error");
     $("#password_input").removeClass("error");
     $("#form__button").prop("disabled", true);
     $("#form__button").attr("value", "Warte...");
-    e.preventDefault();
+
 
     $.ajax({
       type: 'POST',
