@@ -13,7 +13,7 @@ if (isset($_SESSION['userid'])) {
 
 <head>
   <title>Schülerzeitung: Die Edith</title>
-  <?php $version = "5";
+  <?php $version = "10";
   include 'config/basic-framework/head.php';?>
   <script src="homepage.js"></script>
   <link rel="stylesheet" type="text/css" href="homepage.css?v=<?php echo $version ?>">

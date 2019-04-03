@@ -4,6 +4,7 @@
 <head>
   <title>Schülerzeitung: Die Edith</title>
   <?php $subdirectory = '../';
+  $version = '10';
   include '../config/basic-framework/head.php';?>
   <style>
     #wrapper {

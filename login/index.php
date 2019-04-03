@@ -9,7 +9,7 @@ if (isset($_GET["backto"])) {
 <head>
 	<title>Schülerzeitung: Die Edith - Anmelden</title>
 	<?php $subdirectory = '../';
-  $version = '5';
+  $version = '10';
   include '../config/basic-framework/head.php';?>
 	<link rel="stylesheet" type="text/css" href="login.css?v=<?php echo $version ?>">
 	<?php echo $backto;?></script>

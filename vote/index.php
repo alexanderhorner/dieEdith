@@ -64,7 +64,7 @@ if (isset($_SESSION['userid'])) {
 
 <head>
   <title>Schülerzeitung: Die Edith - Abstimmungen</title>
-  <?php $version = '5';
+  <?php $version = '10';
   $subdirectory = '../';
   include '../config/basic-framework/head.php';?>
   <link rel="stylesheet" tyoe="text/css" href="abstimmungen.css?v=<?php echo $version ?>">
