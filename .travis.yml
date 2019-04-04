@@ -1,4 +1,7 @@
-language: php
+language: ruby
+rvm:
+ - 2.2
+ - jruby
 env:
   global:
   - 'SFTP_USER=[user]'
