@@ -9,7 +9,7 @@ if (isset($_SESSION['userid'])) {
 }
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="de">
 
 <head>
   <title>Schülerzeitung: Die Edith</title>
@@ -36,17 +36,17 @@ if (isset($_SESSION['userid'])) {
     <div class="topic-box" id="vote">
       <div class="subheading"><a class="text" href="vote/">Stimme jetzt ab!</a></div>
       <?php if ($firstname == 'Steven' AND $lastname == 'Feldbusch') : ?>
-        <img id="image_abstimmung" src="steven.jpg?v=<?php echo rand(0, 999999) ?>">
+        <img id="image_abstimmung" alt="steven" src="steven.jpg?v=<?php echo rand(0, 999999) ?>">
       <?php elseif ($firstname == 'Dominik' AND $lastname == 'Kudaschow') : ?>
-        <img id="image_abstimmung" src="dodo.jpg?v=<?php echo rand(0, 999999) ?>">
+        <img id="image_abstimmung" alt="dominik is gay" src="dodo.jpg?v=<?php echo rand(0, 999999) ?>">
       <?php else : ?>
-        <img id="image_abstimmung" src="poll.jpg?v=<?php echo $version ?>">
+        <img id="image_abstimmung" alt="poll" src="poll.jpg?v=<?php echo $version ?>">
       <?php endif; ?>
       <p>Strengster Lehrer? Witzigster Lehrer? Schönste Lehrerin? Stimme jetzt in 9 Kategorien für die Lehrer deiner Wahl ab! Ist natürlich komplett anonym und dauert nur ein paar Sekunden. <a href="vote/">Mehr...</a></p>
     </div>
     <!-- <div class="topic-box" id="impressum">
       <div class="subheading"><a class="text" href="vote/">Das Team</a></div>
-      <img src="autor.jpg?v=2">
+      <img alt="autor" src="autor.jpg?v=2">
       <p>Dieses Jahr gibt es dank Herr Buckow wieder eine Schüler&shy;zeitung, doch die schreibt sich nicht von selbst. Lerne jetz Autoren, Designer, Cartoonisten und den Rest des Teams, dass für die diesjährige Ausgabe zuständig ist, kennen. <a
           href="">Mehr...</a></p>
     </div> -->

@@ -4,7 +4,7 @@ if (isset($_GET["backto"])) {
 }
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="de">
 
 <head>
 	<title>Schülerzeitung: Die Edith - Anmelden</title>
@@ -12,9 +12,8 @@ if (isset($_GET["backto"])) {
   $version = '10';
   include '../config/basic-framework/head.php';?>
 	<link rel="stylesheet" type="text/css" href="login.css?v=<?php echo $version ?>">
-	<?php echo $backto;?></script>
+	<?php echo $backto;?>
 	<script src="login.js?v=<?php echo $version ?>"></script>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body>

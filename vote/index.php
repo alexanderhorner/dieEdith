@@ -60,17 +60,17 @@ if (isset($_SESSION['userid'])) {
 }
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="de">
 
 <head>
   <title>Schülerzeitung: Die Edith - Abstimmungen</title>
   <?php $version = '10';
   $subdirectory = '../';
   include '../config/basic-framework/head.php';?>
-  <link rel="stylesheet" tyoe="text/css" href="abstimmungen.css?v=<?php echo $version ?>">
-  <script type="text/javascript" src="search.js?v=<?php echo $version ?>"></script>
-  <script type="text/javascript" src="select.js?v=<?php echo $version ?>"></script>
-  <script type="text/javascript" src="transmit-vote.js?v=<?php echo $version ?>"></script>
+  <link rel="stylesheet" type="text/css" href="abstimmungen.css?v=<?php echo $version ?>">
+  <script src="search.js?v=<?php echo $version ?>"></script>
+  <script src="select.js?v=<?php echo $version ?>"></script>
+  <script src="transmit-vote.js?v=<?php echo $version ?>"></script>
 </head>
 
 <body>
@@ -151,7 +151,7 @@ TAB;
           </tbody>
         </table>
       </div>
-    </div>
+
   </div>
   <div style="display: none; opacity: 0" id="submit">
     Stimme abgeben
