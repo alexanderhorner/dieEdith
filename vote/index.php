@@ -53,7 +53,7 @@ if (isset($_SESSION['userid'])) {
         $printtable = "";
     }
 } else {
-    $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+    $actual_link = "https://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
     $encoded_link = rawurlencode($actual_link);
     header("Location: ../login/?backto=$encoded_link");
     $navinformation = 'Diese Seite ist nur für angemeldete Leute. Wie bist du her gekommen? Meld dich an: <a class="red" href="../login/">Anmelden</a>';

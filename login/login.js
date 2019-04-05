@@ -1,6 +1,8 @@
 $(document).ready(function() {
-//fix submit
-  $('#form__button').click(function(event) {
+
+  $('#loginform').submit(function(event) {
+    event.preventDefault();
+
     $("#username_input").removeClass("error");
     $("#password_input").removeClass("error");
     $("#form__button").prop("disabled", true);
