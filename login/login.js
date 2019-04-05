@@ -1,4 +1,5 @@
 $(document).ready(function() {
+//fix submit
   $('#form__button').click(function(event) {
     $("#username_input").removeClass("error");
     $("#password_input").removeClass("error");
