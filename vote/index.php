@@ -27,7 +27,6 @@ if (isset($_SESSION['userid'])) {
         $row = $statement->fetch();
 
         // save id in id_ variables
-        //BAD CODE dubble id_
         foreach ($categories as $val) {
             $var_name = "id_".$val;
             $$var_name = $row["id_$val"];
