@@ -1,2 +1,7 @@
-language: php
-php: 7.2
+language: ruby
+secure: "bgjc9Hoz5CLA8gw2OPyGmXD/o3O2uBCL1yhSSkBdhrLPHtb6KonBWQRd5gFK13iJ+I2+jXDaebWs3qcV9drJQQy3X0GgXHggJ/6+vvfCAUyR9eIWGubWX238Y2HS30OT3guVi2+YAUiCuxxThTiTtY1vNIOHaWwHHZR5MarhrnLYPxlFEiP1Idc7KFll0Uiq7PejdfrzDVVUgBD4h+ue8Rd8xjUAjF5XYvQsOm7eyIsvL066kAZCwRWPub/PSi5OdB3CvGM4e9M6dkFMun1U1U5g9qGEYc0a0fl3ZYPGKzRShCbyNyrToQ1sRwjumf+aNgbeoUuDr6kEh3MiRLuWL8JU1diiPnCExu4VC6Ec9GTcF8fWPi2dDYY70P1vdT8jIDaOlDHQmRziugYZHRnTM1TlQPTDeNGDw8tA1JKejZ5fqyjf4csqQaTAMA7h6GHp2gzZZ3XfRbMJbrQ6pN3OjJkOddZA1jk/fcgYbXyNKwTAlg87NHDbH+rUNJJnFlZxWsEAOhFpdH/HjajIh9DF4cU2NYAOHQonZA2YepQbki/MFeB5NSAcuCVMB1Uwdwp4OXOo9rf9pMOl9ObM1OQ4unN5N88xh2WVjtIrk5YtqB2OEPvVKjMK48ZyI8b5Sjb1wvsWog30Qzee3vBlXoVMYircrn0W2i4VbmZ8b2IXpOY="
+# addons:
+#   browserstack:
+#     username: "Your BrowserStack username"
+#     access_key:
+#       secure: "The secure string output of `travis encrypt`"
