@@ -4,24 +4,4 @@ addons:
     username: "alexanderhorner3"
     access_key:
       secure: "XJYisl4PZcf2qGXbSSoGc1mIC3oKT+dyIgwEEV9xi3/jRTq4oJH26fL1TP2nI3EZ6pkjoQc38IQng1tua+tNTHPxP97fXSDXxn3fHRsAF8rt5wQX5iVFUl+P/3jjEAPdFo+MHjfeVWBSK3krLihUz2rQRU2jZObHNiUue8r/57+GX8m6BCalyI3H9DFe6DtOzcIrKi/AAK29rejajPAALD9Mnzl2A8Q2dchlPfMs3bF/yppxWQduR4Ojb8e/qGNiiTjyRueEh8XIQ+klkIggNckGMMUurUIeKYWRxlW+3s663/nfe1pzNJfnb3evxpGd2vXEDFQ8lm6fTuxoO7BelG5JiEW/EnOy92hAqP9ygqPoyTsuIcthTzMt90JneD1CQS4EwvYo7zNWIAlB3qiJc7Ttj6QKX6g91s8h/eZ2CnqEhC5v+8aICzgj2XHFwG8uIWJYZRv/riSU5c0QtYt89Acv8zxA8SWSOANRsJ+6c1ZweajBfd15FxqWjwaHRy3M/9EjRHx8NviyadQTk9pIxYxUTUvubwnYBmwt4k0UlXP3BoxqCHOc4tMlg2IOsdfHB4tmCZJgbbWg3C7cS+3gi/As5Nr4fVk26ugeuyPDJq/ceniYa4pGLU7mV0dit0DvAhWH4w/Bu/e5Z/7pIH/m9cZCG5+E1l7/r/h6lGD1tXc="
-script: require 'rubygems'
-require 'selenium-webdriver'
-
-# Input capabilities
-caps = Selenium::WebDriver::Remote::Capabilities.new
-caps['browserstack.local'] = 'true'
-caps['browserstack.localIdentifier'] = ENV['BROWSERSTACK_LOCAL_IDENTIFIER']
-caps.setCapability("browserName", "android");
-caps.setCapability("device", "Samsung Galaxy S7");
-caps.setCapability("realMobile", "true");
-caps.setCapability("os_version", "6.0");
-
-driver = Selenium::WebDriver.for(:remote,
-  :url => "http://USERNAME:ACCESS_KEY@hub-cloud.browserstack.com/wd/hub",
-:desired_capabilities => caps)
-driver.navigate.to "http://www.google.com"
-element = driver.find_element(:name, 'q')
-element.send_keys "BrowserStack"
-element.submit
-puts driver.title
-driver.quit
+script: test.rb
