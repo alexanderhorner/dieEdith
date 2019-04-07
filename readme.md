@@ -1,4 +1,4 @@
-https://travis-ci.com/alexanderhorner/dieEdith.svg?branch=master
+![logo](https://travis-ci.com/alexanderhorner/dieEdith.svg?branch=master)
 ![logo](https://www.dieedith.de/logo.svg)
 
 A big thank you to [BrowserStack](https://www.browserstack.com/) for sponsoring this project!
