@@ -8,4 +8,6 @@ addons:
   browserstack:
     username: "alexanderhorner3"
     access_key: ACCESS_KEY
-script: ruby test.rb
+script:
+  - gem install selenium-webdriver
+  - ruby test.rb
