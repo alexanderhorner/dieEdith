@@ -8,4 +8,4 @@ addons:
   browserstack:
     username: "alexanderhorner3"
     access_key: ACCESS_KEY
-script: bash test.rb
+script: ruby test.rb
