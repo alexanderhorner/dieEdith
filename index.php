@@ -1,57 +1,52 @@
-<?php
-session_start();
-if (isset($_SESSION['userid'])) {
-    $firstname = $_SESSION['firstname'];
-    $lastname = $_SESSION['lastname'];
-    $navinformation = "Hallo ".$firstname." ".$lastname.'! <a class="red" href="logout/">Nicht du?</a>';
-} else {
-    $navinformation = 'Du bist im Moment nicht angemeldet. <a class="red" href="login/">Anmelden</a>';
-}
-?>
 <!DOCTYPE html>
 <html lang="de">
 
 <head>
-  <title>Schülerzeitung: Die Edith</title>
-  <?php $version = "10";
-  include 'config/basic-framework/head.php';?>
-  <script src="homepage.js"></script>
-  <link rel="stylesheet" type="text/css" href="homepage.css?v=<?php echo $version ?>">
-  <link rel="subresource" href="poll.jpg">
-  <link rel="subresource" href="autor.jpg">
-  <link rel="prerender" href="login/">
-  <link rel="prerender" href="vote/">
+  <title>Die Edith</title>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="masonry.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Cinzel:700|Roboto&display=swap" rel="stylesheet">
+  <meta name="description" content="Die offizielle Seite der Schülerzeitung der Edith-Stein-Realschule (Parsberg).">
+  <script src="home.js"></script>
+  <link rel="stylesheet" type="text/css" href="home.css">
+
+  <!-- favicon -->
+  <!-- Placeholder -->
+
+
 </head>
 
 <body>
-  <?php if (!isset($_SESSION['userid'])) : ?>
-  <?php endif; ?>
-  <div id="title-section" class="big">
-    <span id="title" class="big">Die Edith</span>
-  </div>
-  <div id="wrapper">
-    <div class="topic-box">
-      <?php echo $navinformation?>
+  <header class="header">
+    <span class="header__title header__title--big">Die Edith</span>
+    <span class="header__title header__title--small">Edith</span>
+    <ul class="header__nav-items header__nav-items--big">
+      <li>Anmelden</li>
+      <li>Registrieren</li>
+      <li>Mehr</li>
+    </ul>
+    <div class="header__nav-items header__nav-items--small">
+      M
     </div>
-    <div class="topic-box" id="vote">
-      <div class="subheading"><a class="text" href="vote/">Stimme jetzt ab!</a></div>
-      <?php if ($firstname == 'Steven' AND $lastname == 'Feldbusch') : ?>
-        <img id="image_abstimmung" alt="steven" src="steven.jpg?v=<?php echo rand(0, 999999) ?>">
-      <?php elseif ($firstname == 'Dominik' AND $lastname == 'Kudaschow') : ?>
-        <img id="image_abstimmung" alt="dominik is gay" src="dodo.jpg?v=<?php echo rand(0, 999999) ?>">
-      <?php else : ?>
-        <img id="image_abstimmung" alt="poll" src="poll.jpg?v=<?php echo $version ?>">
-      <?php endif; ?>
-      <p>Strengster Lehrer? Witzigster Lehrer? Schönste Lehrerin? Stimme jetzt in 9 Kategorien für die Lehrer deiner Wahl ab! Ist natürlich komplett anonym und dauert nur ein paar Sekunden. <a href="vote/">Mehr...</a></p>
+  </header>
+  <section class="wrapper">
+    <div class="grid">
+      <div class="grid__item one"></div>
+      <div class="grid__item two"></div>
+      <div class="grid__item three"></div>
+      <div class="grid__item four"></div>
+      <div class="grid__item five"></div>
+      <div class="grid__item one"></div>
+      <div class="grid__item two"></div>
+      <div class="grid__item three"></div>
+      <div class="grid__item four"></div>
+      <div class="grid__item five"></div>
     </div>
-    <!-- <div class="topic-box" id="impressum">
-      <div class="subheading"><a class="text" href="vote/">Das Team</a></div>
-      <img alt="autor" src="autor.jpg?v=2">
-      <p>Dieses Jahr gibt es dank Herr Buckow wieder eine Schüler&shy;zeitung, doch die schreibt sich nicht von selbst. Lerne jetz Autoren, Designer, Cartoonisten und den Rest des Teams, dass für die diesjährige Ausgabe zuständig ist, kennen. <a
-          href="">Mehr...</a></p>
-    </div> -->
-    <div class="topic-box" id="footer"><span><a href="impressum/">Impressum</a> - <a href="datenschutzerklaerung/">Datenschutzerklärung</a></span></div>
-  </div>
+  </section>
 </body>
 
 </html>
