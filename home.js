@@ -1,9 +1,16 @@
 $(document).ready(function() {
-  console.log("Initialize masonry!");
+  //initialize Masonry
   $('.grid').masonry({
-    // set itemSelector so .grid-sizer is not used in layout
     itemSelector: '.grid__item',
-    // use element for option
     percentPosition: true
+  })
+
+  //Hamburger Button
+  $(".hamburger").click(function() {
+    if ($(this).hasClass("is-active")) {
+      $(this).removeClass("is-active")
+    } else {
+      $(this).addClass("is-active")
+    }
   })
 });
