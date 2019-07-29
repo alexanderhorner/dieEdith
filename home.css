@@ -86,7 +86,6 @@ html, body {
   max-width: 1000px;
   margin: 60px auto 0;
   transition: margin-right 0.2s;
-  margin-right: 300px;
 }
 
 .grid__item {
