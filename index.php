@@ -20,7 +20,6 @@
   <header class="header">
     <span class="header__title">Die Edith</span>
     <ul class="header__nav-items">
-      <!-- <li><a class="header__nav-items__login" href="#">Anmelden</a></li> -->
       <li>
         <button class="hamburger hamburger--squeeze" type="button">
           <span class="hamburger-box">
