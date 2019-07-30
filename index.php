@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de">
+<html class="" lang="de">
 
 <head>
   <title>Die Edith</title>
@@ -9,18 +9,18 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="masonry.js"></script>
-  <link href="https://fonts.googleapis.com/css?family=Cinzel:700|Roboto&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Cinzel:700|Roboto" rel="stylesheet">
   <meta name="description" content="Die offizielle Seite der Schülerzeitung der Edith-Stein-Realschule (Parsberg).">
   <script src="home.js"></script>
   <link rel="stylesheet" type="text/css" href="home.css">
   <link rel="stylesheet" type="text/css" href="hamburger.css">
 </head>
 
-<body class="dark">
+<body>
   <header class="header">
     <span class="header__title">Die Edith</span>
-    <ul class="header__nav-items header__nav-items--big">
-      <li><a class="header__nav-items__login" href="#">Anmelden</a></li>
+    <ul class="header__nav-items">
+      <!-- <li><a class="header__nav-items__login" href="#">Anmelden</a></li> -->
       <li>
         <button class="hamburger hamburger--squeeze" type="button">
           <span class="hamburger-box">
@@ -33,24 +33,21 @@
   </header>
   <section class="wrapper">
     <div class="grid">
-      <div class="grid__item one"></div>
-      <div class="grid__item two"></div>
-      <div class="grid__item three"></div>
-      <div class="grid__item four"></div>
-      <div class="grid__item five"></div>
-      <div class="grid__item two"></div>
-      <div class="grid__item three"></div>
-      <div class="grid__item four"></div>
-      <div class="grid__item five"></div>
-      <div class="grid__item one"></div>
-      <div class="grid__item two"></div>
-      <div class="grid__item three"></div>
-      <div class="grid__item four"></div>
-      <div class="grid__item five"></div>
-      <div class="grid__item two"></div>
-      <div class="grid__item three"></div>
-      <div class="grid__item four"></div>
-      <div class="grid__item five"></div>
+      <div class="grid__item"></div>
+      <div class="grid__item"></div>
+      <div class="grid__item"></div>
+      <div class="grid__item"></div>
+      <div class="grid__item"></div>
+      <div class="grid__item"></div>
+      <div class="grid__item"></div>
+      <div class="grid__item"></div>
+      <div class="grid__item"></div>
+      <div class="grid__item"></div>
+      <div class="grid__item"></div>
+      <div class="grid__item"></div>
+      <div class="grid__item"></div>
+      <div class="grid__item"></div>
+      <div class="grid__item"></div>
     </div>
   </section>
 </body>
