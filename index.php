@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="dark" lang="de">
+<html class="" lang="de">
 
 <head>
   <title>Die Edith</title>
@@ -27,7 +27,6 @@
           </span>
         </button>
       </li>
-
     </ul>
   </header>
   <section class="wrapper">
