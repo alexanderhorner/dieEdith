@@ -13,6 +13,9 @@ html, body {
   margin: 0;
   background-color: #f1f3f4;
 }
+html.dark, html.dark body {
+  /*darkmode styles*/
+}
 
 .header {
   z-index: 1000;
@@ -28,6 +31,9 @@ html, body {
   -moz-box-shadow: 0 2px 15px -3px rgba(0, 0, 0, 0.5);
   box-shadow: 0 2px 15px -3px rgba(0, 0, 0, 0.5);
 }
+html.dark .header {
+  /*darkmode styles*/
+}
 
 .header__title {
   font-weight: 700;
@@ -42,7 +48,6 @@ html, body {
 }
 
 .header__nav-items {
-  color: hsla(0, 0%, 00%, 1);
   font-weight: 300;
   line-height: 40px;
   position: absolute;
@@ -59,7 +64,7 @@ html, body {
   white-space: nowrap;
 }
 
-.header__nav-items>li {
+.header__nav-items > li {
   display: inline-block;
 }
 
@@ -68,24 +73,18 @@ html, body {
   text-decoration: none;
 }
 
-@media only screen and (max-width: 10px) {
-  .header__title {
-    position: absolute;
-    top: 55%;
-    left: 10px;
-    transform: translate(0, -50%);
-  }
-}
-
-@media only screen and (max-width: 450px) {}
-
 .wrapper {
-
   padding-bottom: 100px;
-  width: 95%;
+  width: calc(100% - 20px);
   max-width: 1000px;
   margin: 60px auto 0;
   transition: margin-right 0.2s;
+<<<<<<< Updated upstream
+=======
+}
+html.dark .wrapper {
+  /*darkmode styles*/
+>>>>>>> Stashed changes
 }
 
 .grid__item {
@@ -108,29 +107,17 @@ html, body {
     width: calc(100% - 20px);
   }
 
-  .header__nav-items>li:nth-of-type(1) {
+  .header__nav-items > li:nth-of-type(1) {
     display: none;
   }
 }
 
-.one {
-  height: 200px;
-}
 
-.two {
-  height: 240px;
-}
 
-.three {
-  height: 300px;
-}
-
-.four {
-  height: 320px;
-}
-
-.five {
-  height: 260px;
-}
-
-/* Dark Mode Styles ab hier */
+/* Ignorieren ab hier*/
+.grid__item:nth-of-type(1n) {height: 200px}
+.grid__item:nth-of-type(2n) {height: 240px}
+.grid__item:nth-of-type(3n) {height: 300px}
+.grid__item:nth-of-type(4n) {height: 350px}
+.grid__item:nth-of-type(5n) {height: 270px}
+/* Kannst aufhören zu ignorieren */
