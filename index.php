@@ -1,9 +1,6 @@
 <!DOCTYPE html>
-<<<<<<< HEAD
 <html class="dark" lang="de">
-=======
 <html class="" lang="de">
->>>>>>> Major_Update
 
 <head>
   <title>Die Edith</title>
@@ -24,10 +21,6 @@
   <header class="header">
     <span class="header__title">Die Edith</span>
     <ul class="header__nav-items">
-<<<<<<< HEAD
-      <!-- <li><a class="header__nav-items__login" href="#">Anmelden</a></li> -->
-=======
->>>>>>> Major_Update
       <li>
         <button class="hamburger hamburger--squeeze" type="button">
           <span class="hamburger-box">
@@ -35,7 +28,6 @@
           </span>
         </button>
       </li>
-
     </ul>
   </header>
   <section class="wrapper">

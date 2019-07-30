@@ -79,18 +79,12 @@ html.dark .header {
   max-width: 1000px;
   margin: 60px auto 0;
   transition: margin-right 0.2s;
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
 }
 html.dark .wrapper {
   /*darkmode styles*/
->>>>>>> Stashed changes
-=======
 }
 html.dark .wrapper {
   /*darkmode styles*/
->>>>>>> Major_Update
 }
 
 .grid__item {
