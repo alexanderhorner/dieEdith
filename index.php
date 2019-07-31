@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="dark" lang="de">
+<html lang="de">
 
 <head>
   <title>Die Edith</title>
