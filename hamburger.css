@@ -34,6 +34,11 @@
 .hamburger.is-active .hamburger-inner::after {
   background-color: #000;
 }
+html.dark .hamburger.is-active .hamburger-inner,
+html.dark .hamburger.is-active .hamburger-inner::before,
+html.dark .hamburger.is-active .hamburger-inner::after {
+  background-color: white;
+}
 
 .hamburger-box {
   width: 40px;
@@ -58,6 +63,10 @@
   transition-duration: 0.15s;
   transition-timing-function: ease;
 }
+html.dark .hamburger-inner, html.dark .hamburger-inner::before, html.dark .hamburger-inner::after {
+  background-color: white;
+}
+
 
 .hamburger-inner::before, .hamburger-inner::after {
   content: "";
