@@ -5,15 +5,16 @@
   <title>Die Edith</title>
 
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="masonry.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Cinzel:700|Roboto" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <meta name="description" content="Die offizielle Seite der Schülerzeitung der Edith-Stein-Realschule (Parsberg).">
-  <script src="home.js"></script>
+  <link rel="stylesheet" type="text/css" href="base.css">
+  <script src="hamburger.js"></script>
   <link rel="stylesheet" type="text/css" href="home.css">
-  <link rel="stylesheet" type="text/css" href="hamburger.css">
+  <script src="masonry.js"></script>
+  <script src="home.js"></script>
 </head>
 
 <body>
@@ -29,6 +30,7 @@
       </li>
     </ul>
   </header>
+
   <section class="wrapper">
     <div class="grid">
       <div class="grid__item"></div>
@@ -46,6 +48,7 @@
       <div class="grid__item"></div>
       <div class="grid__item"></div>
       <div class="grid__item"></div>
+      <footer class="grid__item">FOOTER</footer>
     </div>
   </section>
 </body>
