@@ -1,7 +1,7 @@
 $(document).ready(function() {
   //initialize Masonry
   $('.grid').masonry({
-    itemSelector: '.grid__item',
+    itemSelector: '.card',
     percentPosition: true
   });
 });

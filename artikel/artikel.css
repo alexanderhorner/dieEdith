@@ -24,10 +24,6 @@ p {
   line-height: 33px;
 }
 
-p, h1, h2 {
-  transition: color 0.2s;
-}
-
 .wrapper {
   width: 780px;
   background-color: #FFF;

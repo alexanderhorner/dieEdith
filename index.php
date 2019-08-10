@@ -33,22 +33,168 @@
 
   <section class="wrapper">
     <div class="grid">
-      <div class="grid__item"></div>
-      <div class="grid__item"></div>
-      <div class="grid__item"></div>
-      <div class="grid__item"></div>
-      <div class="grid__item"></div>
-      <div class="grid__item"></div>
-      <div class="grid__item"></div>
-      <div class="grid__item"></div>
-      <div class="grid__item"></div>
-      <div class="grid__item"></div>
-      <div class="grid__item"></div>
-      <div class="grid__item"></div>
-      <div class="grid__item"></div>
-      <div class="grid__item"></div>
-      <div class="grid__item"></div>
-      <footer class="grid__item">FOOTER</footer>
+      <!-- Card -->
+      <div class="card">
+        <div class="card__info">
+          <img class="card__info__picture" src="profile-placeholder.png" alt="profile picture">
+          <div class="card__info__textbox">
+            <div class="card__info__textbox__name">Dominik Kudaschow</div>
+            <div class="card__info__textbox__time">vor 3 Wochen</div>
+          </div>
+        </div>
+      </div>
+      <!-- Card -->
+      <div class="card">
+        <div class="card__info">
+          <img class="card__info__picture" src="profile-placeholder.png" alt="profile picture">
+          <div class="card__info__textbox">
+            <div class="card__info__textbox__name">Lea Stirn</div>
+            <div class="card__info__textbox__time">vor 6 Minuten</div>
+          </div>
+        </div>
+      </div>
+      <!-- Card -->
+      <div class="card">
+        <div class="card__info">
+          <img class="card__info__picture" src="profile-placeholder.png" alt="profile picture">
+          <div class="card__info__textbox">
+            <div class="card__info__textbox__name">Alexander Horner</div>
+            <div class="card__info__textbox__time">vor vor 8 Stunden</div>
+          </div>
+        </div>
+      </div>
+      <!-- Card -->
+      <div class="card">
+        <div class="card__info">
+          <img class="card__info__picture" src="profile-placeholder.png" alt="profile picture">
+          <div class="card__info__textbox">
+            <div class="card__info__textbox__name">Bethy-Analise Gayloard</div>
+            <div class="card__info__textbox__time">vor 5 Minuten</div>
+          </div>
+        </div>
+      </div>
+      <!-- Card -->
+      <div class="card">
+        <div class="card__info">
+          <img class="card__info__picture" src="profile-placeholder.png" alt="profile picture">
+          <div class="card__info__textbox">
+            <div class="card__info__textbox__name">Alexander Horner</div>
+            <div class="card__info__textbox__time">vor 5 Minuten</div>
+          </div>
+        </div>
+      </div>
+      <!-- Card -->
+      <div class="card">
+        <div class="card__info">
+          <img class="card__info__picture" src="profile-placeholder.png" alt="profile picture">
+          <div class="card__info__textbox">
+            <div class="card__info__textbox__name">Alexander Horner</div>
+            <div class="card__info__textbox__time">vor 5 Minuten</div>
+          </div>
+        </div>
+      </div>
+      <!-- Card -->
+      <div class="card">
+        <div class="card__info">
+          <img class="card__info__picture" src="profile-placeholder.png" alt="profile picture">
+          <div class="card__info__textbox">
+            <div class="card__info__textbox__name">Alexander Horner</div>
+            <div class="card__info__textbox__time">vor 5 Minuten</div>
+          </div>
+        </div>
+      </div>
+      <!-- Card -->
+      <div class="card">
+        <div class="card__info">
+          <img class="card__info__picture" src="profile-placeholder.png" alt="profile picture">
+          <div class="card__info__textbox">
+            <div class="card__info__textbox__name">Alexander Horner</div>
+            <div class="card__info__textbox__time">vor 5 Minuten</div>
+          </div>
+        </div>
+      </div>
+      <!-- Card -->
+      <div class="card">
+        <div class="card__info">
+          <img class="card__info__picture" src="profile-placeholder.png" alt="profile picture">
+          <div class="card__info__textbox">
+            <div class="card__info__textbox__name">Alexander Horner</div>
+            <div class="card__info__textbox__time">vor 5 Minuten</div>
+          </div>
+        </div>
+      </div>
+      <!-- Card -->
+      <div class="card">
+        <div class="card__info">
+          <img class="card__info__picture" src="profile-placeholder.png" alt="profile picture">
+          <div class="card__info__textbox">
+            <div class="card__info__textbox__name">Alexander Horner</div>
+            <div class="card__info__textbox__time">vor 5 Minuten</div>
+          </div>
+        </div>
+      </div>
+      <!-- Card -->
+      <div class="card">
+        <div class="card__info">
+          <img class="card__info__picture" src="profile-placeholder.png" alt="profile picture">
+          <div class="card__info__textbox">
+            <div class="card__info__textbox__name">Alexander Horner</div>
+            <div class="card__info__textbox__time">vor 5 Minuten</div>
+          </div>
+        </div>
+      </div>
+      <!-- Card -->
+      <div class="card">
+        <div class="card__info">
+          <img class="card__info__picture" src="profile-placeholder.png" alt="profile picture">
+          <div class="card__info__textbox">
+            <div class="card__info__textbox__name">Alexander Horner</div>
+            <div class="card__info__textbox__time">vor 5 Minuten</div>
+          </div>
+        </div>
+      </div>
+      <!-- Card -->
+      <div class="card">
+        <div class="card__info">
+          <img class="card__info__picture" src="profile-placeholder.png" alt="profile picture">
+          <div class="card__info__textbox">
+            <div class="card__info__textbox__name">Alexander Horner</div>
+            <div class="card__info__textbox__time">vor 5 Minuten</div>
+          </div>
+        </div>
+      </div>
+      <!-- Card -->
+      <div class="card">
+        <div class="card__info">
+          <img class="card__info__picture" src="profile-placeholder.png" alt="profile picture">
+          <div class="card__info__textbox">
+            <div class="card__info__textbox__name">Alexander Horner</div>
+            <div class="card__info__textbox__time">vor 5 Minuten</div>
+          </div>
+        </div>
+      </div>
+      <!-- Card -->
+      <div class="card">
+        <div class="card__info">
+          <img class="card__info__picture" src="profile-placeholder.png" alt="profile picture">
+          <div class="card__info__textbox">
+            <div class="card__info__textbox__name">Alexander Horner</div>
+            <div class="card__info__textbox__time">vor 5 Minuten</div>
+          </div>
+        </div>
+      </div>
+      <!-- Card -->
+      <div class="card">
+        <div class="card__info">
+          <img class="card__info__picture" src="profile-placeholder.png" alt="profile picture">
+          <div class="card__info__textbox">
+            <div class="card__info__textbox__name">Alexander Horner</div>
+            <div class="card__info__textbox__time">vor 5 Minuten</div>
+          </div>
+        </div>
+      </div>
+
+      <footer class="card">FOOTER</footer>
     </div>
   </section>
 </body>

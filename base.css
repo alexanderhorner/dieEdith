@@ -43,6 +43,7 @@ html, body {
   padding: 0;
   margin: 0;
   background-color: #f1f3f4;
+  color: #282828;
 }
 
 @media only screen and (max-width: 240px) {
@@ -53,7 +54,7 @@ html, body {
 
 html.dark, html.dark body {
   background-color: #000000;
-  color: white;
+  color: #FFF;
 }
 
 /* Links */
@@ -65,11 +66,14 @@ a {
 a:hover {
   text-decoration: underline;
 }
+/* Buttons */
+button:focus {outline:0;}
 
 /* Header */
 .header {
+  box-sizing: content-box;
   font-family: serif;
-  z-index: 1000;
+  z-index: 10000;
   position: fixed;
   top: 0;
   left: 0;
@@ -85,10 +89,13 @@ a:hover {
 
 html.dark .header {
   background-color: #000;
+  border-bottom: 1px solid hsla(0, 0%, 20%, 0.5);
+  -webkit-box-shadow: 0 2px 15px 0px rgba(0, 0, 0, 1);
+  -moz-box-shadow: 0 2px 15px 0px rgba(0, 0, 0, 1);
+  box-shadow: 0 2px 15px 0px rgba(0, 0, 0, 1);
 }
 
 .header__title {
-  transition: color 0.2s;
   font-weight: 700;
   font-family: 'Cinzel', serif;
   display: inline-block;
