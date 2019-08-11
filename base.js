@@ -5,6 +5,7 @@ function getCookie(name) {
 }
 
 $(document).ready(function() {
+
   //Check Cookie for darkmode
   var darkmode = getCookie("darkmode");
   if (darkmode == "true") {
@@ -27,5 +28,22 @@ $(document).ready(function() {
       $("html").addClass("dark");
       document.cookie = "darkmode=true; expires=Fri, 31 Dec 9999 23:59:59 GMT";
     };
-  })
+  });
+
+  $(window).scroll(function() {
+    if ($(window).scrollTop() > 15) {
+      $(".header").removeClass("border");
+    } else {
+      $(".header").addClass("border");
+    }
+  });
+});
+
+
+$(document).ready(function() {
+  $(window).trigger("scroll");
+});
+
+$(window).on('load', function () {
+  $("html").removeClass("preload");
 });

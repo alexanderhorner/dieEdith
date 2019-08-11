@@ -11,7 +11,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <meta name="description" content="Die offizielle Seite der Schülerzeitung der Edith-Stein-Realschule (Parsberg).">
   <link rel="stylesheet" type="text/css" href="../base.css">
-  <script src="../hamburger.js"></script>
+  <script src="../base.js"></script>
   <link rel="stylesheet" type="text/css" href="artikel.css">
 </head>
 
