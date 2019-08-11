@@ -4,14 +4,9 @@
 <head>
   <title>Die Edith</title>
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  <!-- include? VVV -->
+  <?php include '../framework/head.html'?>
 
-  <link href="https://fonts.googleapis.com/css?family=Cinzel:700|Roboto|Cabin|Martel:300|Merriweather+Sans:300,400|Merriweather:300,300i,400,400i" rel="stylesheet">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <meta name="description" content="Die offizielle Seite der Schülerzeitung der Edith-Stein-Realschule (Parsberg).">
-  <link rel="stylesheet" type="text/css" href="../base.css">
-  <script src="../base.js"></script>
   <link rel="stylesheet" type="text/css" href="artikel.css">
 </head>
 

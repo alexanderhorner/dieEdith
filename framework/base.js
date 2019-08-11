@@ -23,10 +23,10 @@ $(document).ready(function() {
 
     if ($("html").hasClass("dark")) {
       $("html").removeClass("dark");
-      document.cookie = "darkmode=false; expires=Fri, 31 Dec 9999 23:59:59 GMT";
+      document.cookie = "darkmode=false; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/";
     } else {
       $("html").addClass("dark");
-      document.cookie = "darkmode=true; expires=Fri, 31 Dec 9999 23:59:59 GMT";
+      document.cookie = "darkmode=true; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/";
     };
   });
 
