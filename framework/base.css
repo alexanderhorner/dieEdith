@@ -83,7 +83,7 @@ html.dark .header {
 html.backdropfilter.dark .header{
   background-color: hsl(0, 0%, 13.3%, 0.7);
 }
-html.dark .header.border {
+html.dark .header.header--border {
   border-bottom: 1px solid hsla(0, 0%, 20%, 1);
 }
 
@@ -112,7 +112,6 @@ html.dark .header.border {
   margin-block-end: 0;
   padding-inline-start: 0;
   transform: translate(0, -50%);
-  font-weight: normal;
   line-height: 40px;
   list-style-type: none;
   white-space: nowrap;
@@ -122,6 +121,62 @@ html.dark .header.border {
   display: inline-block;
 }
 
+.side-menu {
+  transition: background-color 0.2s, transform 0.25s cubic-bezier(0.0, 0.0, 0.2, 1);
+  z-index: 9000;
+  position: fixed;
+  top: 50px;
+  right: 0;
+  bottom: 0;
+  width: 300px;
+  background-color: hsl(0, 0%, 100%, 0.9);
+}
+.side-menu--retracted {
+  transition: background-color 0.2s, transform 0.2s cubic-bezier(0.4, 0.0, 1, 1);
+  transform: translateX(101%);
+}
+
+html.backdropfilter .side-menu {
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  background-color: hsl(0, 0%, 100%, 0.7);
+}
+html.dark .side-menu {
+  background-color: hsl(0, 0%, 13.3%, 0.9);
+}
+html.backdropfilter.dark .side-menu{
+  background-color: hsl(0, 0%, 13.3%, 0.7);
+}
+
+.side-menu__list {
+  font-size: 20px;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  padding-inline-start: 0;
+  list-style-type: none;
+}
+.side-menu__list > li {
+  border-radius: 2px;
+  padding: 15px 20px 15px;
+  background-color: hsl(0, 0%, 0%, 0)
+}
+.side-menu__list > li:hover {
+  background-color: hsl(0, 0%, 0%, 0.1)
+}
+html.dark .side-menu__list > li:hover {
+  background-color: hsl(0, 0%, 0%, 0.3)
+}
+.side-menu hr {
+  margin: 0;
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(to right, transparent, hsla(0, 0%, 0%, 0.75) 50%, transparent);
+}
+html.dark .side-menu hr {
+  background-image: linear-gradient(to right, hsla(0, 0%, 100%, 0) 0%, hsla(0, 0%, 100%, 0.75) 50%, hsla(0, 0%, 100%, 0) 100%);
+}
 
 
 

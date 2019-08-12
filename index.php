@@ -14,7 +14,7 @@
 </head>
 
 <body>
-  <header class="header border">
+  <header class="header header--border">
     <span class="header__title">Die Edith</span>
     <ul class="header__nav-items">
       <li>
@@ -26,6 +26,23 @@
       </li>
     </ul>
   </header>
+
+  <nav class="side-menu side-menu--retracted">
+    <ul class="side-menu__list">
+      <li>Home</li>
+      <hr>
+      <li>Darkmode</li>
+      <hr>
+      <li>Artikel</li>
+      <hr>
+      <li>Profil</li>
+      <hr>
+      <li>Log In</li>
+      <hr>
+      <li>Registrieren</li>
+      <hr>
+    </ul>
+  </nav>
 
   <section class="wrapper">
     <div class="grid">
@@ -195,7 +212,13 @@
         </div>
       </div>
 
-      <footer class="card">FOOTER</footer>
+      <footer id="footer" class="card">
+        <ul>
+          <li>Impressum</li>
+          <li>Datenschutzerklärung</li>
+          <li>Sponsored by <a href="https://www.browserstack.com">Browserstack</a></li>
+        </ul>
+      </footer>
     </div>
   </section>
 </body>
