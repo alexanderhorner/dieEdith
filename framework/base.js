@@ -17,10 +17,10 @@ $(document).ready(function() {
   $(".hamburger").click(function() {
     if ($(this).hasClass("is-active")) {
       $(this).removeClass("is-active");
-      $(".side-menu").addClass("side-menu--retracted");
+      $(".side-menu, .wrapper, html, body").removeClass("side-menu--shown");
     } else {
       $(this).addClass("is-active");
-      $(".side-menu").removeClass("side-menu--retracted");
+      $(".side-menu, .wrapper, html, body").addClass("side-menu--shown");
     }
   });
 
@@ -33,14 +33,6 @@ $(document).ready(function() {
       document.cookie = "darkmode=true; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/";
     }
   });
-
-  $(window).scroll(function() {
-    if ($(window).scrollTop() > 15) {
-      $(".header").removeClass("header--border");
-    } else {
-      $(".header").addClass("header--border");
-    }
-  });
 });
 
 $(document).ready(function() {
@@ -48,5 +40,9 @@ $(document).ready(function() {
 });
 
 $(window).on('load', function() {
-  $("html").removeClass("preload");
+  setTimeout(
+  function()
+  {
+    $("html").removeClass("preload");
+  }, 500);
 });

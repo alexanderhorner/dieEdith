@@ -1,8 +1,27 @@
+:root {
+  --wrapper-margin-full: calc((100vw - 1100px) / 2);
+  --wrapper-margin-small: calc((100vw - 1400px) / 2);
+  --wrapper-margin-small-full-difference: calc(var(--wrapper-margin-small) - var(--wrapper-margin-full));
+}
+
+@media only screen and (max-width: 1400px) {
+  html.side-menu--shown, body.side-menu--shown {
+    overflow-y: hidden;
+  }
+}
+
 .wrapper {
   padding-bottom: 15px;
   width: calc(100% - 20px);
   max-width: 1100px;
   margin: 60px auto 0;
+  transition: transform 0.2s cubic-bezier(0.4, 0.0, 1, 1);
+}
+@media only screen and (max-width: 1700px) and (min-width: 1400px) {
+  .side-menu--shown.wrapper {
+    transform: translateX(var(--wrapper-margin-small-full-difference));
+    transition: transform 0.25s cubic-bezier(0.0, 0.0, 0.2, 1);
+  }
 }
 
 /* Card */
@@ -27,7 +46,7 @@ html.dark .card {
   box-shadow: none;
 }
 
-@media only screen and (max-width: 700px) {
+@media only screen and (max-width: 480px) {
   .wrapper {
     width: calc(100% - 20px);
   }

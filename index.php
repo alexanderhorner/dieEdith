@@ -27,7 +27,7 @@
     </ul>
   </header>
 
-  <nav class="side-menu side-menu--retracted">
+  <nav class="side-menu">
     <ul class="side-menu__list">
       <li>Home</li>
       <hr>

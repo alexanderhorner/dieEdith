@@ -2,6 +2,7 @@
   box-sizing: border-box;
   transition: background-color 0.2s;
 }
+
 html.preload * {
   transition: none;
 }
@@ -44,8 +45,11 @@ a {
 a:hover {
   text-decoration: underline;
 }
+
 /* Buttons */
-button:focus {outline:0;}
+button:focus {
+  outline: 0;
+}
 
 /* Header */
 .header {
@@ -65,12 +69,20 @@ button:focus {outline:0;}
   background-color: hsl(0, 0%, 100%, 0.9);
   font-family: serif;
   transition: background-color 0.2s, border-bottom 0.3s;
+  user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
+  border-bottom: 1px solid hsla(0, 0%, 50%, 0.2);
 }
-html.backdropfilter .header{
+
+html.backdropfilter .header {
   -webkit-backdrop-filter: saturate(180%) blur(20px);
   backdrop-filter: saturate(180%) blur(20px);
   background-color: hsl(0, 0%, 100%, 0.7);
 }
+
 /* Header dark */
 html.dark .header {
   /* box-shadow */
@@ -80,14 +92,10 @@ html.dark .header {
   background-color: #000;
   background-color: hsl(0, 0%, 13.3%, 0.9);
 }
-html.backdropfilter.dark .header{
+
+html.backdropfilter.dark .header {
   background-color: hsl(0, 0%, 13.3%, 0.7);
 }
-html.dark .header.header--border {
-  border-bottom: 1px solid hsla(0, 0%, 20%, 1);
-}
-
-
 
 .header__title {
   display: inline-block;
@@ -122,7 +130,7 @@ html.dark .header.header--border {
 }
 
 .side-menu {
-  transition: background-color 0.2s, transform 0.25s cubic-bezier(0.0, 0.0, 0.2, 1);
+  transition: background-color 0.2s, transform 0.2s cubic-bezier(0.4, 0.0, 1, 1);
   z-index: 9000;
   position: fixed;
   top: 50px;
@@ -130,10 +138,26 @@ html.dark .header.header--border {
   bottom: 0;
   width: 300px;
   background-color: hsl(0, 0%, 100%, 0.9);
-}
-.side-menu--retracted {
-  transition: background-color 0.2s, transform 0.2s cubic-bezier(0.4, 0.0, 1, 1);
+  box-sizing: content-box;
+  border-left: 1px solid hsla(0, 0%, 50%, 0.2);
+  /* box-shadow */
+  -webkit-box-shadow: -4px 0 12px 0 rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: -4px 0 12px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: -4px 0 12px 0 rgba(0, 0, 0, 0.05);
   transform: translateX(101%);
+  overflow-y: scroll;
+}
+
+@media only screen and (max-width: 480px) {
+  .side-menu {
+    left: 0;
+    width: auto;
+  }
+}
+
+.side-menu.side-menu--shown {
+  transition: background-color 0.2s, transform 0.25s cubic-bezier(0.0, 0.0, 0.2, 1);
+  transform: translateX(0%);
 }
 
 html.backdropfilter .side-menu {
@@ -141,10 +165,12 @@ html.backdropfilter .side-menu {
   backdrop-filter: saturate(180%) blur(20px);
   background-color: hsl(0, 0%, 100%, 0.7);
 }
+
 html.dark .side-menu {
   background-color: hsl(0, 0%, 13.3%, 0.9);
 }
-html.backdropfilter.dark .side-menu{
+
+html.backdropfilter.dark .side-menu {
   background-color: hsl(0, 0%, 13.3%, 0.7);
 }
 
@@ -157,28 +183,36 @@ html.backdropfilter.dark .side-menu{
   padding-inline-start: 0;
   list-style-type: none;
 }
-.side-menu__list > li {
+
+.side-menu__list>li {
   border-radius: 2px;
   padding: 15px 20px 15px;
-  background-color: hsl(0, 0%, 0%, 0)
+  background-color: hsl(0, 0%, 0%, 0);
+  user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
 }
-.side-menu__list > li:hover {
-  background-color: hsl(0, 0%, 0%, 0.1)
+
+.side-menu__list>li:hover {
+  background-color: hsl(0, 0%, 0%, 0.1);
 }
-html.dark .side-menu__list > li:hover {
-  background-color: hsl(0, 0%, 0%, 0.3)
+
+html.dark .side-menu__list>li:hover {
+  background-color: hsl(0, 0%, 0%, 0.3);
 }
+
 .side-menu hr {
   margin: 0;
   border: 0;
   height: 1px;
   background-image: linear-gradient(to right, transparent, hsla(0, 0%, 0%, 0.75) 50%, transparent);
 }
+
 html.dark .side-menu hr {
   background-image: linear-gradient(to right, hsla(0, 0%, 100%, 0) 0%, hsla(0, 0%, 100%, 0.75) 50%, hsla(0, 0%, 100%, 0) 100%);
 }
-
-
 
 /*!
  * Hamburgers
