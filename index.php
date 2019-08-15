@@ -29,11 +29,11 @@
 
   <nav class="side-menu">
     <ul class="side-menu__list">
-      <li>Home</li>
+      <li><a href="/">Home</a></li>
       <hr>
       <li>Darkmode</li>
       <hr>
-      <li>Artikel</li>
+      <li><a href="artikel/">Artikel</a></li>
       <hr>
       <li>Profil</li>
       <hr>

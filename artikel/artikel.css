@@ -27,40 +27,35 @@
   font-weight: bold;
 }
 
+:root {
+  --wrapper-margin-full: calc((100vw - 780px) / 2);
+  --wrapper-margin-small: calc((100vw - 1080px) / 2);
+  --wrapper-margin-small-full-difference: calc(var(--wrapper-margin-small) - var(--wrapper-margin-full));
+}
+
 html, body {
-  font-family: "Charis", serif;
+  font-family: "Roboto", sans-serif;
   font-weight: normal;
 }
 
-h1 {
-  font-size: 39px;
-  margin-top: 10px;
-  font-weight: normal;
-  line-height: 48px;
-}
-
-h2 {
-  font-size: 22px;
-  font-family: 'Merriweather Sans', sans-serif;
-  font-family: 'Cabin', sans-serif;
-  line-height: 30px;
-  margin: 30px 0 -20px;
-}
-
-p {
-  margin: 34px 0 17px;
-  font-size: 20px;
-  line-height: 33px;
-}
-
+/* START wrapper */
 .wrapper {
   width: 780px;
   background-color: #FFF;
   margin: 0 auto 0;
-  padding: 60px 50px 0;
-  -webkit-box-shadow: 0 2px 10px -3px rgba(0, 0, 0, 0.5);
+  padding: 60px 50px 25px;
+  transition: background-color 0.2s, transform 0.2s cubic-bezier(0.4, 0.0, 1, 1);
+  /* box-shadow */
+  -webkit-box-shadow: 4px 0 12px 0 rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 0 2px 10px -3px rgba(0, 0, 0, 0.5);
-  box-shadow: 0 2px 10px -3px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 12px 4px rgba(0, 0, 0, 0.1);
+}
+
+@media only screen and (max-width: 1450px) and (min-width: 1150px) {
+  .side-menu--shown.wrapper {
+    transform: translateX(var(--wrapper-margin-small-full-difference));
+    transition: background-color 0.2s, transform 0.25s cubic-bezier(0.0, 0.0, 0.2, 1);
+  }
 }
 
 html.dark .wrapper {
@@ -76,6 +71,7 @@ html.dark .wrapper {
     padding-left: calc((100% - 680px) / 2);
     padding-right: calc((100% - 680px) / 2);
   }
+
   html.dark .wrapper {
     background-color: #000;
   }
@@ -90,7 +86,70 @@ html.dark .wrapper {
     padding-left: 25px;
     padding-right: 25px;
   }
+}
 
+/* END wrapper */
+.clear {
+  clear: both;
+}
+
+h1 {
+  font-size: 39px;
+  margin-top: 10px;
+  margin-bottom: 32px;
+  font-weight: normal;
+  line-height: 48px;
+}
+
+h2 {
+  font-size: 22px;
+  line-height: 30px;
+  margin: 30px 0 -20px;
+}
+
+p {
+  font-family: "Charis", serif;
+  margin: 34px 0 17px;
+  font-size: 20px;
+  line-height: 33px;
+}
+
+figure {
+  margin: 0;
+}
+
+img {
+  width: 100%;
+  border-radius: 4px;
+}
+
+figcaption {
+  text-align: center;
+  color: hsl(0, 0%, 45%);
+  margin: auto 25px auto;
+}
+
+html.dark figcaption {
+  color: hsl(0, 0%, 55%);
+}
+
+@media only screen and (max-width: 850px) {
+  img {
+    border-radius: initial;
+  }
+  figure {
+    width: 100vw;
+    transform: translateX(calc((680px - 100vw) / 2));
+  }
+}
+
+@media only screen and (max-width: 730px) {
+  figure {
+    transform: translateX(-25px);
+  }
+}
+
+@media only screen and (max-width: 730px) {
   p {
     font-size: 17px;
     line-height: 28px;
@@ -101,4 +160,68 @@ html.dark .wrapper {
     font-size: 19px;
     margin: 30px 0 -16px
   }
+}
+
+/* All .article__info styles */
+.article__info {
+  margin-bottom: 42px;
+  margin-left: 25px;
+  margin-right: 20px;
+  position: relative;
+  display: table;
+  float: left;
+  white-space: nowrap;
+  padding-left: 36px;
+  padding-right: 18px;
+  z-index: 1500;
+  height: 44px;
+  background-color: #FFF;
+  border-radius: 22px;
+  /* box-shadow */
+  -webkit-box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.1);
+}
+
+html.dark .article__info {
+  background-color: #1c1c1e;
+  /* box-shadow */
+  -webkit-box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
+}
+
+.article__info__picture {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translate(-50%, -50%);
+  height: 60px;
+  width: 60px;
+  border-radius: 30px;
+  /* box-shadow */
+  -webkit-box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.1);
+}
+
+html.dark .article__info__picture {
+  /* box-shadow */
+  -webkit-box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.5);
+}
+
+.article__info__textbox {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.article__info__textbox__name {
+  font-size: 17px;
+}
+
+.article__info__textbox__time {
+  font-size: 14px;
+  color: hsl(0, 0%, 50%);
 }

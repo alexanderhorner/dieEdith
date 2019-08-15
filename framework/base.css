@@ -24,6 +24,11 @@ html, body {
   font-family: 'Roboto', sans-serif;
   font-weight: normal;
 }
+@media only screen and (max-width: 480px) {
+  html.side-menu--shown, body.side-menu--shown {
+    overflow-y: hidden;
+  }
+}
 
 @media only screen and (max-width: 240px) {
   html, body {
@@ -150,7 +155,7 @@ html.backdropfilter.dark .header {
 
 @media only screen and (max-width: 480px) {
   .side-menu {
-    left: 0;
+    left: -1px;
     width: auto;
   }
 }

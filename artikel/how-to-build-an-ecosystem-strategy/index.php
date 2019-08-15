@@ -5,9 +5,9 @@
   <title>Die Edith</title>
 
   <!-- include? VVV -->
-  <?php include '../framework/head.html'?>
+  <?php include '../../framework/head.html'?>
 
-  <link rel="stylesheet" type="text/css" href="artikel.css">
+  <link rel="stylesheet" type="text/css" href="/artikel/artikel.css">
 </head>
 
 <body>
@@ -24,9 +24,36 @@
     </ul>
   </header>
 
+  <nav class="side-menu">
+    <ul class="side-menu__list">
+      <li><a href="/">Home</a></li>
+      <hr>
+      <li>Darkmode</li>
+      <hr>
+      <li>Artikel</li>
+      <hr>
+      <li>Profil</li>
+      <hr>
+      <li>Log In</li>
+      <hr>
+      <li>Registrieren</li>
+      <hr>
+    </ul>
+  </nav>
+
   <div class="wrapper">
-    <article class="article">
+
       <h1>How To Build An Ecosystem Strategy</h1>
+
+      <div class="article__info">
+        <img class="article__info__picture" src="/profile-placeholder.png" alt="profile picture">
+        <div class="article__info__textbox">
+          <div class="article__info__textbox__name">Dominik Kudaschow</div>
+          <div class="article__info__textbox__time">vor 2 Tagen</div>
+        </div>
+      </div>
+      <p class="clear"></p>
+      <article class="article">
       <p>By 1980, IBM had hit an inflection point. It had already missed out on the minicomputer <i>revolution. Now, with new, even</i> smaller “microcomputers” evolving into a growing market, it was about to miss out again. So it set up a “skunk works” in Boca Raton, FL and, in less than a year, launched the IBM PC.</p>
       <p>Today, at the end of the digital revolution, IBM is at a similar juncture. Yet its approach is the <strong>polar opposite than it took four decades</strong> ago. Rather than operating in secret, it is building a collaborative network to develop quantum computing. The reason: the technology is simply too complex for anyone to go it alone.</p>
       <p>It’s not just IBM either. A recent report by Accenture Strategy found that found that ecosystems are <strong><i>increasingly seen as a “cornerstone” of future </i></strong>rowth. In fact, almost half of the executives it surveyed are actively seeking to participate in ecosystems to create new business models. Today, if you want to compete effectively, you need an ecosystem strategy.</p>
