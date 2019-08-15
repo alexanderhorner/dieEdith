@@ -43,8 +43,11 @@ html.dark, html.dark body {
 
 /* Links */
 a {
-  color: #66BAFF;
+  color: #267EF6;
   text-decoration: none;
+}
+html.dark a {
+  color: #66BAFF;
 }
 
 a:hover {
@@ -61,7 +64,10 @@ button:focus {
   /* box-shadow */
   -webkit-box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
-  box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
   box-sizing: content-box;
   z-index: 10000;
   position: fixed;
@@ -70,16 +76,13 @@ button:focus {
   left: 0;
   height: 50px;
   border-bottom: 1px solid hsla(0, 0%, 20%, 0);
+  border-bottom: 1px solid hsla(0, 0%, 50%, 0.2);
   background-color: #FFF;
   background-color: hsl(0, 0%, 100%, 0.9);
+  box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
   font-family: serif;
   transition: background-color 0.2s, border-bottom 0.3s;
   user-select: none;
-  -moz-user-select: none;
-  -khtml-user-select: none;
-  -webkit-user-select: none;
-  -o-user-select: none;
-  border-bottom: 1px solid hsla(0, 0%, 50%, 0.2);
 }
 
 html.backdropfilter .header {
@@ -93,9 +96,9 @@ html.dark .header {
   /* box-shadow */
   -webkit-box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.3);
-  box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.3);
   background-color: #000;
   background-color: hsl(0, 0%, 13.3%, 0.9);
+  box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.3);
 }
 
 html.backdropfilter.dark .header {
@@ -135,22 +138,22 @@ html.backdropfilter.dark .header {
 }
 
 .side-menu {
-  transition: background-color 0.2s, transform 0.2s cubic-bezier(0.4, 0.0, 1, 1);
+  /* box-shadow */
+  -webkit-box-shadow: -4px 0 12px 0 rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: -4px 0 12px 0 rgba(0, 0, 0, 0.05);
+  box-sizing: content-box;
   z-index: 9000;
   position: fixed;
   top: 50px;
   right: 0;
   bottom: 0;
   width: 300px;
-  background-color: hsl(0, 0%, 100%, 0.9);
-  box-sizing: content-box;
-  border-left: 1px solid hsla(0, 0%, 50%, 0.2);
-  /* box-shadow */
-  -webkit-box-shadow: -4px 0 12px 0 rgba(0, 0, 0, 0.05);
-  -moz-box-shadow: -4px 0 12px 0 rgba(0, 0, 0, 0.05);
-  box-shadow: -4px 0 12px 0 rgba(0, 0, 0, 0.05);
-  transform: translateX(101%);
   overflow-y: scroll;
+  transform: translateX(101%);
+  border-left: 1px solid hsla(0, 0%, 50%, 0.2);
+  background-color: hsl(0, 0%, 100%, 0.9);
+  box-shadow: -4px 0 12px 0 rgba(0, 0, 0, 0.05);
+  transition: background-color 0.2s, transform 0.2s cubic-bezier(0.4, 0.0, 1, 1);
 }
 
 @media only screen and (max-width: 480px) {
@@ -161,8 +164,8 @@ html.backdropfilter.dark .header {
 }
 
 .side-menu.side-menu--shown {
-  transition: background-color 0.2s, transform 0.25s cubic-bezier(0.0, 0.0, 0.2, 1);
   transform: translateX(0%);
+  transition: background-color 0.2s, transform 0.25s cubic-bezier(0.0, 0.0, 0.2, 1);
 }
 
 html.backdropfilter .side-menu {
@@ -180,24 +183,24 @@ html.backdropfilter.dark .side-menu {
 }
 
 .side-menu__list {
-  font-size: 20px;
   margin-inline-start: 0;
   margin-inline-end: 0;
   margin-block-start: 0;
   margin-block-end: 0;
   padding-inline-start: 0;
+  font-size: 20px;
   list-style-type: none;
 }
 
 .side-menu__list>li {
-  border-radius: 2px;
-  padding: 15px 20px 15px;
-  background-color: hsl(0, 0%, 0%, 0);
-  user-select: none;
   -moz-user-select: none;
   -khtml-user-select: none;
   -webkit-user-select: none;
   -o-user-select: none;
+  padding: 15px 20px 15px;
+  border-radius: 2px;
+  background-color: hsl(0, 0%, 0%, 0);
+  user-select: none;
 }
 
 .side-menu__list>li:hover {
@@ -209,9 +212,9 @@ html.dark .side-menu__list>li:hover {
 }
 
 .side-menu hr {
+  height: 1px;
   margin: 0;
   border: 0;
-  height: 1px;
   background-image: linear-gradient(to right, transparent, hsla(0, 0%, 0%, 0.75) 50%, transparent);
 }
 

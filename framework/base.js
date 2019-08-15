@@ -4,13 +4,18 @@ function getCookie(name) {
   if (parts.length == 2) return parts.pop().split(";").shift();
 }
 
+function linkto(x) {
+  window.location = x;
+}
+
 $(document).ready(function() {
 
   //Check Cookie for darkmode
   var darkmode = getCookie("darkmode");
   if (darkmode == "true") {
-    console.log("darkmode = true");
     $("html").addClass("dark");
+  } else {
+    $("html").removeClass("dark");
   }
 
   //Hamburger Button
@@ -33,10 +38,6 @@ $(document).ready(function() {
       document.cookie = "darkmode=true; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/";
     }
   });
-});
-
-$(document).ready(function() {
-  $(window).trigger("scroll");
 });
 
 $(window).on('load', function() {

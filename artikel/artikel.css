@@ -38,17 +38,17 @@ html, body {
   font-weight: normal;
 }
 
-/* START wrapper */
+/* wrapper */
 .wrapper {
-  width: 780px;
-  background-color: #FFF;
-  margin: 0 auto 0;
-  padding: 60px 50px 25px;
-  transition: background-color 0.2s, transform 0.2s cubic-bezier(0.4, 0.0, 1, 1);
   /* box-shadow */
   -webkit-box-shadow: 4px 0 12px 0 rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 0 2px 10px -3px rgba(0, 0, 0, 0.5);
+  width: 780px;
+  margin: 0 auto 0;
+  padding: 60px 50px 25px;
+  background-color: #FFF;
   box-shadow: 0 0 12px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.2s, transform 0.2s cubic-bezier(0.4, 0.0, 1, 1);
 }
 
 @media only screen and (max-width: 1450px) and (min-width: 1150px) {
@@ -59,17 +59,17 @@ html, body {
 }
 
 html.dark .wrapper {
-  background-color: #1c1c1e;
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
+  background-color: #1c1c1e;
   box-shadow: none;
 }
 
 @media only screen and (max-width: 850px) {
   .wrapper {
     width: 100%;
-    padding-left: calc((100% - 680px) / 2);
     padding-right: calc((100% - 680px) / 2);
+    padding-left: calc((100% - 680px) / 2);
   }
 
   html.dark .wrapper {
@@ -83,37 +83,52 @@ html.dark .wrapper {
 
 @media only screen and (max-width: 730px) {
   .wrapper {
-    padding-left: 25px;
     padding-right: 25px;
+    padding-left: 25px;
   }
 }
 
-/* END wrapper */
+/* clear float */
 .clear {
   clear: both;
 }
 
+/* Text elements */
 h1 {
-  font-size: 39px;
   margin-top: 10px;
   margin-bottom: 32px;
+  font-size: 39px;
   font-weight: normal;
   line-height: 48px;
 }
 
 h2 {
+  margin: 30px 0 -20px;
   font-size: 22px;
   line-height: 30px;
-  margin: 30px 0 -20px;
 }
 
 p {
-  font-family: "Charis", serif;
   margin: 34px 0 17px;
-  font-size: 20px;
+  font-family: "Charis", serif;
+  font-size: 22px;
   line-height: 33px;
 }
 
+@media only screen and (max-width: 730px) {
+  h2 {
+    margin: 30px 0 -16px;
+    font-size: 19px;
+  }
+
+  p {
+    margin: 20px 0 17px;
+    font-size: 18px;
+    line-height: 28px;
+  }
+}
+
+/* Picture */
 figure {
   margin: 0;
 }
@@ -124,9 +139,9 @@ img {
 }
 
 figcaption {
-  text-align: center;
-  color: hsl(0, 0%, 45%);
   margin: auto 25px auto;
+  color: hsl(0, 0%, 45%);
+  text-align: center;
 }
 
 html.dark figcaption {
@@ -137,6 +152,7 @@ html.dark figcaption {
   img {
     border-radius: initial;
   }
+
   figure {
     width: 100vw;
     transform: translateX(calc((680px - 100vw) / 2));
@@ -149,60 +165,57 @@ html.dark figcaption {
   }
 }
 
-@media only screen and (max-width: 730px) {
-  p {
-    font-size: 17px;
-    line-height: 28px;
-    margin: 20px 0 17px;
-  }
-
-  h2 {
-    font-size: 19px;
-    margin: 30px 0 -16px
-  }
-}
-
-/* All .article__info styles */
+/* Article Info  */
 .article__info {
-  margin-bottom: 42px;
-  margin-left: 25px;
-  margin-right: 20px;
-  position: relative;
-  display: table;
-  float: left;
-  white-space: nowrap;
-  padding-left: 36px;
-  padding-right: 18px;
-  z-index: 1500;
-  height: 44px;
-  background-color: #FFF;
-  border-radius: 22px;
   /* box-shadow */
   -webkit-box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.1);
+  display: table;
+  z-index: 1500;
+  position: relative;
+  height: 44px;
+  margin-right: 20px;
+  margin-bottom: 42px;
+  margin-left: 25px;
+  padding-right: 18px;
+  padding-left: 36px;
+  float: left;
+  border-radius: 22px;
+  background-color: #FFF;
   box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.1);
+  white-space: nowrap;
+}
+
+.article__info--two-authors {
+  padding-left: 86px;
 }
 
 html.dark .article__info {
-  background-color: #1c1c1e;
   /* box-shadow */
   -webkit-box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
   -moz-box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
+  background-color: #1c1c1e;
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
 }
 
 .article__info__picture {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  transform: translate(-50%, -50%);
-  height: 60px;
-  width: 60px;
-  border-radius: 30px;
   /* box-shadow */
   -webkit-box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.1);
+  z-index: 2000;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 60px;
+  height: 60px;
+  transform: translate(-50%, -50%);
+  border-radius: 30px;
   box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.1);
+}
+
+.article__info__picture:nth-of-type(2) {
+  z-index: 1900;
+  transform: translate(calc(-50% + 50px), -50%);
 }
 
 html.dark .article__info__picture {
@@ -222,6 +235,6 @@ html.dark .article__info__picture {
 }
 
 .article__info__textbox__time {
-  font-size: 14px;
   color: hsl(0, 0%, 50%);
+  font-size: 14px;
 }
