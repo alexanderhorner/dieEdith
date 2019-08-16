@@ -45,13 +45,12 @@
 
     <h1>Solardorf Herrneied</h1>
 
-    <div class="article__info article__info--two-authors">
-      <img class="article__info__picture" src="/profile-placeholder.png" alt="profile picture">
+    <div class="article__info">
       <img class="article__info__picture" src="/profile-placeholder.png" alt="profile picture">
       <div class="article__info__textbox">
         <!-- TODO: Ugly -->
-        <div class="article__info__textbox__name">Lilli Schön & Johanna Saake</div>
-        <div class="article__info__textbox__time">vor 4 Wochen</div>
+        <div class="article__info__textbox__name">Lilli Schön</div>
+        <div class="article__info__textbox__time">12. August</div>
       </div>
     </div>
 
@@ -69,7 +68,7 @@
         bereits zwei Tage der E-Mobilität, wo man auf dem Parkplatz des Gasthofes Neugebauer die verschiedensten Elektroautos besichtigen konnte. Vom Nissan Leaf, über den Tesla Roadster, bis hin zum kleinen Twizy war alles vertreten. Man konnte
         auch Elektrofahrräder, -motorräder und Segways ausprobieren.</p>
       <figure role="group">
-        <img src="pic1.png" alt="Schild auf dem steht: Kostenlose Solarstromtankstelle für Elektrofahrzuege">
+        <img src="pic1.jpg" alt="Schild auf dem steht: Kostenlose Solarstromtankstelle für Elektrofahrzuege">
         <figcaption>Dieses Schild befindet sich an der Garage von Martin Selch.</figcaption>
       </figure>
       <p><i>Was genau ist der Solarstammtisch?</i> Es ist eine Versammlung, zu der man kommen kann, wenn man sich für die Themen Energiewende, erneuerbare Energien, Solar oder Elektroautos interessiert und sich informieren möchte. Durch

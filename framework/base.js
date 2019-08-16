@@ -9,7 +9,6 @@ function linkto(x) {
 }
 
 $(document).ready(function() {
-
   //Check Cookie for darkmode
   var darkmode = getCookie("darkmode");
   if (darkmode == "true") {

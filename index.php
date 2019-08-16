@@ -44,7 +44,7 @@
     </ul>
   </nav>
 
-  <section class="wrapper">
+  <div class="wrapper">
     <div class="grid">
       <!-- Card -->
       <div class="card card--text">
@@ -58,16 +58,23 @@
         <span class="card__text">Am <i>24. September</i> kommt die zweite Schülerzeitung raus. Sie wird 1,50 Euro kosten und kann bei dem jeweiligen Klassenleiter gekauft werden.</span>
       </div>
       <!-- Card -->
-      <div class="card card--article">
-        <img class="card__picture" src="artikel/Solardorf-Herrnried/pic1.png" alt="">
-        <h3>Solardorf Herrnried</h3>
+      <div onclick="linkto('artikel/Solardorf-Herrnried')" class="card card--article">
+        <div class="card__info">
+          <img class="card__info__picture" src="profile-placeholder.png" alt="profile picture">
+          <div class="card__info__textbox">
+            <div class="card__info__textbox__name">Lilli Schön</div>
+            <div class="card__info__textbox__time">vor 4 Tagen</div>
+          </div>
+        </div>
+        <img class="card__picture" src="artikel/Solardorf-Herrnried/pic1.jpg" alt="">
+        <h3>Solardorf Herrnried: Über die Energie und wie sie die Welt rettet</h3>
         <span class="card__text">In einem kleinen Dorf, nahe Parsberg wird etwas für die Energiewende getan: der Elektroautobesitzer Martin Selch, der den Solarstammtisch Herrnried ins Leben gerufen hat, möchte die Leute wachrütteln. Für seinen
-          Verdienst, ihr Umweltbewusstsein<a href="artikel/Solardorf-Herrnried">... Weiter lesen</a></span>
+          Verdienst, ihr Umweltbewusstsein<a href="artikel/Solardorf-Herrnried"><wbr>... Weiter lesen</a></span>
       </div>
       <!-- Card -->
       <div class="card card--picture">
         <div class="card__info">
-          <img class="card__info__picture" src="profile-placeholder.png" alt="profile picture">
+          <img class="card__info__picture" src="dominik.png" alt="profile picture">
           <div class="card__info__textbox">
             <div class="card__info__textbox__name">Dominik Kudaschow</div>
             <div class="card__info__textbox__time">vor 2 Tagen</div>
@@ -87,126 +94,7 @@
         </div>
         <div class="card__text">I just fucking shit my pants</div>
       </div>
-      <!-- Card -->
-      <div class="card">
-        <div class="card__info">
-          <img class="card__info__picture" src="profile-placeholder.png" alt="profile picture">
-          <div class="card__info__textbox">
-            <div class="card__info__textbox__name">Alexander Horner</div>
-            <div class="card__info__textbox__time">vor 5 Minuten</div>
-          </div>
-        </div>
-      </div>
-      <!-- Card -->
-      <div class="card">
-        <div class="card__info">
-          <img class="card__info__picture" src="profile-placeholder.png" alt="profile picture">
-          <div class="card__info__textbox">
-            <div class="card__info__textbox__name">Alexander Horner</div>
-            <div class="card__info__textbox__time">vor 5 Minuten</div>
-          </div>
-        </div>
-      </div>
-      <!-- Card -->
-      <div class="card">
-        <div class="card__info">
-          <img class="card__info__picture" src="profile-placeholder.png" alt="profile picture">
-          <div class="card__info__textbox">
-            <div class="card__info__textbox__name">Alexander Horner</div>
-            <div class="card__info__textbox__time">vor 5 Minuten</div>
-          </div>
-        </div>
-      </div>
-      <!-- Card -->
-      <div class="card">
-        <div class="card__info">
-          <img class="card__info__picture" src="profile-placeholder.png" alt="profile picture">
-          <div class="card__info__textbox">
-            <div class="card__info__textbox__name">Alexander Horner</div>
-            <div class="card__info__textbox__time">vor 5 Minuten</div>
-          </div>
-        </div>
-      </div>
-      <!-- Card -->
-      <div class="card">
-        <div class="card__info">
-          <img class="card__info__picture" src="profile-placeholder.png" alt="profile picture">
-          <div class="card__info__textbox">
-            <div class="card__info__textbox__name">Alexander Horner</div>
-            <div class="card__info__textbox__time">vor 5 Minuten</div>
-          </div>
-        </div>
-      </div>
-      <!-- Card -->
-      <div class="card">
-        <div class="card__info">
-          <img class="card__info__picture" src="profile-placeholder.png" alt="profile picture">
-          <div class="card__info__textbox">
-            <div class="card__info__textbox__name">Alexander Horner</div>
-            <div class="card__info__textbox__time">vor 5 Minuten</div>
-          </div>
-        </div>
-      </div>
-      <!-- Card -->
-      <div class="card">
-        <div class="card__info">
-          <img class="card__info__picture" src="profile-placeholder.png" alt="profile picture">
-          <div class="card__info__textbox">
-            <div class="card__info__textbox__name">Alexander Horner</div>
-            <div class="card__info__textbox__time">vor 5 Minuten</div>
-          </div>
-        </div>
-      </div>
-      <!-- Card -->
-      <div class="card">
-        <div class="card__info">
-          <img class="card__info__picture" src="profile-placeholder.png" alt="profile picture">
-          <div class="card__info__textbox">
-            <div class="card__info__textbox__name">Alexander Horner</div>
-            <div class="card__info__textbox__time">vor 5 Minuten</div>
-          </div>
-        </div>
-      </div>
-      <!-- Card -->
-      <div class="card">
-        <div class="card__info">
-          <img class="card__info__picture" src="profile-placeholder.png" alt="profile picture">
-          <div class="card__info__textbox">
-            <div class="card__info__textbox__name">Alexander Horner</div>
-            <div class="card__info__textbox__time">vor 5 Minuten</div>
-          </div>
-        </div>
-      </div>
-      <!-- Card -->
-      <div class="card">
-        <div class="card__info">
-          <img class="card__info__picture" src="profile-placeholder.png" alt="profile picture">
-          <div class="card__info__textbox">
-            <div class="card__info__textbox__name">Alexander Horner</div>
-            <div class="card__info__textbox__time">vor 5 Minuten</div>
-          </div>
-        </div>
-      </div>
-      <!-- Card -->
-      <div class="card">
-        <div class="card__info">
-          <img class="card__info__picture" src="profile-placeholder.png" alt="profile picture">
-          <div class="card__info__textbox">
-            <div class="card__info__textbox__name">Alexander Horner</div>
-            <div class="card__info__textbox__time">vor 5 Minuten</div>
-          </div>
-        </div>
-      </div>
-      <!-- Card -->
-      <div class="card">
-        <div class="card__info">
-          <img class="card__info__picture" src="profile-placeholder.png" alt="profile picture">
-          <div class="card__info__textbox">
-            <div class="card__info__textbox__name">Alexander Horner</div>
-            <div class="card__info__textbox__time">vor 5 Minuten</div>
-          </div>
-        </div>
-      </div>
+
 
       <footer id="footer" class="card">
         <ul>
@@ -216,7 +104,7 @@
         </ul>
       </footer>
     </div>
-  </section>
+  </div>
 </body>
 
 </html>

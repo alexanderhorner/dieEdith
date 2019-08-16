@@ -24,6 +24,7 @@ html, body {
   font-family: 'Roboto', sans-serif;
   font-weight: normal;
 }
+
 @media only screen and (max-width: 480px) {
   html.side-menu--shown, body.side-menu--shown {
     overflow-y: hidden;
@@ -46,6 +47,7 @@ a {
   color: #267EF6;
   text-decoration: none;
 }
+
 html.dark a {
   color: #66BAFF;
 }
@@ -108,13 +110,20 @@ html.backdropfilter.dark .header {
 .header__title {
   display: inline-block;
   position: absolute;
-  top: 55%;
+  top: 53%;
   left: 50%;
   transform: translate(-50%, -50%);
   font-family: 'Cinzel', serif;
   font-size: 45px;
   font-weight: 700;
   white-space: nowrap;
+}
+
+@media only screen and (max-width: 340px) {
+  .header__title {
+    left: 10px;
+    transform: translateY(-50%);
+  }
 }
 
 .header__nav-items {
