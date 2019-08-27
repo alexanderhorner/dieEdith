@@ -31,6 +31,10 @@ html, body {
   }
 }
 
+html.scroll-lock, html.scroll-lock body {
+  overflow-y: hidden;
+}
+
 @media only screen and (max-width: 240px) {
   html, body {
     overflow-x: scroll;
@@ -58,7 +62,12 @@ a:hover {
 
 /* Buttons */
 button:focus {
+  font-family: 'Roboto', sans-serif;
   outline: 0;
+}
+
+input {
+  font-family: 'Roboto', sans-serif;
 }
 
 /* Header */
@@ -108,6 +117,7 @@ html.backdropfilter.dark .header {
 }
 
 .header__title {
+  cursor: pointer;
   display: inline-block;
   position: absolute;
   top: 53%;

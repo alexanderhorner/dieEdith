@@ -37,7 +37,7 @@
       <hr>
       <li>Profil</li>
       <hr>
-      <li>Log In</li>
+      <li onclick="linkto('/login/')">Login</li>
       <hr>
       <li>Registrieren</li>
       <hr>
@@ -49,9 +49,9 @@
       <!-- Card -->
       <div class="card card--text">
         <div class="card__info">
-          <img class="card__info__picture" src="profile-placeholder.png" alt="profile picture">
+          <img class="card__info__picture" src="users/alexanderhorner/pb-small.jpg" alt="profile picture">
           <div class="card__info__textbox">
-            <div class="card__info__textbox__name">Lea Stirn</div>
+            <div class="card__info__textbox__name">Alexander Horner</div>
             <div class="card__info__textbox__time">vor 3 Wochen</div>
           </div>
         </div>
@@ -60,21 +60,21 @@
       <!-- Card -->
       <div onclick="linkto('artikel/Solardorf-Herrnried')" class="card card--article">
         <div class="card__info">
-          <img class="card__info__picture" src="profile-placeholder.png" alt="profile picture">
+          <img class="card__info__picture" src="users/lillischön/pb-small.jpg" alt="profile picture">
           <div class="card__info__textbox">
             <div class="card__info__textbox__name">Lilli Schön</div>
             <div class="card__info__textbox__time">vor 4 Tagen</div>
           </div>
         </div>
-        <img class="card__picture" src="artikel/Solardorf-Herrnried/pic1.jpg" alt="">
-        <h3>Solardorf Herrnried: Über die Energie und wie sie die Welt rettet</h3>
+        <img class="card__picture" src="artikel/Solardorf-Herrnried/pic1.png" alt="">
+        <h3>Solardorf Herrnried</h3>
         <span class="card__text">In einem kleinen Dorf, nahe Parsberg wird etwas für die Energiewende getan: der Elektroautobesitzer Martin Selch, der den Solarstammtisch Herrnried ins Leben gerufen hat, möchte die Leute wachrütteln. Für seinen
           Verdienst, ihr Umweltbewusstsein<a href="artikel/Solardorf-Herrnried"><wbr>... Weiter lesen</a></span>
       </div>
       <!-- Card -->
       <div class="card card--picture">
         <div class="card__info">
-          <img class="card__info__picture" src="dominik.png" alt="profile picture">
+          <img class="card__info__picture" src="users/dominikkudaschow/pb-small.jpg" alt="profile picture">
           <div class="card__info__textbox">
             <div class="card__info__textbox__name">Dominik Kudaschow</div>
             <div class="card__info__textbox__time">vor 2 Tagen</div>
@@ -94,15 +94,6 @@
         </div>
         <div class="card__text">I just fucking shit my pants</div>
       </div>
-
-
-      <footer id="footer" class="card">
-        <ul>
-          <li>Impressum</li>
-          <li>Datenschutzerklärung</li>
-          <li>Sponsored by <a href="https://www.browserstack.com">Browserstack</a></li>
-        </ul>
-      </footer>
     </div>
   </div>
 </body>

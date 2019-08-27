@@ -5,7 +5,10 @@ function getCookie(name) {
 }
 
 function linkto(x) {
-  window.location = x;
+  var selection = window.getSelection();
+    if(selection.toString().length === 0) {
+        window.location = x;
+    }
 }
 
 $(document).ready(function() {
@@ -13,8 +16,10 @@ $(document).ready(function() {
   var darkmode = getCookie("darkmode");
   if (darkmode == "true") {
     $("html").addClass("dark");
+    document.cookie = "darkmode=true; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/";
   } else {
     $("html").removeClass("dark");
+    document.cookie = "darkmode=false; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/";
   }
 
   //Hamburger Button
@@ -45,4 +50,8 @@ $(window).on('load', function() {
   {
     $("html").removeClass("preload");
   }, 500);
+
+  $(".header__title").click(function() {
+    window.location = '/';
+  });
 });

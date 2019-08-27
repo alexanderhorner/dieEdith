@@ -34,7 +34,7 @@
       <hr>
       <li>Profil</li>
       <hr>
-      <li>Log In</li>
+      <li onclick="linkto('/login/')">Login</li>
       <hr>
       <li>Registrieren</li>
       <hr>
