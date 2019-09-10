@@ -1,56 +1,45 @@
-<!DOCTYPE html>
-<html lang="de" class="preload">
+<?php
+session_start();
+if (isset($_SESSION['userid'])) {
+  header("Location: /");
+  die();
+}
+?>
+
+<?php include '../framework/document-start.php'?>
 
 <head>
   <meta charset="utf-8">
   <title>Die Edith &gt; Login</title>
 
-  <!-- include? VVV -->
-  <?php include '../framework/head.html'?>
+  <?php include '../framework/head.php'?>
 
   <link rel="stylesheet" type="text/css" href="login.css">
   <script src="login.js"></script>
 </head>
 
 <body>
-  <header class="header">
-    <span class="header__title">Die Edith</span>
-    <ul class="header__nav-items">
-      <li>
-        <button class="hamburger hamburger--squeeze" type="button">
-          <span class="hamburger-box">
-            <span class="hamburger-inner"></span>
-          </span>
-        </button>
-      </li>
-    </ul>
-  </header>
-
-  <nav class="side-menu">
-    <ul class="side-menu__list">
-      <li onclick="linkto('/')">Home</li>
-      <hr>
-      <li>Darkmode</li>
-      <hr>
-      <li onclick="linkto('/artikel/')">Artikel</li>
-      <hr>
-      <li>Profil</li>
-      <hr>
-      <li onclick="linkto('/login/')">Login</li>
-      <hr>
-      <li>Registrieren</li>
-      <hr>
-    </ul>
-  </nav>
+  <?php include '../framework/nav-overlay.php'?>
 
   <div class="wrapper">
-    <div class="login">
-      <h2>Login</h2>
-      <form class="login-form">
-        <input class="form__textfield" type="text" name="username" autofocus autocomplete="username" spellcheck="false" autocapitalize="none" placeholder="Benutzername">
-        <input class="form__textfield" type="password" name="password" autocomplete="current-password" spellcheck="false" autocapitalize="none" placeholder="Passwort">
-        <input class="form__submit" type="submit" value="Anmelden">
-      </form>
+    <div class="container">
+      <div class="container__pic-container">
+        <img class="container__pic-container__picture" src="background.jpg" alt="Blue Mountains">
+        <div class="container__pic-container__shadow"></div>
+      </div>
+
+      <div class="container__login">
+        <img class="container__login__logo container__login__logo--light" src="/framework/icons/logo--light.svg" alt="die Edith kleines Logo. E">
+        <img class="container__login__logo container__login__logo--dark" src="/framework/icons/logo--dark.svg" alt="die Edith kleines Logo. E">
+        <h2>Anmelden</h2>
+        <p class="container__login__error"></p>
+        <form class="container__login__form">
+          <input class="form__textfield form__textfield--username" type="text" name="username" autocomplete="username" spellcheck="false" autocapitalize="none" placeholder="Benutzername">
+          <input class="form__textfield form__textfield--password" type="password" name="password" autocomplete="current-password" spellcheck="false" autocapitalize="none" placeholder="Passwort">
+          <input class="form__submit" type="submit" value="Absenden">
+        </form>
+      </div>
+
     </div>
   </div>
 </body>

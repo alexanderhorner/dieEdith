@@ -1,9 +1,8 @@
-<!-- Included. ^^^ -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
 <meta name="description" content="Die offizielle Seite der Schülerzeitung der Edith-Stein-Realschule (Parsberg).">
 
-<link href="https://fonts.googleapis.com/css?family=Cinzel:700|Roboto:400,400i,700,700i" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Cinzel:700|Roboto:400,400i,700,700i|Material+Icons" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <script src="/framework/modernizr.js"></script>
@@ -23,5 +22,3 @@
 <meta name="msapplication-TileColor" content="#ffffff">
 <meta name="msapplication-config" content="/framework/favicons/browserconfig.xml">
 <meta name="theme-color" content="#ffffff">
-<!-- Favicon End -->
-<!-- Include End -->

@@ -1,11 +1,10 @@
-<!DOCTYPE html>
-<html class="preload" lang="de">
+<?php include 'framework/document-start.php'?>
 
 <head>
   <title>Die Edith</title>
 
   <!-- include? VVV -->
-  <?php include 'framework/head.html'?>
+  <?php include 'framework/head.php'?>
 
   <script src="masonry.js"></script>
 
@@ -14,42 +13,14 @@
 </head>
 
 <body>
-  <header class="header">
-    <span class="header__title">Die Edith</span>
-    <ul class="header__nav-items">
-      <li>
-        <button class="hamburger hamburger--squeeze" type="button">
-          <span class="hamburger-box">
-            <span class="hamburger-inner"></span>
-          </span>
-        </button>
-      </li>
-    </ul>
-  </header>
-
-  <nav class="side-menu">
-    <ul class="side-menu__list">
-      <li onclick="linkto('/')">Home</li>
-      <hr>
-      <li>Darkmode</li>
-      <hr>
-      <li onclick="linkto('/artikel/')">Artikel</li>
-      <hr>
-      <li>Profil</li>
-      <hr>
-      <li onclick="linkto('/login/')">Login</li>
-      <hr>
-      <li>Registrieren</li>
-      <hr>
-    </ul>
-  </nav>
+  <?php include 'framework/nav-overlay.php'?>
 
   <div class="wrapper">
     <div class="grid">
       <!-- Card -->
       <div class="card card--text">
         <div class="card__info">
-          <img class="card__info__picture" src="users/alexanderhorner/pb-small.jpg" alt="profile picture">
+          <img class="card__info__picture" src="user/1/pb-small.jpg" alt="profile picture">
           <div class="card__info__textbox">
             <div class="card__info__textbox__name">Alexander Horner</div>
             <div class="card__info__textbox__time">vor 3 Wochen</div>
@@ -60,7 +31,7 @@
       <!-- Card -->
       <div onclick="linkto('artikel/Solardorf-Herrnried')" class="card card--article">
         <div class="card__info">
-          <img class="card__info__picture" src="users/lillischön/pb-small.jpg" alt="profile picture">
+          <img class="card__info__picture" src="user/2/pb-small.jpg" alt="profile picture">
           <div class="card__info__textbox">
             <div class="card__info__textbox__name">Lilli Schön</div>
             <div class="card__info__textbox__time">vor 4 Tagen</div>
@@ -74,7 +45,7 @@
       <!-- Card -->
       <div class="card card--picture">
         <div class="card__info">
-          <img class="card__info__picture" src="users/dominikkudaschow/pb-small.jpg" alt="profile picture">
+          <img class="card__info__picture" src="user/3/pb-small.jpg" alt="profile picture">
           <div class="card__info__textbox">
             <div class="card__info__textbox__name">Dominik Kudaschow</div>
             <div class="card__info__textbox__time">vor 2 Tagen</div>

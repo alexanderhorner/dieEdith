@@ -29,7 +29,7 @@
 
 :root {
   --wrapper-margin-full: calc((100vw - 780px) / 2);
-  --wrapper-margin-small: calc((100vw - 1080px) / 2);
+  --wrapper-margin-small: calc((100vw - 980px) / 2);
   --wrapper-margin-small-full-difference: calc(var(--wrapper-margin-small) - var(--wrapper-margin-full));
 }
 
@@ -50,7 +50,7 @@ html, body {
   transition: background-color 0.2s, transform 0.2s cubic-bezier(0.4, 0.0, 1, 1);
 }
 
-@media only screen and (max-width: 1450px) and (min-width: 1150px) {
+@media only screen and (max-width: 1200px) and (min-width: 1000px) {
   .side-menu--shown.wrapper {
     transform: translateX(var(--wrapper-margin-small-full-difference));
     transition: background-color 0.2s, transform 0.25s cubic-bezier(0.0, 0.0, 0.2, 1);

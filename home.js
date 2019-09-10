@@ -5,7 +5,3 @@ $(window).on('load', function () {
     percentPosition: true
   });
 });
-
-$(document).ready(function() {
-  $(".card:not(.card--article)")
-});

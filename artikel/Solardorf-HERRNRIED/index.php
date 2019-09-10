@@ -1,52 +1,23 @@
-<!DOCTYPE html>
-<html class="preload" lang="de">
+<?php include '../../framework/document-start.php'?>
 
 <head>
   <title>Die Edith</title>
 
   <!-- include? VVV -->
-  <?php include '../../framework/head.html'?>
+  <?php include '../../framework/head.php'?>
 
   <link rel="stylesheet" type="text/css" href="/artikel/artikel.css">
 </head>
 
 <body>
-  <header class="header">
-    <span class="header__title">Die Edith</span>
-    <ul class="header__nav-items">
-      <li>
-        <button class="hamburger hamburger--squeeze" type="button">
-          <span class="hamburger-box">
-            <span class="hamburger-inner"></span>
-          </span>
-        </button>
-      </li>
-    </ul>
-  </header>
-
-  <nav class="side-menu">
-    <ul class="side-menu__list">
-      <li onclick="linkto('/')">Home</li>
-      <hr>
-      <li>Darkmode</li>
-      <hr>
-      <li onclick="linkto('/artikel/')">Artikel</li>
-      <hr>
-      <li>Profil</li>
-      <hr>
-      <li onclick="linkto('/login/')">Login</li>
-      <hr>
-      <li>Registrieren</li>
-      <hr>
-    </ul>
-  </nav>
+  <?php include '../../framework/nav-overlay.php'?>
 
   <div class="wrapper">
 
     <h1>Solardorf Herrneied</h1>
 
     <div class="article__info">
-      <img class="article__info__picture" src="/users/lillischön/pb-small.jpg" alt="profile picture">
+      <img class="article__info__picture" src="/user/2/pb-small.jpg" alt="profile picture">
       <div class="article__info__textbox">
         <!-- TODO: Ugly -->
         <div class="article__info__textbox__name">Lilli Schön</div>
