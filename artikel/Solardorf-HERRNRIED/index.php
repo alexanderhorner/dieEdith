@@ -19,7 +19,6 @@
     <div class="article__info">
       <img class="article__info__picture" src="/user/2/pb-small.jpg" alt="profile picture">
       <div class="article__info__textbox">
-        <!-- TODO: Ugly -->
         <div class="article__info__textbox__name">Lilli Schön</div>
         <div class="article__info__textbox__time">12. August</div>
       </div>
@@ -27,8 +26,7 @@
 
     <p class="clear"></p>
     <article class="article">
-      <p>In einem kleinen Dorf, nahe Parsberg wird etwas für die Energiewende getan: der Elektroautobesitzer Martin Selch, der den Solarstammtisch Herrnried ins Leben gerufen hat, möchte die Leute wachrütteln. Für seinen Verdienst, ihr
-        Umweltbewusstsein zu schärfen, hat er auch schon Preise erhalten.</p>
+      <p>In einem kleinen Dorf, nahe Parsberg wird etwas für die Energiewende getan: der Elektroautobesitzer Martin Selch, der den Solarstammtisch Herrnried ins Leben gerufen hat, möchte die Leute wachrütteln. Für seinen Verdienst, ihr Umweltbewusstsein zu schärfen, hat er auch schon Preise erhalten.</p>
       <p>Martin Selch ist sich sicher: Energietechnisch ist vieles im Umbruch und es verändert sich auch einiges zum Positiven, beispielsweise erzeugt Herrn-ried 150 Prozent mehr Strom, als dort benötigt wird. Dennoch muss deutlich mehr für die
         Energiewende getan werden, um von umweltschädigenden Energien wegzukommen. Sei es die 10-H Regelung (Windrad muss so weit von einem Ort weg sein wie die 10-fache Höhe des Windrads) zu beenden oder mehr Photovoltaik-Anlagen auf Freiflächen
         zu bauen.</p>

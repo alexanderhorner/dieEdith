@@ -1,12 +1,10 @@
-<?php
-session_start();
+<?php include '../framework/document-start.php';
+
 if (isset($_SESSION['userid'])) {
   header("Location: /");
   die();
 }
 ?>
-
-<?php include '../framework/document-start.php'?>
 
 <head>
   <meta charset="utf-8">
@@ -19,7 +17,8 @@ if (isset($_SESSION['userid'])) {
 </head>
 
 <body>
-  <?php include '../framework/nav-overlay.php'?>
+  <?php include '../framework/nav-overlay.php';
+  ?>
 
   <div class="wrapper">
     <div class="container">

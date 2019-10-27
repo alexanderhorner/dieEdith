@@ -13,7 +13,7 @@ if ($pdo === false) {
 } else {
 
     // prepare statement
-    $statement = $pdo->prepare("SELECT id, password, firstname, lastname, prefers_color_scheme_dark FROM user WHERE username = ?");
+    $statement = $pdo->prepare("SELECT id, password, firstname, lastname, prefers_color_scheme FROM user WHERE username = ?");
 
     // execute statement and put response into array
     $statement->execute(array($post_username));
@@ -30,7 +30,7 @@ if ($pdo === false) {
         $password_hash = $row['password'];
         $firstname = $row['firstname'];
         $lastname = $row['lastname'];
-        $prefers_color_scheme_dark = $row['prefers_color_scheme_dark'];
+        $prefers_color_scheme = $row['prefers_color_scheme'];
         // check if password is valid
         if (password_verify($post_password, $password_hash)) {
             // password valid
@@ -42,10 +42,13 @@ if ($pdo === false) {
             $_SESSION['username'] = $post_username;
             $_SESSION['firstname'] = $firstname;
             $_SESSION['lastname'] = $lastname;
-            if ($prefers_color_scheme_dark == 1) {
-              setcookie('darkmode', 'true', 2147483647, '/');
+            $PHPSESSID = $_COOKIE['PHPSESSID'];
+            setcookie('PHPSESSID', $PHPSESSID, time()+604800, '/', '', FALSE, TRUE);
+
+            if ($prefers_color_scheme == 'dark') {
+              setcookie('prefers_color_scheme', 'dark', 2147483647, '/');
             } else {
-              setcookie('darkmode', 'false', 2147483647, '/');
+              setcookie('prefers_color_scheme', 'light', 2147483647, '/');
             }
         } else {
             // password invalid

@@ -11,37 +11,76 @@ function linkto(x) {
   }
 }
 
-// function update_settings() {
-//   windows.
-//   for (var key in window.settings) {
-//     console.log(key + ":" + settings[key]);
-//   }
-// }
+function update_settings(settings) {
+  // Send data
+  $.ajax({
+    type: 'POST',
+    url: '/framework/update_settings.php',
+    dataType: 'json',
+    data: $.param(settings),
+    timeout: 10000,
+    success: function(data) {
+      if (data.request == "failed") {
+        error("Es ist ein Fehler beim aktualisieren deiner Einstellungen aufgetreten (" + data.error + "). Die Einstellungen wurden nicht in deinem Account gespeichert. Probiere es später erneut.");
+      }
+    },
+    error: function(jqXHR, textStatus, errorThrown) {
+      error("Es ist ein Fehler beim aktualisieren deiner Einstellungen aufgetreten (" + textStatus + "). Die Einstellungen wurden nicht in deinem Account gespeichert. Probiere es später erneut.");
+    }
+  });
+}
+
+// Messages
+var messageCount = 1;
+
+function error(text) {
+  message(text, "error");
+}
+
+function warning(text) {
+  message(text, "warning");
+}
+
+function message(message, type) {
+  if (type != "warning" && type != "error") {return "Unknown message type."};
+  var html = '<div class="message--' + messageCount + ' message--' + type + ' message"><div class="message__ribbon"><i class="material-icons">error_outline</i></div><div class="message__close"><i class="material-icons">close</i></div><div class="message_float_fix"></div><span>' + message + '</span></div>';
+  $(".message-box").prepend(html);
+  var new_message = '.message--' + messageCount;
+  $(new_message).delay(10000).fadeOut(500);
+  messageCount = messageCount + 1;
+}
 
 $(document).ready(function() {
   //Check Cookie for darkmode
-  var darkmode = getCookie("darkmode");
-  if (darkmode == "true") {
-    $("html").addClass("dark");
+  var prefers_color_scheme = getCookie("prefers_color_scheme");
+  if (prefers_color_scheme == "dark") {
     $(".side-menu__list__li:contains(Dunkel) .switch").prop("checked", true);
-    document.cookie = "darkmode=true; expires=Tue, 19 Jan 2038 03:14:07 UTC; path=/";
+    document.cookie = "prefers_color_scheme=dark; expires=Tue, 19 Jan 2038 03:14:07 UTC; path=/";
   } else {
-    $("html").removeClass("dark");
     $(".side-menu__list__li:contains(Dunkel) .switch").prop("checked", false);
-    document.cookie = "darkmode=false; expires=Tue, 19 Jan 2038 03:14:07 UTC; path=/";
+    document.cookie = "prefers_color_scheme=light; expires=Tue, 19 Jan 2038 03:14:07 UTC; path=/";
   }
 
-  // Darkmode Button
   $(".side-menu__list__li:contains(Dunkel)").click(function() {
+    setTimeout(function() {
+      $(".hamburger").trigger("click");
+    }, 250);
     if ($("html").hasClass("dark")) {
       $("html").removeClass("dark");
+      $("html").addClass("light");
       $(".side-menu__list__li:contains(Dunkel) .switch").prop("checked", false);
-      document.cookie = "darkmode=false; expires=Tue, 19 Jan 2038 03:14:07 UTC; path=/";
+      document.cookie = "prefers_color_scheme=light; expires=Tue, 19 Jan 2038 03:14:07 UTC; path=/";
+      update_settings({
+        prefers_color_scheme: 'light'
+      });
     } else {
       $("html").addClass("dark");
+      $("html").removeClass("light");
       $(".side-menu__list__li:contains(Dunkel) .switch").prop("checked", true);
-
-      document.cookie = "darkmode=true; expires=Tue, 19 Jan 2038 03:14:07 UTC; path=/";
+      document.cookie = "prefers_color_scheme=dark; expires=Tue, 19 Jan 2038 03:14:07 UTC; path=/";
+      update_settings({
+        prefers_color_scheme: 'dark'
+      });
     }
   });
 
@@ -59,20 +98,21 @@ $(document).ready(function() {
 
   // debug Button
   $(".side-menu__list__li:contains(Debug)").click(function() {
+    setTimeout(function() {
+      $(".hamburger").trigger("click");
+    }, 200);
     if ($("html").hasClass("debug")) {
       $("html").removeClass("debug");
       $(".side-menu__list__li:contains(Debug) .switch").prop("checked", false);
       document.cookie = "debug=false; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/";
-      update_prefered_color_sheme('light');
     } else {
       $("html").addClass("debug");
       $(".side-menu__list__li:contains(Debug) .switch").prop("checked", true);
       document.cookie = "debug=true; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/";
-      update_prefered_color_sheme('dark');
     }
   });
 
-  //Hamburger Button
+  //  Side-menu Button
   $(".hamburger").click(function() {
     if ($(this).hasClass("is-active")) {
       $(this).removeClass("is-active");
@@ -95,11 +135,13 @@ $(document).ready(function() {
   $(".side-menu__list__li").mouseleave(function() {
     $(".side-menu__list__li").not(this).removeClass("side-menu__list__li--not-hovered");
   });
-});
 
-$(window).on('load', function() {
-  setTimeout(
-    function() {
-      $("html").removeClass("preload");
-    }, 500);
+  // Close error Button
+  $(document).on('click', '.message', function() {
+    var message = this;
+    var selection = window.getSelection();
+    if (selection.toString().length === 0) {
+      $(message).stop();
+    }
+  });
 });

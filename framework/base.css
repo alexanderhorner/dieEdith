@@ -39,10 +39,6 @@ html.debug * * * * * * * * * {
   transition: background-color 0.2s;
 }
 
-html.preload *, html.preload {
-  transition: none;
-}
-
 strong {
   letter-spacing: -0.02em;
 }
@@ -84,10 +80,16 @@ html.dark, html.dark body {
 
 /* Icons */
 .material-icons {
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
+  user-select: none;
   display: block;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
+  pointer-events: none;
 }
 
 /* Links */
@@ -129,7 +131,7 @@ input {
   background-color: hsl(211, 30%, 50%);
   border-radius: 12px;
   overflow: hidden;
-  transition: background-color 0.25s cubic-bezier(0.4, 0.0, 0.2, 1);
+  transition: background-color 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
 }
 .switch:checked {
   background-color: hsl(211, 100%, 50%);
@@ -154,7 +156,6 @@ input {
 
 /* Header */
 .header {
-  /* box-shadow */
   -webkit-box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
   -moz-user-select: none;
@@ -168,10 +169,9 @@ input {
   right: 0;
   left: 0;
   height: 50px;
-  border-bottom: 1px solid hsla(0, 0%, 20%, 0);
   border-bottom: 1px solid hsla(0, 0%, 50%, 0.2);
   background-color: #FFF;
-  background-color: hsl(0, 0%, 100%, 0.95);
+  background-color: hsla(0, 0%, 100%, 0.95);
   box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
   font-family: serif;
   transition: background-color 0.2s, border-bottom 0.3s;
@@ -181,21 +181,19 @@ input {
 html.backdropfilter .header {
   -webkit-backdrop-filter: saturate(180%) blur(20px);
   backdrop-filter: saturate(180%) blur(20px);
-  background-color: hsl(0, 0%, 100%, 0.7);
+  background-color: hsla(0, 0%, 100%, 0.7);
 }
 
 /* Header dark */
 html.dark .header {
-  /* box-shadow */
   -webkit-box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.3);
-  background-color: #000;
-  background-color: hsl(0, 0%, 13.3%, 0.98);
+  background-color: hsla(0, 0%, 13.3%, 0.98);
   box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.3);
 }
 
 html.backdropfilter.dark .header {
-  background-color: hsl(0, 0%, 13.3%, 0.7);
+  background-color: hsla(0, 0%, 13.3%, 0.7);
 }
 
 .header__title {
@@ -284,6 +282,8 @@ html.backdropfilter.dark .header {
   right: 0;
   bottom: 0;
   left: 0;
+  width: 100%;
+  height: 100%;
   -webkit-appearance: none;
   -moz-appearance: none;
   padding: 0;
@@ -413,6 +413,152 @@ html.dark .hamburger-inner, html.dark .hamburger-inner::before, html.dark .hambu
   transform: translate3d(0, -20px, 0) rotate(90deg);
 }
 
+/* message */
+.message-box {
+  position: fixed;
+  top: 50px;
+  right: 15px;
+  width: 400px;
+  max-width: calc(100% - 30px);
+  z-index: 7000;
+  transition: background-color 0.2s, transform 0.2s cubic-bezier(0.4, 0.0, 1, 1);
+}
+
+html.side-menu--shown .message-box {
+  transform: translateX(-200px);
+  transition: background-color 0.2s, transform 0.25s cubic-bezier(0.0, 0.0, 0.2, 1)
+}
+
+.message {
+  cursor: pointer;
+  position: relative;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  padding: 5px 5px 5px 30px;
+  border-radius: 10px;
+  -webkit-box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.2);
+}
+
+.message--error {
+  background-color: hsla(3, 100%, 90%, 0.95);
+}
+
+html.backdropfilter .message--error {
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  background-color: hsla(3, 100%, 90%, 0.7);
+}
+
+html.dark .message--error {
+  background-color: hsla(3, 100%, 5%, 0.98);
+  -webkit-box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.4);
+  box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.4);
+}
+
+html.backdropfilter.dark .message--error {
+  background-color: hsla(3, 100%, 5%, 0.7);
+}
+
+.message--warning {
+  background-color: hsla(48, 100%, 90%, 0.95);
+}
+
+html.backdropfilter .message--warning {
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  background-color: hsla(48, 100%, 90%, 0.7);
+}
+
+html.dark .message--warning {
+  background-color: hsla(48, 100%, 8%, 0.98);
+  -webkit-box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.4);
+  box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.4);
+}
+
+html.backdropfilter.dark .message--warning {
+  background-color: hsla(48, 100%, 8%, 0.7);
+}
+
+.message__ribbon {
+  border-radius: 10px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  top: 0;
+  width: 25px;
+}
+.message--error .message__ribbon {
+  background-color: #FF3B30;
+}
+.message--warning .message__ribbon {
+  background-color: #FFCC00;
+}
+
+
+.message__ribbon  .material-icons {
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 20px;
+}
+
+.message__close .material-icons {
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 20px;
+}
+.message__close {
+  top: 2px;
+  right: 2px;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+}
+
+@keyframes pulsing {
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(1.2);
+  }
+}
+
+.message__close::before {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  bottom: -2px;
+  left: -2px;
+  border-radius: 100%;
+  background-color: hsla(0, 0%, 50%, 0.25);
+  content: "";
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s;
+  animation-duration: 0.7s;
+  animation-name: pulsing;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: ease-in-out;
+}
+
+.message:hover .message__close::before {
+  opacity: 1;
+}
+
+.message_float_fix {
+  float: right;
+  width: 12px;
+  height: 12px;
+}
+
 /* Side-Menu */
 .side-menu {
   /* box-shadow */
@@ -428,7 +574,7 @@ html.dark .hamburger-inner, html.dark .hamburger-inner::before, html.dark .hambu
   overflow-y: scroll;
   transform: translateX(101%);
   border-left: 1px solid hsla(0, 0%, 50%, 0.2);
-  background-color: hsl(0, 0%, 100%, 0.95);
+  background-color: hsla(0, 0%, 100%, 0.95);
   box-shadow: -4px 0 12px 0 rgba(0, 0, 0, 0.05);
   transition: background-color 0.2s, transform 0.2s cubic-bezier(0.4, 0.0, 1, 1);
 }
@@ -448,15 +594,18 @@ html.dark .hamburger-inner, html.dark .hamburger-inner::before, html.dark .hambu
 html.backdropfilter .side-menu {
   -webkit-backdrop-filter: saturate(180%) blur(20px);
   backdrop-filter: saturate(180%) blur(20px);
-  background-color: hsl(0, 0%, 100%, 0.7);
+  background-color: hsla(0, 0%, 100%, 0.7);
 }
 
 html.dark .side-menu {
-  background-color: hsl(0, 0%, 13.3%, 0.98);
+  -webkit-box-shadow: -4px 0 12px 0 rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: -4px 0 12px 0 rgba(0, 0, 0, 0.3);
+  box-shadow: -4px 0 12px 0 rgba(0, 0, 0, 0.3);
+  background-color: hsla(0, 0%, 13.3%, 0.98);
 }
 
 html.backdropfilter.dark .side-menu {
-  background-color: hsl(0, 0%, 13.3%, 0.7);
+  background-color: hsla(0, 0%, 13.3%, 0.7);
 }
 
 .side-menu__list {
@@ -469,6 +618,11 @@ html.backdropfilter.dark .side-menu {
   list-style-type: none;
 }
 
+.side-menu__list a, .side-menu__list a:link, .side-menu__list a:visited, .side-menu__list a:hover, .side-menu__list a:focus, .side-menu__list a:active{
+    color: inherit;
+    text-decoration: none;
+}
+
 .side-menu__list__li {
   white-space: nowrap;
   -moz-user-select: none;
@@ -477,7 +631,7 @@ html.backdropfilter.dark .side-menu {
   -o-user-select: none;
   padding: 15px 15px 15px;
   border-radius: 2px;
-  background-color: hsl(0, 0%, 0%, 0);
+  background-color: hsla(0, 0%, 0%, 0);
   user-select: none;
   z-index: 9100;
   position: relative;
@@ -486,11 +640,11 @@ html.backdropfilter.dark .side-menu {
 }
 
 .side-menu__list__li:nth-of-type(2n) {
-  background-color: hsl(0, 0%, 0%, 0.05);
+  background-color: hsla(0, 0%, 0%, 0.05);
 }
 
 html.dark .side-menu__list__li:nth-of-type(2n) {
-  background-color: hsl(0, 0%, 0%, 0.2);
+  background-color: hsla(0, 0%, 0%, 0.2);
 }
 
 .side-menu__list__li::before {
@@ -510,7 +664,7 @@ html.dark .side-menu__list__li:nth-of-type(2n) {
 }
 
 .side-menu__list__li:hover {
-  background-color: hsl(0, 0%, 0%, 0.1);
+  background-color: hsla(0, 0%, 0%, 0.1);
 }
 
 .side-menu__list__li--not-hovered {
@@ -518,7 +672,7 @@ html.dark .side-menu__list__li:nth-of-type(2n) {
 }
 
 html.dark .side-menu__list__li:hover {
-  background-color: hsl(0, 0%, 0%, 0.3);
+  background-color: hsla(0, 0%, 0%, 0.3);
 }
 
 .side-menu .material-icons {

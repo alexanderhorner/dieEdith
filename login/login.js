@@ -25,6 +25,7 @@ $(document).ready(function() {
         type: 'POST',
         url: 'verify-login.php',
         dataType: 'json',
+        timeout: 3000,
         data: $('.container__login__form').serialize(),
 
         // on ajax success
@@ -62,6 +63,12 @@ $(document).ready(function() {
             $(".form__textfield--password").addClass("form__textfield--error");
             resetButton();
           }
+        },
+
+        // on ajax error
+        error: function(jqXHR, textStatus, errorThrown){
+          resetButton();
+          error("Es ist ein Fehler bei der Anmeldung aufgetreten (" + textStatus + "). Überprüfe deine Internetverbindung und probiere es später erneut.");
         }
       });
     } else if ($('.form__textfield--username').val().length == 0 && $('.form__textfield--password').val().length != 0) {

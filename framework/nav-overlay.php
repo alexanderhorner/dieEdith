@@ -12,11 +12,11 @@
       </button>
     </li>
     <?php else : ?>
-      <li>
-        <button onclick="linkto('/login/')" class="header__nav-items__button" type="button">
-          <i class="material-icons">input</i>
-        </button>
-      </li>
+    <li>
+      <button onclick="linkto('/login/')" class="header__nav-items__button" type="button">
+        <i class="material-icons">input</i>
+      </button>
+    </li>
     <?php endif; ?>
 
     <li>
@@ -29,47 +29,74 @@
   </ul>
 </header>
 
+<div class="message-box">
+  <!-- <div class="message--2 message--error message">
+    <div class="message__ribbon"><i class="material-icons">error_outline</i></div>
+    <div class="message__close"><i class="material-icons">close</i></div>
+    <div class="message_float_fix"></div><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut en</span>
+  </div>
+  <div class="message--2 message--warning message">
+    <div class="message__ribbon"><i class="material-icons">error_outline</i></div>
+    <div class="message__close"><i class="material-icons">close</i></div>
+    <div class="message_float_fix"></div><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut en</span>
+  </div> -->
+  <noscript>
+    <div class="message--1 message--error message">
+      <div class="errormessage__red-border"><i class="material-icons">error_outline</i></div>
+      <div class="errormessage__close"><i class="material-icons">close</i></div>
+      <div class="errormessage_float_fix"></div><span>Bitte aktiviere JavaScript!</span>
+    </div>
+  </noscript>
+</div>
+
 <nav class="side-menu">
   <ul class="side-menu__list">
 
-    <li class="side-menu__list__li" onclick="linkto('/')">
-      <i class="material-icons">home</i>
-      <span class="side-menu__list__li__text">Home</span>
-    </li>
+    <a href="/">
+      <li class="side-menu__list__li">
+        <i class="material-icons">home</i>
+        <span class="side-menu__list__li__text">Home</span>
+      </li>
+    </a>
 
-    <li class="side-menu__list__li" onclick="linkto('/artikel/')">
-      <i class="material-icons">notes</i>
-      <span class="side-menu__list__li__text">Artikel</span>
-    </li>
+    <a href="/Artikel/">
+      <li class="side-menu__list__li">
+        <i class="material-icons">notes</i>
+        <span class="side-menu__list__li__text">Artikel</span>
+      </li>
+    </a>
 
-    <li class="side-menu__list__li">
-      <i class="material-icons">person</i>
-      <span class="side-menu__list__li__text">Profil</span>
-    </li>
+    <a href="/Profil/">
+      <li class="side-menu__list__li">
+        <i class="material-icons">person</i>
+        <span class="side-menu__list__li__text">Profil</span>
+      </li>
+    </a>
 
     <?php if (!isset($_SESSION['userid'])) : ?>
-    <li class="side-menu__list__li" onclick="linkto('/login/')">
-      <i class="material-icons">input</i>
-      <span class="side-menu__list__li__text">Anmelden</span>
-    </li>
+    <a href="/login/">
+      <li class="side-menu__list__li">
+        <i class="material-icons">input</i>
+        <span class="side-menu__list__li__text">Anmelden</span>
+      </li>
+    </a>
     <?php endif; ?>
 
     <?php if (isset($_SESSION['userid'])) : ?>
-    <li class="side-menu__list__li" onclick="linkto('/logout/')">
-      <i class="material-icons">input</i>
-      <span class="side-menu__list__li__text">Abmelden</span>
-    </li>
+    <a href="/logout/">
+      <li class="side-menu__list__li">
+        <i class="material-icons">input</i>
+        <span class="side-menu__list__li__text">Abmelden</span>
+      </li>
+    </a>
     <?php endif; ?>
 
-    <li class="side-menu__list__li">
-      <i class="material-icons">assignment</i>
-      <span class="side-menu__list__li__text">Registrieren</span>
-    </li>
-
-    <li class="side-menu__list__li">
-      <i class="material-icons">tune</i>
-      <span class="side-menu__list__li__text">Einstellungen</span>
-    </li>
+    <a href="/Einstellungen">
+      <li class="side-menu__list__li">
+        <i class="material-icons">tune</i>
+        <span class="side-menu__list__li__text">Einstellungen</span>
+      </li>
+    </a>
 
     <li class="side-menu__list__li">
       <i class="material-icons">settings_brightness</i>

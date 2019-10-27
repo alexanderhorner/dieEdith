@@ -1,1 +1,0 @@
-articel__info for multiple authors looks dumb and doesnt work on mobile
