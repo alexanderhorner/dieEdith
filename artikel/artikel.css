@@ -78,6 +78,9 @@ html.dark .wrapper {
   html, body {
     background-color: var(--foreground);
   }
+  html.dark, html.dark body {
+    background-color: var(--background);
+  }
 }
 
 @media only screen and (max-width: 730px) {
