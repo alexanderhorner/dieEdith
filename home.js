@@ -14,10 +14,17 @@ $(document).ready(function() {
   fetchPage("init");
 
   infiniteScrollLoop()
-  // Infinite scroll
-  $(window).scroll(function() {
+});
 
+// infinite Scroll
+function infiniteScrollLoop() {
+
+  // Check every x amount of time
+  setInterval(function() {
+
+    // only execute when initialization is complete
     if (window.initComplete == true) {
+
       // get the last Anchor loaded on the page
       var lastPageAnchor = $('.page-anchor:last-of-type');
 
@@ -32,29 +39,15 @@ $(document).ready(function() {
 
       // get the distance between viewport bottom and ll Anchor
       var distanceToAnchor = lastPageAnchorPos - scrollBottom;
-      console.log(distanceToAnchor)
 
-      if (distanceToAnchor < 10) {
-        window.LoadDistanceReached = true;
-      } else {
-        window.LoadDistanceReached = false;
+      // if bottom of screen is close enough to the ll Anchor
+      console.log(distanceToAnchor);
+      if (distanceToAnchor < 300) {
+        // fetch next page
+        fetchPage(window.nextPageToFetch);
       }
     }
 
-  });
-});
-
-function infiniteScrollLoop() {
-
-  // Check every x amount of time
-  setInterval(function () {
-
-    // Check if Bottom of screen is close enough anchor
-    if (window.LoadDistanceReached == true) {
-      console.log(window.nextPageToFetch);
-      // fetch next page
-      fetchPage(window.nextPageToFetch);
-    }
   }, 50);
 }
 
