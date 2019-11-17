@@ -1,6 +1,5 @@
 // Set up variables
 window.initComplete = false;
-window.LoadDistanceReached = false;
 
 $(document).ready(function() {
 
@@ -12,7 +11,6 @@ $(document).ready(function() {
   });
 
   fetchPage("init");
-
   infiniteScrollLoop()
 });
 
@@ -35,7 +33,11 @@ function infiniteScrollLoop() {
       var lastPageAnchorPos = lastPageAnchor.offset().top;
 
       // get the data-page Attr of the last loaded page and save it
-      window.nextPageToFetch = parseInt(lastPageAnchor.attr('data-page'));
+      var lastPageAnchorAttr = lastPageAnchor.attr('data-page');
+      if (lastPageAnchorAttr == "end") {
+        return "End of Page!"
+      }
+      window.nextPageToFetch = parseInt(lastPageAnchorAttr);
 
       // get the distance between viewport bottom and ll Anchor
       var distanceToAnchor = lastPageAnchorPos - scrollBottom;
@@ -88,57 +90,70 @@ function fetchPage(page) {
     timeout: 10000,
     success: function(data) {
 
-      // Append data
-      $(".grid").append(data);
+      // check if data is empty
+      if (data != "") {
+        console.log('NOT EMPTY');
+        // Append data
+        $(".grid").append(data);
 
-      // set PageLoading state to false
-      window.PageLoading = false;
+        // set PageLoading state to false
+        window.PageLoading = false;
 
-      // wait for appending
-      setTimeout(function() {
+        // wait for appending
+        setTimeout(function() {
 
-        // relayout items after appending
-        $grid.masonry('reloadItems');
-        $grid.masonry('layout');
+          // relayout items after appending
+          $grid.masonry('reloadItems');
+          $grid.masonry('layout');
+
+          // get bottomPos of grid
+          var gridBottomPos = $grid.offset().top + $grid.height();
+
+          // create and append Anchor
+          var dataPage = loadpage + 1;
+          var anchorHTML = '<a data-page="' + dataPage + '" class="page-anchor" href="#" style="display: block; position: absolute; top: ' + gridBottomPos + 'px"></a>'
+          $("body").append(anchorHTML);
+        }, 50);
+
+        // layout masonry grid when images loaded
+        $grid.imagesLoaded().progress(function(instance) {
+          $grid.masonry('reloadItems');
+          $grid.masonry('layout');
+        })
+
+        if (page == "init") {
+
+
+          // wait for appending of elements
+          setTimeout(function() {
+
+            // remove loading screem
+            $(".loading").remove();
+            setTimeout(function() {
+              // Mark init as complete
+              window.initComplete = true;
+            }, 11);
+
+          }, 40);
+
+          setTimeout(function() {
+
+            // Set a transitionDuration
+            $grid.masonry({
+              transitionDuration: '0.15s'
+            });
+          }, 50);
+        };
+      } else {
+        console.log('VERY EMPTY');
 
         // get bottomPos of grid
         var gridBottomPos = $grid.offset().top + $grid.height();
 
         // create and append Anchor
-        var dataPage = loadpage + 1;
-        var anchorHTML = '<a data-page="' + dataPage + '" class="page-anchor" href="#" style="display: block; position: absolute; top: ' + gridBottomPos + 'px"></a>'
+        var anchorHTML = '<a data-page="end" class="page-anchor" href="#" style="display: block; position: absolute; top: ' + gridBottomPos + 'px"></a>'
         $("body").append(anchorHTML);
-      }, 50);
-
-      // layout masonry grid when images loaded
-      $grid.imagesLoaded().progress(function(instance) {
-        $grid.masonry('reloadItems');
-        $grid.masonry('layout');
-      })
-
-      if (page == "init") {
-
-
-        // wait for appending of elements
-        setTimeout(function() {
-
-          // remove loading screem
-          $(".loading").remove();
-
-          // Mark init as complete
-          window.initComplete = true;
-
-        }, 40);
-
-        setTimeout(function() {
-
-          // Set a transitionDuration
-          $grid.masonry({
-            transitionDuration: '0.15s'
-          });
-        }, 50);
-      };
-
+      }
     },
     error: function(jqXHR, textStatus, errorThrown) {
       error("Neue Posts konnten nicht geladen werden (" + textStatus + ") Überprüfe deine Internetverbindung und versuche es später erneut.");
