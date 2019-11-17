@@ -22,7 +22,7 @@
 
 .loading {
   text-align: center;
-  background-color: #f4f4f4;
+  background-color: var(--background);
   position: fixed;
   top: 0;
   right: 0;
@@ -38,9 +38,7 @@
   transform: translate(-50%, -50%);
 }
 
-html.dark .loading {
-  background-color: #000;
-}
+
 /* Card */
 .card {
   /* box-shadow */
@@ -51,7 +49,7 @@ html.dark .loading {
   margin: 28px 10px 8px;
   padding: 30px 10px 10px;
   border-radius: 8px;
-  background-color: #FFF;
+  background-color: var(--foreground);
   box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.15);
   cursor: pointer;
   z-index: 2000;
@@ -61,7 +59,6 @@ html.dark .card {
   /* box-shadow */
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
-  background-color: #1c1c1e;
   box-shadow: none;
 }
 
@@ -112,7 +109,7 @@ html.dark .card {
   padding-left: 30px;
   transform: translateY(-50%);
   border-radius: 18px;
-  background-color: #FFF;
+  background-color: var(--foreground);
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
   white-space: nowrap;
 }
@@ -121,7 +118,6 @@ html.dark .card__info {
   /* box-shadow */
   -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.5);
   -moz-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.5);
-  background-color: #1c1c1e;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.5);
 }
 

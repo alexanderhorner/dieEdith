@@ -6,9 +6,9 @@ function humanTiming($time)
     $time = ($time<1)? 1 : $time;
     $tokens = array(
         31536000 => 'Jahre',
-        2592000 => 'Monat',
+        2592000 => 'Monate',
         604800 => 'Woche',
-        86400 => 'Tag',
+        86400 => 'Tage',
         3600 => 'Stunde',
         60 => 'Minute',
         1 => 'Sekunde'
@@ -25,9 +25,14 @@ function humanTiming($time)
 
 // Set up all variables
 $response = '';
-if (isset($_POST["page"])) {
-    $page = $_POST["page"];
-};
+if (isset($_GET["page"])) {
+    $page = $_GET["page"];
+} else {
+  $page = 1;
+}
+
+$numberOfPosts = 10;
+$startAtPost = $page * $numberOfPosts - $numberOfPosts;
 
 // Connenct to database
 include 'framework/mysqlcredentials.php';
@@ -39,9 +44,11 @@ if ($pdo === false) {
 } else {
 
     // prepare statement
-    $statement = $pdo->prepare("SELECT id, owner, posted_on, type, content FROM posts");
+    $statement = $pdo->prepare("SELECT id, owner, posted_on, type, content FROM posts ORDER BY posted_on DESC LIMIT ?, ?");
 
     // execute statement
+    $statement->bindParam(1, $startAtPost, PDO::PARAM_INT);
+    $statement->bindParam(2, $numberOfPosts, PDO::PARAM_INT);
     $statement->execute();
 
     // fetch
@@ -88,7 +95,7 @@ if ($pdo === false) {
   </div>
   <img class="card__picture" src="artikel/{$content_decoded['name']}/pic1.png" alt="">
   <h3>{$content_decoded['headline']}</h3>
-  <span class="card__text">{$content_decoded['text']}<a href="artikel/Solardorf-Herrnried"><wbr>... Weiter lesen</a></span>
+  <span class="card__text">{$content_decoded['text']}<a href="artikel/{$content_decoded['name']}"><wbr>... Weiter lesen</a></span>
 </div>\n
 EOT;
         } elseif ($type == "post") {

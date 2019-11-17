@@ -19,7 +19,7 @@
   padding: 20px 20px 20px 230px;
   transform: translate(-50%, -50%);
   border-radius: 8px;
-  background-color: #FFF;
+  background-color: var(--foreground);
   box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.1);
   overflow: hidden;
 }
@@ -34,11 +34,9 @@
   }
 }
 
-
 html.dark .container {
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
-  background-color: #1c1c1e;
   box-shadow: none;
 }
 
@@ -52,7 +50,7 @@ html.dark .container {
   left: -30px;
   width: 200px;
   overflow: hidden;
-  background-color: white;
+  background-color: var(--teslablue);
 }
 
 .container__pic-container__picture {
@@ -105,7 +103,7 @@ html.dark .container__login__logo--dark {
 }
 
 .container__login__error {
-  color: #FF3B30;
+  color: var(--error);
 }
 
 .form__textfield {
@@ -146,11 +144,11 @@ html.dark .container__login__logo--dark {
 }
 
 .form__textfield--error {
-  border-bottom: 1px solid #FF3B30;
+  border-bottom: 1px solid var(--error);
 }
 
 .form__textfield--error:focus {
-  border-bottom: 5px solid #FF3B30;
+  border-bottom: 5px solid var(--error);
   margin: 20px auto -4px;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;

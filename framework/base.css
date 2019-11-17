@@ -34,6 +34,25 @@ html.debug * * * * * * * * * {
   outline: 1px solid rgba(0, 0, 255, .2);
 }
 
+:root {
+  --graphite-black: #282828;
+  --font: #282828; /*hsl(211, 100%, 50%)*/
+  --teslablue: #007AFF;
+  --error: #FF3B30;
+  --warning: #FFCC00;
+  --foreground: #FFFFFF;
+  --background: #f4f4f4;
+}
+
+html.dark {
+  --font: #FFF;
+  --teslablue: #0A84FF;
+  --error: #FF453A;
+  --warning: #FFD60A;
+  --foreground: #1c1c1e;
+  --background: #000000;
+}
+
 * {
   box-sizing: border-box;
   transition: background-color 0.2s;
@@ -51,8 +70,8 @@ html, body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
-  background-color: #f4f4f4;
-  color: #282828;
+  background-color: var(--background);
+  color: var(--font);
   font-family: 'Roboto', sans-serif;
   font-weight: normal;
 }
@@ -73,11 +92,6 @@ html.scroll-lock, html.scroll-lock body {
   }
 }
 
-html.dark, html.dark body {
-  background-color: #000000;
-  color: #FFF;
-}
-
 /* Icons */
 .material-icons {
   -moz-user-select: none;
@@ -94,12 +108,8 @@ html.dark, html.dark body {
 
 /* Links */
 a {
-  color: #267EF6;
+  color: var(--teslablue);
   text-decoration: none;
-}
-
-html.dark a {
-  color: #66BAFF;
 }
 
 a:hover {
@@ -134,7 +144,7 @@ input {
   transition: background-color 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
 }
 .switch:checked {
-  background-color: hsl(211, 100%, 50%);
+  background-color: var(--teslablue);
 }
 .switch::before {
   content: '';
@@ -145,7 +155,7 @@ input {
   left: 2px;
   top: 50%;
   transform: translateY(-50%);
-  background-color: #FFF;
+  background-color: #FFFFFF;
   transition: transform 0.15s cubic-bezier(0.4, 0.0, 0.2, 1);
   box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.4);
 }
@@ -170,7 +180,7 @@ input {
   left: 0;
   height: 50px;
   border-bottom: 1px solid hsla(0, 0%, 50%, 0.2);
-  background-color: #FFF;
+  background-color: var(--foreground);
   background-color: hsla(0, 0%, 100%, 0.95);
   box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
   font-family: serif;
@@ -359,14 +369,10 @@ html.backdropfilter.dark .header {
   width: 40px;
   height: 4px;
   border-radius: 4px;
-  background-color: #000;
+  background-color: var(--font);
   transition-duration: 0.15s;
   transition-property: transform;
   transition-timing-function: ease;
-}
-
-html.dark .hamburger-inner, html.dark .hamburger-inner::before, html.dark .hamburger-inner::after {
-  background-color: #FFF;
 }
 
 .hamburger-inner::before, .hamburger-inner::after {
@@ -494,10 +500,10 @@ html.backdropfilter.dark .message--warning {
   width: 25px;
 }
 .message--error .message__ribbon {
-  background-color: #FF3B30;
+  background-color: var(--error);
 }
 .message--warning .message__ribbon {
-  background-color: #FFCC00;
+  background-color: var(--warning);
 }
 
 
@@ -655,7 +661,7 @@ html.dark .side-menu__list__li:nth-of-type(2n) {
   top: 0;
   bottom: 0;
   width: 0;
-  background-color: hsl(211, 100%, 50%);
+  background-color: var(--teslablue);
   transition: width 0.2s;
 }
 

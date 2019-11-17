@@ -1,4 +1,5 @@
-<?php session_start();
+<?php
+session_start();
 if (isset($_COOKIE['prefers_color_scheme'])) {
   if ($_COOKIE['prefers_color_scheme'] == "dark") {
     $prefers_color_scheme = "dark";

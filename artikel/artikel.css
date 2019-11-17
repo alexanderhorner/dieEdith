@@ -45,7 +45,7 @@ html, body {
   width: 780px;
   margin: 0 auto 0;
   padding: 60px 50px 25px;
-  background-color: #FFF;
+  background-color: var(--foreground);
   box-shadow: 0 0 12px 4px rgba(0, 0, 0, 0.1);
   transition: background-color 0.2s, transform 0.2s cubic-bezier(0.4, 0.0, 1, 1);
   min-height: 100vh;
@@ -61,7 +61,6 @@ html, body {
 html.dark .wrapper {
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
-  background-color: #1c1c1e;
   box-shadow: none;
 }
 
@@ -73,11 +72,11 @@ html.dark .wrapper {
   }
 
   html.dark .wrapper {
-    background-color: #000;
+    background-color: var(--background);
   }
 
   html, body {
-    background-color: #FFF;
+    background-color: var(--foreground);
   }
 }
 
@@ -183,7 +182,7 @@ html.dark figcaption {
   padding-left: 36px;
   float: left;
   border-radius: 22px;
-  background-color: #FFF;
+  background-color: var(--foreground);
   box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.1);
   white-space: nowrap;
 }
@@ -192,7 +191,6 @@ html.dark .article__info {
   /* box-shadow */
   -webkit-box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
   -moz-box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
-  background-color: #1c1c1e;
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
 }
 
