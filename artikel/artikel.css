@@ -33,11 +33,6 @@
   --wrapper-margin-small-full-difference: calc(var(--wrapper-margin-small) - var(--wrapper-margin-full));
 }
 
-html, body {
-  font-family: "Roboto", sans-serif;
-  font-weight: normal;
-}
-
 /* wrapper */
 .wrapper {
   -webkit-box-shadow: 4px 0 12px 0 rgba(0, 0, 0, 0.1);
@@ -96,6 +91,12 @@ html.dark .wrapper {
   margin: 0;
 }
 
+article, textarea {
+  font-family: "Charis", serif;
+  line-height: 33px;
+  font-size: 22px;
+}
+
 /* Text elements */
 h1 {
   margin-top: 10px;
@@ -109,14 +110,12 @@ h2 {
   margin: 30px 0 -20px;
   font-size: 22px;
   line-height: 30px;
+  font-family: 'Roboto', sans-serif;
 }
 
 p {
   display: block;
   margin: 34px 0 17px;
-  font-family: "Charis", serif;
-  font-size: 22px;
-  line-height: 33px;
 }
 
 @media only screen and (max-width: 730px) {
@@ -127,6 +126,9 @@ p {
 
   p {
     margin: 20px 0 17px;
+  }
+
+  article, textarea {
     font-size: 18px;
     line-height: 28px;
   }
@@ -142,10 +144,30 @@ img {
   border-radius: 4px;
 }
 
+ul, ol {
+  font-family: inherit;
+  margin-top: 34px;
+  margin-bottom: 17px;
+}
+
+blockquote {
+  box-sizing: content-box;
+  width: 100%;
+  border-left: 3px solid black;
+  margin-left: -25px;
+  padding: 0 0 0 22px;
+  font-style: oblique;
+}
+html.dark blockquote {
+  border-left: 3px solid white;
+}
+
+
 figcaption {
   margin: auto 25px auto;
   color: hsl(0, 0%, 45%);
   text-align: center;
+  font-size: 16px;
 }
 
 html.dark figcaption {

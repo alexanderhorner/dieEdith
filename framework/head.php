@@ -6,6 +6,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <script src="/framework/modernizr.js"></script>
+<script src="/framework/lockscroll.js"></script>
 
 <link rel="stylesheet" type="text/css" href="/framework/base.css">
 <script src="/framework/base.js"></script>

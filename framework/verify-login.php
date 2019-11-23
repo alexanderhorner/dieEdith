@@ -35,7 +35,7 @@ if ($pdo === false) {
         if (password_verify($post_password, $password_hash)) {
             // password valid
             $password_validity = "valid";
-            $errormessage = 'Login erflogreich! Du wirst weitergeleitet...';
+            $errormessage = 'Richtig!';
             // set Session variables
             session_start();
             $_SESSION['userid'] = $userid;
@@ -59,7 +59,7 @@ if ($pdo === false) {
         // if no user was found
         $username_validity = "invalid";
         $password_validity = "unknown";
-        $errormessage = 'Der eingegebene Benutzer existiert nicht! Hast du dich verschrieben?';
+        $errormessage = 'Der eingegebene Benutzer wurde nicht gefunden!';
     }
 }
 

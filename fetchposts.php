@@ -31,7 +31,7 @@ if (isset($_GET["page"])) {
   $page = 1;
 }
 
-$numberOfPosts = 10;
+$numberOfPosts = 15;
 $startAtPost = $page * $numberOfPosts - $numberOfPosts;
 
 // Connenct to database
@@ -53,6 +53,7 @@ if ($pdo === false) {
 
     // fetch
     while ($row = $statement->fetch()) {
+
         // put data in variable
         $id = $row['id'];
         $owner = $row['owner'];
@@ -60,9 +61,12 @@ if ($pdo === false) {
         $type = $row['type'];
         $content = $row['content'];
 
+        // Decode jason data
+        $content_decoded = json_decode($content, true);
+
+        // convert time
         $posted_on_human = humanTiming($posted_on);
 
-        $content_decoded = json_decode($content, true);
 
         // prepare statement
         $statement1 = $pdo->prepare("SELECT firstname, lastname FROM user WHERE id = ?");
@@ -84,18 +88,27 @@ if ($pdo === false) {
 
 
         if ($type == "article") {
+
+          // Check if alternate date exists
+          if (isset($content_decoded['alternativeDate'])) {
+            $card__info__textbox__time = $content_decoded['alternativeDate'];
+          } else {
+            $card__info__textbox__time = "vor ".$posted_on_human;
+          }
+
+          // generate response
             $response .= <<<EOT
-<div onclick="linkto('artikel/{$content_decoded['name']}')" class="card card--article">
+<div onclick="linkto('Artikel/{$content_decoded['name']}')" class="card card--article">
   <div class="card__info">
     <img class="card__info__picture" src="user/$owner/pb-small.jpg" alt="profile picture">
     <div class="card__info__textbox">
       <div class="card__info__textbox__name">$fullname</div>
-      <div class="card__info__textbox__time">vor $posted_on_human</div>
+      <div class="card__info__textbox__time">$card__info__textbox__time</div>
     </div>
   </div>
-  <img class="card__picture" src="artikel/{$content_decoded['name']}/pic1.png" alt="">
+  <img class="card__picture" src="artikel/{$content_decoded['name']}/pic1.jpg" alt="">
   <h3>{$content_decoded['headline']}</h3>
-  <span class="card__text">{$content_decoded['text']}<a href="artikel/{$content_decoded['name']}"><wbr>... Weiter lesen</a></span>
+  <span class="card__text">{$content_decoded['text']}<a href="Artikel/{$content_decoded['name']}"><wbr>... Weiter lesen</a></span>
 </div>\n
 EOT;
         } elseif ($type == "post") {

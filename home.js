@@ -1,6 +1,12 @@
 // Set up variables
 window.initComplete = false;
 
+setTimeout(function () {
+  if (window.initComplete == false) {
+    warning("Das Laden der Seite dauert länger als erwartet.")
+  }
+}, 10000);
+
 $(document).ready(function() {
 
   //initialize Masonry
@@ -43,7 +49,6 @@ function infiniteScrollLoop() {
       var distanceToAnchor = lastPageAnchorPos - scrollBottom;
 
       // if bottom of screen is close enough to the ll Anchor
-      console.log(distanceToAnchor);
       if (distanceToAnchor < 300) {
         // fetch next page
         fetchPage(window.nextPageToFetch);
@@ -81,18 +86,17 @@ function fetchPage(page) {
   }
 
   // fetch posts
-  console.log('LOAD' + loadpage);
   $.ajax({
     type: 'GET',
     url: 'fetchposts.php',
     dataType: 'html',
     data: 'page=' + loadpage,
-    timeout: 10000,
+    timeout: 30000,
     success: function(data) {
 
       // check if data is empty
       if (data != "") {
-        console.log('NOT EMPTY');
+
         // Append data
         $(".grid").append(data);
 
@@ -136,16 +140,8 @@ function fetchPage(page) {
 
           }, 40);
 
-          setTimeout(function() {
-
-            // Set a transitionDuration
-            $grid.masonry({
-              transitionDuration: '0.15s'
-            });
-          }, 50);
-        };
+        }
       } else {
-        console.log('VERY EMPTY');
 
         // get bottomPos of grid
         var gridBottomPos = $grid.offset().top + $grid.height();
@@ -156,7 +152,7 @@ function fetchPage(page) {
       }
     },
     error: function(jqXHR, textStatus, errorThrown) {
-      error("Neue Posts konnten nicht geladen werden (" + textStatus + ") Überprüfe deine Internetverbindung und versuche es später erneut.");
+      error("Es gab ein Problem beim Laden der Posts (" + textStatus + "). Überprüfe deine Internetverbindung und versuche es später erneut.");
     }
   });
 }
