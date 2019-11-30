@@ -9,6 +9,7 @@
 <script src="/framework/lockscroll.js"></script>
 
 <link rel="stylesheet" type="text/css" href="/framework/base.css">
+<script src="/framework/suncalc.js" charset="utf-8"></script>
 <script src="/framework/base.js"></script>
 
 <!-- Favicon  -->

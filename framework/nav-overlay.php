@@ -1,52 +1,54 @@
 <header class="header">
   <span class="header__title"><a href="/">Die Edith</a></span>
-  <img class="header__logo header__logo--light" src="/framework/icons/logo--no-margin--light.svg" alt="Die Edith Logo. E">
-  <img class="header__logo header__logo--dark" src="/framework/icons/logo--no-margin--dark.svg" alt="Die Edith Logo. E">
+  <a href="/"><img class="header__logo header__logo--light" src="/framework/icons/logo--no-margin--light.svg" alt="Die Edith Logo. E"></a>
+  <a href="/"><img class="header__logo header__logo--dark" src="/framework/icons/logo--no-margin--dark.svg" alt="Die Edith Logo. E"></a>
   <ul class="header__nav-items">
 
     <?php
-    if (isset($_SESSION['userid'])) : ?>
+    if (isset($_SESSION['userGUID'])) : ?>
     <li>
-      <button class="header__nav-items__button" type="button">
-        <img class="header__nav-items__button__picture" src="/user/<?php echo $_SESSION['userid'] ?>/pb-small.jpg" alt="Profilbild">
+      <button class="header__nav-items__button header__nav-items__profile-btn" type="button">
+        <img class="header__nav-items__button__picture" src="/user/<?php echo $_SESSION['userGUID'] ?>/pb-small.jpg" alt="Profilbild">
       </button>
     </li>
     <?php else : ?>
     <li>
-      <button onclick="$('.login__wrapper').fadeIn(200); $('body').scrollLock('enable');" class="header__nav-items__button" type="button">
+      <button onclick="showLogin()" class="header__nav-items__button" type="button">
         <i class="material-icons">input</i>
       </button>
     </li>
     <?php endif; ?>
 
     <li>
-      <button class="hamburger hamburger--slider-r" type="button">
-        <span class="hamburger-box">
-          <span class="hamburger-inner"></span>
-        </span>
+      <button class="header__nav-items__button header__nav-items__side-menu-btn" type="button">
+        <div class="hamburger hamburger--slider-r" type="button">
+          <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+          </span>
+        </div>
       </button>
     </li>
   </ul>
 </header>
 
 <div class="message-box">
-  <!-- <div class="message--2 message--error message">
+  <!-- <div class="message-\-3 message-\-error message">
     <div class="message__ribbon"><i class="material-icons">error_outline</i></div>
     <div class="message__close"><i class="material-icons">close</i></div>
-    <div class="message_float_fix"></div><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut en</span>
-  </div>
-  <div class="message--2 message--warning message">
-    <div class="message__ribbon"><i class="material-icons">error_outline</i></div>
-    <div class="message__close"><i class="material-icons">close</i></div>
-    <div class="message_float_fix"></div><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut en</span>
+    <div class="message__float-fix"></div><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut en</span>
   </div> -->
   <noscript>
     <div class="message--1 message--error message">
-      <div class="errormessage__red-border"><i class="material-icons">error_outline</i></div>
-      <div class="errormessage__close"><i class="material-icons">close</i></div>
-      <div class="errormessage_float_fix"></div><span>Bitte aktiviere JavaScript!</span>
+      <div class="message__ribbon"><i class="material-icons">error_outline</i></div>
+      <div class="message__close"><i class="material-icons">close</i></div>
+      <div class="message__float-fix"></div><span>Bitte aktiviere JavaScript!</span>
     </div>
   </noscript>
+  <div style="display: none" class="message--2 message--cookies message--error message">
+    <div class="message__ribbon"><i class="material-icons">error_outline</i></div>
+    <div class="message__close"><i class="material-icons">close</i></div>
+    <div class="message__float-fix"></div><span>Bitte aktiviere Cookies!</span>
+  </div>
 </div>
 
 <nav class="side-menu">
@@ -73,16 +75,14 @@
       </a>
     </li>
 
-    <?php if (!isset($_SESSION['userid'])) : ?>
-    <li class="side-menu__list__li">
-      <a href="/login/">
-        <i class="material-icons">input</i>
-        <span class="side-menu__list__li__text">Anmelden</span>
-      </a>
+    <?php if (!isset($_SESSION['userGUID'])) : ?>
+    <li onclick="showLogin()" class="side-menu__list__li">
+      <i class="material-icons">input</i>
+      <span class="side-menu__list__li__text">Anmelden</span>
     </li>
     <?php endif; ?>
 
-    <?php if (isset($_SESSION['userid'])) : ?>
+    <?php if (isset($_SESSION['userGUID'])) : ?>
     <li class="side-menu__list__li">
       <a href="/logout/">
         <i class="material-icons">input</i>
@@ -98,23 +98,46 @@
         <span class="side-menu__list__li__text">Einstellungen</span>
       </a>
     </li>
-
-
-    <li class="side-menu__list__li">
-      <i class="material-icons">settings_brightness</i>
-      <span class="side-menu__list__li__text">Dunkel</span>
-      <input class="switch" type="checkbox">
-    </li>
-
-    <li class="side-menu__list__li">
-      <i class="material-icons">build</i>
-      <span class="side-menu__list__li__text">Debug</span>
-      <input class="switch" type="checkbox">
-    </li>
-
   </ul>
+
+  <hr>
+
+  <div class="side-menu__list__li side-menu__theme-selection">
+
+    <div class="side-menu__theme-selection__option side-menu__theme-selection__option--auto">
+      <div class="side-menu__theme-selection__option__center">
+        <span>Auto</span>
+        <i class="material-icons">settings_brightness</i>
+      </div>
+    </div>
+
+    <div class="vr"></div>
+
+    <div class="side-menu__theme-selection__option side-menu__theme-selection__option--light">
+      <div class="side-menu__theme-selection__option__center">
+        <span>Hell</span>
+        <i class="material-icons">brightness_high</i>
+      </div>
+    </div>
+
+    <div class="vr"></div>
+
+    <div class="side-menu__theme-selection__option side-menu__theme-selection__option--dark">
+      <div class="side-menu__theme-selection__option__center">
+        <span>Dunkel</span>
+        <i class="material-icons">brightness_2</i>
+      </div>
+    </div>
+
+  </div>
+
+  <hr>
+
+
 </nav>
 
+
+<!-- Login -->
 <div class="login__wrapper">
   <div class="login__container">
     <div class="login__container__close"><i class="material-icons">close</i></div>
@@ -137,3 +160,7 @@
 
   </div>
 </div>
+
+<!-- Feauture detect prefers-color-scheme  -->
+<div class="feature-detect--prefers-color-scheme--1"></div>
+<div class="feature-detect--prefers-color-scheme--2"></div>

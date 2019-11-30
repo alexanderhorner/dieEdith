@@ -17,7 +17,7 @@
     <h1>Solardorf Herrneied</h1>
 
     <div class="article__info">
-      <img class="article__info__picture" src="/user/2/pb-small.jpg" alt="profile picture">
+      <img class="article__info__picture" src="/user/e3ff0e0a-05c3-4ac5-b5ab-6fed147b9280/pb-small.jpg" alt="profile picture">
       <div class="article__info__textbox">
         <div class="article__info__textbox__name">Lilli Schön</div>
         <div class="article__info__textbox__time">Ausgabe 1 (2019)</div>

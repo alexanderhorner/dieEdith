@@ -1,8 +1,8 @@
 <?php
 date_default_timezone_set('Europe/Berlin');
 session_start();
-if (isset($_SESSION['userid'])) {
-    $userid = $_SESSION['userid'];
+if (isset($_SESSION['userGUID'])) {
+    $userGUID = $_SESSION['userGUID'];
     $firstname = $_SESSION['firstname'];
     $lastname = $_SESSION['lastname'];
 } else {
@@ -33,7 +33,7 @@ include '../../framework/document-start.php';
     <h1 contenteditable="true" class="main-title">Unbenanntes Textdokument</h1>
 
     <div class="article__info">
-      <img class="article__info__picture" src="/user/<?php echo $userid ?>/pb-small.jpg" alt="profile picture">
+      <img class="article__info__picture" src="/user/<?php echo $userGUID ?>/pb-small.jpg" alt="profile picture">
       <div class="article__info__textbox">
         <div class="article__info__textbox__name">
           <?php echo $firstname." ".$lastname; ?>
@@ -44,7 +44,8 @@ include '../../framework/document-start.php';
       </div>
     </div>
     <p class="clear"></p>
-    <textarea name="content" id="editor">
+
+    <article id="editor">
       <p>Über unsere Waschbecken und Duschen gelangt das Mikroplastik ins Meer. Dort zieht es Gifte an und wird von Tieren gefressen. Eine große Gefahr für die Umwelt!</p>
       <p>Seit ein paar Monaten wasche ich meine Haare mit Roggenmehl und gebrauche somit kein umweltunfreundliches Shampoo mehr. Ich wasche sie ca. alle 4 - 7 mal die Woche und bin sehr zufrieden.</p>
       <figure>
@@ -64,8 +65,8 @@ include '../../framework/document-start.php';
       <p>Mit der Menge könnt und müsst ihr variieren, je nach Haarlänge und ob ihr nur den Ansatz oder eure ganzen Haare waschen wollt. Ich mache es immer in die ganzen Haare, aber der Ansatz würde völlig genügen.</p>
       <p>Außerdem gibt es auch eine Apfelessig – Spülung, die ihr ausprobieren könnt, falls euch die Haare danach zu trocken sind. Ich persönlich habe das noch nicht versucht, da ich so vollkommen zufrieden bin... schaut dafür dann einfach mal auf YouTube nach!</p>
       <p>Auch wird empfohlen einen kurzen Entzug von Shampoo zu machen, bevor man mit Roggenmehl startet, praktisch eine Zeit lang nur mit Wasser zu waschen. Ich allerdings habe es einfach sofort ausprobiert und es war super... Probiert es doch einfach mal aus, wichtig ist nur, dass ihr Roggenmehl nehmt und kein anderes, denn das verklebt die Haare.</p>
-    </textarea>
-  </div>
+    </div>
+  </article>
 </body>
 
 </html>

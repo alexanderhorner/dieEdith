@@ -1,6 +1,9 @@
 RewriteEngine On
-RewriteCond %{HTTPS} off
+# RewriteCond %{HTTPS} off
 # First rewrite to HTTPS:
 # Don't put www. here. If it is already there it will be included, if not
 # the subsequent rule will catch it.
-RewriteRule .* https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+# RewriteRule .* https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+Redirect /login/ /#login
+Redirect /login /#login

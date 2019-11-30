@@ -1,13 +1,13 @@
 <?php
 // Set up all variables
 $response = array();
-$response['updated-settings'] = 0;
+$response['updated_settings'] = 0;
 $response['request'] = 'failed';
 $response['error'] = 'unknown';
 
 session_start();
-if (isset($_SESSION['userid'])) {
-    $userid = $_SESSION['userid'];
+if (isset($_SESSION['userGUID'])) {
+    $userGUID = $_SESSION['userGUID'];
 } else {
     $response['request'] = 'success';
     $response['error'] = "User isn't logged in";
@@ -28,14 +28,14 @@ if ($pdo === false) {
         $prefers_color_scheme = $_POST['prefers_color_scheme'];
 
         // prepare statement
-        $statement = $pdo->prepare("UPDATE user SET prefers_color_scheme = ? WHERE id = ?");
+        $statement = $pdo->prepare("UPDATE user SET prefers_color_scheme = ? WHERE GUID = ?");
 
         // execute statement and put response into array
-        $statement->execute(array($prefers_color_scheme, $userid));
+        $statement->execute(array($prefers_color_scheme, $userGUID));
 
         // response
         if ($statement->rowCount() == 1) {
-            $response['updated-settings'] = $response['updated-settings'] + 1;
+            $response['updated_settings'] = $response['updated_settings'] + 1;
             $response['request'] = 'success';
             unset($response['error']);
             $response['prefers_color_scheme-success'] = 'success';
@@ -44,6 +44,29 @@ if ($pdo === false) {
             $response['error'] = 'No settings were changed!';
         }
     }
+
+    // color_scheme
+      if (isset($_POST['color_scheme'])) {
+          $color_scheme = $_POST['color_scheme'];
+
+          // prepare statement
+          $statement = $pdo->prepare("UPDATE user SET color_scheme = ? WHERE GUID = ?");
+
+          // execute statement and put response into array
+          $statement->execute(array($color_scheme, $userGUID));
+
+          // response
+          if ($statement->rowCount() == 1) {
+              $response['updated_settings'] = $response['updated_settings'] + 1;
+              $response['request'] = 'success';
+              unset($response['error']);
+              $response['color_scheme-success'] = 'success';
+          } else {
+              $response['request'] = 'success';
+              $response['error'] = 'No settings were changed!';
+          }
+      }
+
 }
 
 end:

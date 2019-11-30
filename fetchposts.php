@@ -44,7 +44,7 @@ if ($pdo === false) {
 } else {
 
     // prepare statement
-    $statement = $pdo->prepare("SELECT id, owner, posted_on, type, content FROM posts ORDER BY posted_on DESC LIMIT ?, ?");
+    $statement = $pdo->prepare("SELECT GUID, owner, posted_on, type, content FROM posts ORDER BY posted_on DESC LIMIT ?, ?");
 
     // execute statement
     $statement->bindParam(1, $startAtPost, PDO::PARAM_INT);
@@ -55,7 +55,7 @@ if ($pdo === false) {
     while ($row = $statement->fetch()) {
 
         // put data in variable
-        $id = $row['id'];
+        $postGUID = $row['GUID'];
         $owner = $row['owner'];
         $posted_on = strtotime($row['posted_on']);
         $type = $row['type'];
@@ -69,7 +69,7 @@ if ($pdo === false) {
 
 
         // prepare statement
-        $statement1 = $pdo->prepare("SELECT firstname, lastname FROM user WHERE id = ?");
+        $statement1 = $pdo->prepare("SELECT firstname, lastname FROM user WHERE GUID = ?");
 
         // execute statement
         $statement1->execute(array($owner));
@@ -108,7 +108,7 @@ if ($pdo === false) {
   </div>
   <img class="card__picture" src="artikel/{$content_decoded['name']}/pic1.jpg" alt="">
   <h3>{$content_decoded['headline']}</h3>
-  <span class="card__text">{$content_decoded['text']}<a href="Artikel/{$content_decoded['name']}"><wbr>... Weiter lesen</a></span>
+  <span class="card__text">{$content_decoded['text']}... <a href="Artikel/{$content_decoded['name']}">Weiter lesen</a></span>
 </div>\n
 EOT;
         } elseif ($type == "post") {

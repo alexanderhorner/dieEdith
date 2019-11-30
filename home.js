@@ -1,7 +1,7 @@
 // Set up variables
 window.initComplete = false;
 
-setTimeout(function () {
+setTimeout(function() {
   if (window.initComplete == false) {
     warning("Das Laden der Seite dauert länger als erwartet.")
   }
@@ -59,12 +59,12 @@ function infiniteScrollLoop() {
 }
 
 // Array saves all loaded Pages
-var loadedPages = [];
+window.loadedPages = [];
 
 function fetchPage(page) {
 
   // Saves Page Loading state
-  window.PageLoading = true;
+  window.pageLoading = true;
 
   //Check page
   if (typeof page === 'number') {
@@ -72,17 +72,16 @@ function fetchPage(page) {
   } else if (page == 'init') {
     var loadpage = 1;
   } else if (page == 'next') {
-    var loadpage = Math.max.apply(Math, loadedPages) + 1;
+    var loadpage = Math.max.apply(Math, window.loadedPages) + 1;
   } else {
     return 'unvalid page!';
   }
 
   // Check if page is already loaded
-  if (loadedPages.includes(page)) {
+  if (window.loadedPages.indexOf(loadpage) >= 0) {
     return 'already loaded!';
   } else {
-    loadedPages.push(loadpage);
-    window.loadedPages = loadedPages;
+    window.loadedPages.push(loadpage);
   }
 
   // fetch posts
@@ -100,8 +99,8 @@ function fetchPage(page) {
         // Append data
         $(".grid").append(data);
 
-        // set PageLoading state to false
-        window.PageLoading = false;
+        // set pageLoading state to false
+        window.pageLoading = false;
 
         // wait for appending
         setTimeout(function() {
@@ -152,6 +151,14 @@ function fetchPage(page) {
       }
     },
     error: function(jqXHR, textStatus, errorThrown) {
+
+      for (var i = 0; i < window.loadedPages.length; i++) {
+        if (window.loadedPages[i] === loadpage) {
+          window.loadedPages.splice(i, 1);
+        }
+      }
+
+      console.log(loadpage);
       error("Es gab ein Problem beim Laden der Posts (" + textStatus + "). Überprüfe deine Internetverbindung und versuche es später erneut.");
     }
   });

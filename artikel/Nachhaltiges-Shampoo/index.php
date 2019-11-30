@@ -17,7 +17,7 @@
     <h1>Nachhaltiges Shampoo</h1>
 
     <div class="article__info">
-      <img class="article__info__picture" src="/user/4/pb-small.jpg" alt="profile picture">
+      <img class="article__info__picture" src="/user/18479b90-bded-4e11-8226-4458f5de69bc/pb-small.jpg" alt="profile picture">
       <div class="article__info__textbox">
         <div class="article__info__textbox__name">Johanna Saake</div>
         <div class="article__info__textbox__time">Ausgabe 1 (2019)</div>
