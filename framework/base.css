@@ -283,6 +283,8 @@ html.dark .header {
   position: absolute;
   top: 50%;
   right: 15px;
+  padding: 0;
+  margin: 0;
   margin-inline-start: 0;
   margin-inline-end: 0;
   margin-block-start: 0;
@@ -644,6 +646,8 @@ html.dark .side-menu {
 }
 
 .side-menu__list {
+  padding: 0;
+  margin: 0;
   margin-inline-start: 0;
   margin-inline-end: 0;
   margin-block-start: 0;
