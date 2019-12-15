@@ -7,30 +7,27 @@
 .wrapper {
   width: calc(100% - 20px);
   max-width: 1100px;
-  min-height: calc(100vh - 60px);
   margin: 60px auto 0;
   padding-bottom: 15px;
-  transition: transform 0.2s cubic-bezier(0.4, 0.0, 1, 1);
+  transition: transform 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);;
 }
 
 @media only screen and (max-width: 1510px) and (min-width: 1320px) {
   .side-menu--shown .wrapper {
     transform: translateX(var(--wrapper-margin-small-full-difference));
-    transition: transform 0.25s cubic-bezier(0.0, 0.0, 0.2, 1);
+    transition: transform 0.25s cubic-bezier(0.4, 0.0, 0.2, 1);;
   }
 }
 
 .loading {
   text-align: center;
   background-color: var(--background);
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 6500;
-  opacity: 1;
+  position: relative;
+  height: 20vh;
+  width: 100%;
+  margin-bottom: 50vh;
 }
+
 .loading__center {
   position: absolute;
   top: 50%;

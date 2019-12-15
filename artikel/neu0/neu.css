@@ -15,3 +15,8 @@ html.dark [contenteditable] {
 html.dark [contenteditable]:focus {
   background-color: hsla(0, 0%, 50%, 0.2);
 }
+
+.article {
+  margin-top: 34px;
+  min-height: 100px;
+}

@@ -685,7 +685,7 @@ html.dark .side-menu {
   z-index: 9100;
   position: relative;
   cursor: pointer;
-  transition: background-color 0.2s, opacity 0.2s;
+  transition: background-color 0.15s, opacity 0.15s;
 }
 
 .side-menu__list__li:nth-of-type(2n-1):not(.side-menu__theme-selection) {
@@ -705,7 +705,7 @@ html.dark .side-menu__list__li:nth-of-type(2n-1):not(.side-menu__theme-selection
   bottom: 0;
   width: 0;
   background-color: var(--teslablue);
-  transition: width 0.2s;
+  transition: width 0.15s;
 }
 
 .side-menu__list__li:hover::before {

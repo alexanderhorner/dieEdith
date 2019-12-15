@@ -29,29 +29,24 @@ function infiniteScrollLoop() {
     // only execute when initialization is complete
     if (window.initComplete == true) {
 
-      // get the last Anchor loaded on the page
-      var lastPageAnchor = $('.page-anchor:last-of-type');
+      // exit function if page ends
+      if (window.nextPage == "end") {
+        $('.loading').remove();
+        return "End of Page!"
+      }
 
       //get the scroll position of the bottom of the page
       var scrollBottom = $(window).scrollTop() + $(window).height();
 
-      // get the position og the last loaded Anchor
-      var lastPageAnchorPos = lastPageAnchor.offset().top;
+      var gridBottom = $grid.offset().top + $grid.height();
 
-      // get the data-page Attr of the last loaded page and save it
-      var lastPageAnchorAttr = lastPageAnchor.attr('data-page');
-      if (lastPageAnchorAttr == "end") {
-        return "End of Page!"
-      }
-      window.nextPageToFetch = parseInt(lastPageAnchorAttr);
+      // get the distance between viewport bottom and page bottom
+      var distanceToBottom = gridBottom - scrollBottom;
 
-      // get the distance between viewport bottom and ll Anchor
-      var distanceToAnchor = lastPageAnchorPos - scrollBottom;
-
-      // if bottom of screen is close enough to the ll Anchor
-      if (distanceToAnchor < 300) {
+      // if bottom of screen is close enough to the page bottom
+      if (distanceToBottom < 300) {
         // fetch next page
-        fetchPage(window.nextPageToFetch);
+        fetchPage(window.nextPage);
       }
     }
 
@@ -62,7 +57,6 @@ function infiniteScrollLoop() {
 window.loadedPages = [];
 
 function fetchPage(page) {
-
   // Saves Page Loading state
   window.pageLoading = true;
 
@@ -109,13 +103,8 @@ function fetchPage(page) {
           $grid.masonry('reloadItems');
           $grid.masonry('layout');
 
-          // get bottomPos of grid
-          var gridBottomPos = $grid.offset().top + $grid.height();
-
-          // create and append Anchor
-          var dataPage = loadpage + 1;
-          var anchorHTML = '<a data-page="' + dataPage + '" class="page-anchor" href="#" style="display: block; position: absolute; top: ' + gridBottomPos + 'px"></a>'
-          $("body").append(anchorHTML);
+          // Save next Page
+          window.nextPage = loadpage + 1;
         }, 50);
 
         // layout masonry grid when images loaded
@@ -130,10 +119,8 @@ function fetchPage(page) {
           // wait for appending of elements
           setTimeout(function() {
 
-            // remove loading screem
-            $(".loading").remove();
+            // Mark init as complete
             setTimeout(function() {
-              // Mark init as complete
               window.initComplete = true;
             }, 11);
 
@@ -141,13 +128,8 @@ function fetchPage(page) {
 
         }
       } else {
-
-        // get bottomPos of grid
-        var gridBottomPos = $grid.offset().top + $grid.height();
-
-        // create and append Anchor
-        var anchorHTML = '<a data-page="end" class="page-anchor" href="#" style="display: block; position: absolute; top: ' + gridBottomPos + 'px"></a>'
-        $("body").append(anchorHTML);
+        // Save next Page
+        window.nextPage = 'end';
       }
     },
     error: function(jqXHR, textStatus, errorThrown) {
@@ -163,3 +145,9 @@ function fetchPage(page) {
     }
   });
 }
+
+
+
+$(window).on('resize', function() {
+  $grid.masonry('layout');
+});

@@ -42,14 +42,14 @@
   padding: 60px 50px 25px;
   background-color: var(--foreground);
   box-shadow: 0 0 12px 4px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.2s, transform 0.2s cubic-bezier(0.4, 0.0, 1, 1);
+  transition: background-color 0.2s, transform 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);;
   min-height: 100vh;
 }
 
 @media only screen and (max-width: 1200px) and (min-width: 1000px) {
   .side-menu--shown .wrapper {
     transform: translateX(var(--wrapper-margin-small-full-difference));
-    transition: background-color 0.2s, transform 0.25s cubic-bezier(0.0, 0.0, 0.2, 1);
+    transition: background-color 0.2s, transform 0.25s cubic-bezier(0.4, 0.0, 0.2, 1);;
   }
 }
 
@@ -91,7 +91,7 @@ html.dark .wrapper {
   margin: 0;
 }
 
-article, textarea {
+article, p {
   font-family: "Charis", serif;
   line-height: 33px;
   font-size: 22px;
@@ -128,7 +128,7 @@ p {
     margin: 20px 0 17px;
   }
 
-  article, textarea {
+  article, p {
     font-size: 18px;
     line-height: 28px;
   }
@@ -253,4 +253,8 @@ html.dark .article__info__picture {
 .article__info__textbox__time {
   color: hsl(0, 0%, 50%);
   font-size: 14px;
+}
+
+html.editMode .article {
+  min-height: 50vh;
 }

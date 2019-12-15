@@ -12,8 +12,8 @@ if (!isset($_SESSION['userGUID'])) {
 
   <?php include '../framework/head.php'?>
 
-  <link rel="stylesheet" type="text/css" href="login.css">
-  <script src="login.js"></script>
+  <link rel="stylesheet" type="text/css" href="">
+  <script src=""></script>
 </head>
 
 <body>

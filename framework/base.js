@@ -85,18 +85,20 @@ $(document).ready(function() {
       if (supportsPreferedColorScheme()) {
 
         if ($('.feature-detect--prefers-color-scheme--1').height() == 4) {
-
           // prefers light
-          $('html').addClass('light');
-          $('html').removeClass('dark');
-          document.cookie = "last_color_scheme=light; expires=Tue, 19 Jan 2038 03:14:07 UTC; path=/";
+          if ($('html').hasClass('dark')) {
+            $('html').addClass('light');
+            $('html').removeClass('dark');
+            document.cookie = "last_color_scheme=light; expires=Tue, 19 Jan 2038 03:14:07 UTC; path=/";
+          }
 
         } else if ($('.feature-detect--prefers-color-scheme--2').height() == 6) {
-
           // prefers dark
-          $('html').addClass('dark');
-          $('html').removeClass('light');
-          document.cookie = "last_color_scheme=dark; expires=Tue, 19 Jan 2038 03:14:07 UTC; path=/";
+          if ($('html').hasClass('light')) {
+            $('html').addClass('dark');
+            $('html').removeClass('light');
+            document.cookie = "last_color_scheme=dark; expires=Tue, 19 Jan 2038 03:14:07 UTC; path=/";
+          }
 
         } else {
           console.log('supportsPreferedColorScheme() error');
@@ -109,15 +111,19 @@ $(document).ready(function() {
 
         if (today > obj['sunrise'] && today < obj['sunset']) {
           // sun's shining
-          $('html').addClass('light');
-          $('html').removeClass('dark');
-          document.cookie = "last_color_scheme=light; expires=Tue, 19 Jan 2038 03:14:07 UTC; path=/";
+          if ($('html').hasClass('dark')) {
+            $('html').addClass('light');
+            $('html').removeClass('dark');
+            document.cookie = "last_color_scheme=light; expires=Tue, 19 Jan 2038 03:14:07 UTC; path=/";
+          }
 
         } else {
           // its night
-          $('html').addClass('dark');
-          $('html').removeClass('light');
-          document.cookie = "last_color_scheme=dark; expires=Tue, 19 Jan 2038 03:14:07 UTC; path=/";
+          if ($('html').hasClass('light')) {
+            $('html').addClass('dark');
+            $('html').removeClass('light');
+            document.cookie = "last_color_scheme=dark; expires=Tue, 19 Jan 2038 03:14:07 UTC; path=/";
+          }
 
         }
 

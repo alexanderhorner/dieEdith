@@ -20,6 +20,12 @@ if (isset($_SESSION['userGUID'])) {
   <!-- include? VVV -->
   <?php include '../../framework/head.php'?>
 
+  <script src="rangy-core.js"></script>
+  <script src="rangy-classapplier.js"></script>
+  <script src="undo.js"></script>
+  <script src="medium.min.js"></script>
+  <link rel="stylesheet" href="medium.css">
+
   <script src="neu.js"></script>
   <link rel="stylesheet" type="text/css" href="/artikel/artikel.css">
   <link rel="stylesheet" type="text/css" href="neu.css">
@@ -45,9 +51,8 @@ if (isset($_SESSION['userGUID'])) {
     </div>
     <p class="clear"></p>
 
-    <article class="article" contenteditable="true">
-      <p>TE ST</p>
-  </article>
+    <article class="article" id="editor" contenteditable="true">
+    </article>
 </body>
 
 </html>
