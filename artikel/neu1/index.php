@@ -20,15 +20,20 @@ if (isset($_SESSION['userGUID'])) {
   <!-- include? VVV -->
   <?php include '../../framework/head.php'?>
 
-  <script src="rangy-core.js"></script>
-  <script src="rangy-classapplier.js"></script>
-  <script src="undo.js"></script>
-  <script src="medium.min.js"></script>
-  <link rel="stylesheet" href="medium.css">
+  <link href="https://fonts.googleapis.com/css?family=Lora" rel="stylesheet">
 
-  <script src="neu.js"></script>
+  <!-- Editor.js -->
+  <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
+  <!-- Editor.js Plugins -->
+  <!-- Header --><script src="editorHeader.js"></script>
+  <!-- List --><script src="https://cdn.jsdelivr.net/npm/@editorjs/list@latest"></script>
+  <!-- picture --><script src="https://cdn.jsdelivr.net/npm/@editorjs/simple-image@latest"></script>
+
+  <script type="module" src="neu.js"></script>
   <link rel="stylesheet" type="text/css" href="/artikel/artikel.css">
   <link rel="stylesheet" type="text/css" href="neu.css">
+
+
 </head>
 
 <body>
@@ -51,8 +56,7 @@ if (isset($_SESSION['userGUID'])) {
     </div>
     <p class="clear"></p>
 
-    <article class="article" id="editor" contenteditable="true">
-    </article>
+    <article id="editorjs" class="article"></article>
 </body>
 
 </html>

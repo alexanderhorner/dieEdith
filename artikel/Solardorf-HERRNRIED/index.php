@@ -6,6 +6,8 @@
   <!-- include? VVV -->
   <?php include '../../framework/head.php'?>
 
+  <link href="https://fonts.googleapis.com/css?family=Lora" rel="stylesheet">
+
   <link rel="stylesheet" type="text/css" href="/artikel/artikel.css">
 </head>
 
