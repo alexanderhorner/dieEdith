@@ -1,0 +1,153 @@
+[contenteditable]:focus {
+  outline: 0 solid transparent;
+}
+
+.article {
+  margin: 34px -30px auto;
+}
+
+@media only screen and (max-width: 850px) {
+  .article {
+    margin: 34px auto auto;
+  }
+}
+
+#editorjs * {
+  box-sizing: content-box;
+}
+
+.ce-inline-toolbar {
+  color: black;
+}
+
+.ce-paragraph {
+  line-height: 33px;
+  padding: 9px 0 9px;
+}
+
+.ce-block__content, .ce-toolbar__content {
+  max-width: 680px;
+}
+
+.ce-header {
+  margin: 0.6em 0 -0.3em;
+  padding: 0.3em 0;
+}
+
+.cdx-notifies {
+  color: black;
+  box-sizing: content-box;
+}
+
+.cdx-notifies * {
+  color: black;
+  box-sizing: content-box;
+}
+
+.codex-editor--narrow .codex-editor__redactor {
+  margin-right: auto !important;
+}
+
+.codex-editor--narrow .ce-block {
+  margin: auto !important;
+  padding: auto !important;
+}
+
+.save-state {
+  position: relative;
+  display: inline-block;
+  height: 44px;
+  cursor: pointer;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+.save-state .save-state__icon {
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.save-state .save-state__text {
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  font-size: 16px;
+  margin-left: 25px;
+  line-height: 44px;
+}
+
+.save-state--saved {
+  color: var(--green);
+  display: inline-block;
+}
+
+.save-state--loading {
+  display: none;
+  color: hsla(0, 0%, 50%, 1)
+}
+
+.save-state--unsaved {
+  color: var(--warning);
+  display: none;
+}
+
+
+@keyframes ldio-7m1gexeqndq {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+.ldio-7m1gexeqndq div {
+  position: absolute;
+  width: 66px;
+  height: 66px;
+  border: 9px solid hsla(0, 0%, 50%, 1);
+  border-top-color: transparent;
+  border-radius: 50%;
+}
+
+.ldio-7m1gexeqndq div {
+  animation: ldio-7m1gexeqndq 1s linear infinite;
+  top: 50px;
+  left: 50px
+}
+
+.loadingio-spinner-rolling-rqt9h9gqbtl {
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+  overflow: hidden;
+  background: none;
+}
+
+.ldio-7m1gexeqndq {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform: translateZ(0) scale(0.24);
+  backface-visibility: hidden;
+  transform-origin: 0 0;
+  /* see note above */
+}
+
+.ldio-7m1gexeqndq div {
+  box-sizing: content-box;
+}
+
+.cdx-marker {
+  color: inherit;
+}

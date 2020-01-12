@@ -1,6 +1,6 @@
 <?php include '../framework/document-start.php';
 
-if (!isset($_SESSION['userUUID'])) {
+if (isset($_SESSION['userUUID'])) {
   header("Location: /");
   die();
 }
@@ -8,12 +8,12 @@ if (!isset($_SESSION['userUUID'])) {
 
 <head>
   <meta charset="utf-8">
-  <title>Die Edith &gt; Einstellungen</title>
+  <title>Die Edith - Login</title>
 
   <?php include '../framework/head.php'?>
 
-  <link rel="stylesheet" type="text/css" href="login.css">
   <script src="login.js"></script>
+
 </head>
 
 <body>

@@ -2,11 +2,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
 <meta name="description" content="Die offizielle Seite der Schülerzeitung der Edith-Stein-Realschule (Parsberg).">
 
-<link href="https://fonts.googleapis.com/css?family=Cinzel:700|Roboto:400,400i,700,700i|Material+Icons" rel="stylesheet">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,700,700i|Material+Icons" rel="stylesheet">
+<script src="/framework/jquery.js"></script>
 
 <script src="/framework/modernizr.js"></script>
 <script src="/framework/lockscroll.js"></script>
+<script src="/framework/isotope.js"></script>
 
 <link rel="stylesheet" type="text/css" href="/framework/base.css">
 <script src="/framework/suncalc.js" charset="utf-8"></script>

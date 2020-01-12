@@ -11,11 +11,11 @@ function linkto(x) {
   }
 }
 
-function update_settings(settings) {
+function updateSettings(settings) {
   // Send data
   $.ajax({
     type: 'POST',
-    url: '/framework/update_settings.php',
+    url: '/framework/updateSettings.php',
     dataType: 'json',
     data: $.param(settings),
     timeout: 10000,
@@ -29,6 +29,22 @@ function update_settings(settings) {
     }
   });
 }
+
+function switchHeaderProfileMenu() {
+  if ($("html").hasClass('header__profile-menu--shown')) {
+    $("html").removeClass('header__profile-menu--shown');
+  } else {
+    $("html").addClass('header__profile-menu--shown');
+  }
+}
+
+// close profile menu when a click somwhere else is detected
+$(document).click(function(e) {
+  if ($(e.target).closest(".header__profile-menu, .header").length > 0) {
+  } else {
+    $('html').removeClass('header__profile-menu--shown');
+  }
+});
 
 // Messages
 var messageCount = 2;
@@ -45,8 +61,13 @@ function message(message, type) {
   if (type != "warning" && type != "error") {
     return "Unknown message type."
   };
-  var html = '<div class="message--' + messageCount + ' message--' + type + ' message"><div class="message__ribbon"><i class="material-icons">error_outline</i></div><div class="message__close"><i class="material-icons">close</i></div><div class="message_float_fix"></div><span>' + message + '</span></div>';
+  var html = '<div class="message--' + messageCount + ' message--' + type + ' message"><div class="message__ribbon"><i class="material-icons">error_outline</i></div><div class="message__close"><i class="material-icons">close</i></div><div class="message__float-fix"></div><span>' + message + '</span></div>';
   $(".message-box").prepend(html);
+  if (type == 'error') {
+    console.error(message);
+  } else {
+    console.warn(message);
+  }
   var new_message = '.message--' + messageCount;
   $(new_message).delay(10000).fadeOut(500);
   messageCount = messageCount + 1;
@@ -191,7 +212,7 @@ $(document).ready(function() {
       $(".side-menu__theme-selection__option--auto").addClass("side-menu__theme-selection__option--selected");
       $(".side-menu__theme-selection__option").not(this).removeClass("side-menu__theme-selection__option--selected");
       switchTheme('auto');
-      update_settings({
+      updateSettings({
         color_scheme: 'auto'
       })
 
@@ -200,7 +221,7 @@ $(document).ready(function() {
       $(".side-menu__theme-selection__option--light").addClass("side-menu__theme-selection__option--selected");
       $(".side-menu__theme-selection__option").not(this).removeClass("side-menu__theme-selection__option--selected");
       switchTheme('light');
-      update_settings({
+      updateSettings({
         color_scheme: 'light'
       })
 
@@ -209,7 +230,7 @@ $(document).ready(function() {
       $(".side-menu__theme-selection__option--dark").addClass("side-menu__theme-selection__option--selected");
       $(".side-menu__theme-selection__option").not(this).removeClass("side-menu__theme-selection__option--selected");
       switchTheme('dark');
-      update_settings({
+      updateSettings({
         color_scheme: 'dark'
       })
 
@@ -223,6 +244,14 @@ $(document).ready(function() {
       $('html').removeClass("side-menu--shown");
     } else {
       $('html').addClass("side-menu--shown");
+    }
+  });
+
+  // close side-menu when a click somwhere else is detected
+  $(document).click(function(e) {
+    if ($(e.target).closest(".side-menu, .header").length > 0) {
+    } else {
+      $('html').removeClass('side-menu--shown');
     }
   });
 
@@ -245,7 +274,6 @@ $(document).ready(function() {
 
 });
 
-
 // Login
 function loginResetButton() {
   // Change button to normal
@@ -257,7 +285,7 @@ window.isLoginShown = false;
 
 function showLogin() {
   if (window.isLoginShown == false) {
-    $('body').scrollLock('enable')
+    $('body').scrollLock('enable');
     $('.login__wrapper').fadeIn(200);
     window.isLoginShown = true;
   }
@@ -267,7 +295,7 @@ function showLogin() {
   }
 }
 
-function hideLogin() {
+var hideLogin = function() {
   if (window.isLoginShown == true) {
     $('body').scrollLock('disable')
     $('.login__wrapper').fadeOut(200);

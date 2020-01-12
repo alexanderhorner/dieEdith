@@ -6,7 +6,7 @@
   <!-- include? VVV -->
   <?php include '../../framework/head.php'?>
 
-  <link href="https://fonts.googleapis.com/css?family=Lora" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700" rel="stylesheet">
 
   <link rel="stylesheet" type="text/css" href="/artikel/artikel.css">
 </head>
@@ -16,7 +16,7 @@
 
   <div class="wrapper">
 
-    <h1>Solardorf Herrneied</h1>
+    <h1 class="main-title">Solardorf Herrneied</h1>
 
     <div class="article__info">
       <img class="article__info__picture" src="/user/e3ff0e0a-05c3-4ac5-b5ab-6fed147b9280/pb-small.jpg" alt="profile picture">
@@ -28,6 +28,7 @@
 
     <p class="clear"></p>
     <article class="article">
+      <p>In his New York Times bestseller The 4-Hour Workweek, Tim Ferriss explains why being the second-lowest paid person at his company persuaded him to start BrainQUICKEN LLC on the side and slowly build it up. This venture turned his 40k per year into 40k per month.</p>
       <p>In einem kleinen Dorf, nahe Parsberg wird etwas für die Energiewende getan: der Elektroautobesitzer Martin Selch, der den Solarstammtisch Herrnried ins Leben gerufen hat, möchte die Leute wachrütteln. Für seinen Verdienst, ihr
         Umweltbewusstsein zu schärfen, hat er auch schon Preise erhalten.</p>
       <p>Martin Selch ist sich sicher: Energietechnisch ist vieles im Umbruch und es verändert sich auch einiges zum Positiven, beispielsweise erzeugt Herrn-ried 150 Prozent mehr Strom, als dort benötigt wird. Dennoch muss deutlich mehr für die

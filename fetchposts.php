@@ -44,7 +44,7 @@ if ($pdo === false) {
 } else {
 
     // prepare statement
-    $statement = $pdo->prepare("SELECT GUID, owner, posted_on, type, content FROM posts ORDER BY posted_on DESC LIMIT ?, ?");
+    $statement = $pdo->prepare("SELECT UUID, owner, posted_on, type, content FROM posts ORDER BY posted_on DESC LIMIT ?, ?");
 
     // execute statement
     $statement->bindParam(1, $startAtPost, PDO::PARAM_INT);
@@ -55,7 +55,7 @@ if ($pdo === false) {
     while ($row = $statement->fetch()) {
 
         // put data in variable
-        $postGUID = $row['GUID'];
+        $postUUID = $row['UUID'];
         $owner = $row['owner'];
         $posted_on = strtotime($row['posted_on']);
         $type = $row['type'];
@@ -69,7 +69,7 @@ if ($pdo === false) {
 
 
         // prepare statement
-        $statement1 = $pdo->prepare("SELECT firstname, lastname FROM user WHERE GUID = ?");
+        $statement1 = $pdo->prepare("SELECT firstname, lastname FROM user WHERE UUID = ?");
 
         // execute statement
         $statement1->execute(array($owner));
@@ -97,7 +97,7 @@ if ($pdo === false) {
           }
 
           // generate response
-            $response .= <<<EOT
+            $response .= <<<HTML
 <div onclick="linkto('Artikel/{$content_decoded['name']}')" class="card card--article">
   <div class="card__info">
     <img class="card__info__picture" src="user/$owner/pb-small.jpg" alt="profile picture">
@@ -110,9 +110,9 @@ if ($pdo === false) {
   <h3>{$content_decoded['headline']}</h3>
   <span class="card__text">{$content_decoded['text']}... <a href="Artikel/{$content_decoded['name']}">Weiter lesen</a></span>
 </div>\n
-EOT;
+HTML;
         } elseif ($type == "post") {
-            $response .= <<<EOT
+            $response .= <<<HTML
 <div class="card card--post">
   <div class="card__info">
     <img class="card__info__picture" src="user/$owner/pb-small.jpg" alt="profile picture">
@@ -121,7 +121,7 @@ EOT;
       <div class="card__info__textbox__time">vor $posted_on_human</div>
     </div>
   </div>\n
-EOT;
+HTML;
             if (isset($content_decoded['text'])) {
                 $response .= '  <span class="card__text">'.$content_decoded['text'].'</span>'."\n";
             }

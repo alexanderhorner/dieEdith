@@ -1,15 +1,23 @@
 <header class="header">
-  <span class="header__title"><a href="/">Die Edith</a></span>
-  <a href="/"><img class="header__logo header__logo--light" src="/framework/icons/logo--no-margin--light.svg" alt="Die Edith Logo. E"></a>
-  <a href="/"><img class="header__logo header__logo--dark" src="/framework/icons/logo--no-margin--dark.svg" alt="Die Edith Logo. E"></a>
+  <a href="/"><img class="header__logo header__logo--big--light" src="/framework/icons/logo--big--light.svg" alt="Die Edith Logo"></a>
+  <a href="/"><img class="header__logo header__logo--big--dark" src="/framework/icons/logo--big--dark.svg" alt="Die Edith Logo"></a>
+  <a href="/"><img class="header__logo header__logo--small header__logo--small--light" src="/framework/icons/logo--small--light.svg" alt="Die Edith Logo. E"></a>
+  <a href="/"><img class="header__logo header__logo--small header__logo--small--dark" src="/framework/icons/logo--small--dark.svg" alt="Die Edith Logo. E"></a>
   <ul class="header__nav-items">
 
     <?php
-    if (isset($_SESSION['userGUID'])) : ?>
+    if (isset($_SESSION['userUUID'])) : ?>
     <li>
-      <button class="header__nav-items__button header__nav-items__profile-btn" type="button">
-        <img class="header__nav-items__button__picture" src="/user/<?php echo $_SESSION['userGUID'] ?>/pb-small.jpg" alt="Profilbild">
+      <button onclick="switchHeaderProfileMenu()" class="header__nav-items__button header__nav-items__profile-btn" type="button">
+        <img class="header__nav-items__button__picture" src="/user/<?php echo $_SESSION['userUUID'] ?>/pb-small.jpg" alt="Profilbild">
       </button>
+      <div class="header__profile-menu">
+        <ul>
+          <li><a href="/profil/<?php echo $_SESSION['username'] ?>#beitraege">Dein Profil</a></li>
+          <li><a href="/profil/<?php echo $_SESSION['username'] ?>#artikel">Deine Artikel</a></li>
+          <li><a href="/profil/<?php echo $_SESSION['username'] ?>#entwuerfe">Entwürfe</a></li>
+        </ul>
+      </div>
     </li>
     <?php else : ?>
     <li>
@@ -32,11 +40,6 @@
 </header>
 
 <div class="message-box">
-  <!-- <div class="message-\-3 message-\-error message">
-    <div class="message__ribbon"><i class="material-icons">error_outline</i></div>
-    <div class="message__close"><i class="material-icons">close</i></div>
-    <div class="message__float-fix"></div><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut en</span>
-  </div> -->
   <noscript>
     <div class="message--1 message--error message">
       <div class="message__ribbon"><i class="material-icons">error_outline</i></div>
@@ -62,27 +65,29 @@
     </li>
 
     <li class="side-menu__list__li">
-      <a href="/Artikel/">
+      <a href="/artikel/">
         <i class="material-icons">notes</i>
         <span class="side-menu__list__li__text">Artikel</span>
       </a>
     </li>
 
+    <?php if (isset($_SESSION['userUUID'])) : ?>
     <li class="side-menu__list__li">
-      <a href="/Profil/">
+      <a href="/profil/<?php echo $_SESSION['username'] ?>">
         <i class="material-icons">person</i>
-        <span class="side-menu__list__li__text">Profil</span>
+        <span class="side-menu__list__li__text">Mein Profil</span>
       </a>
     </li>
+    <?php endif; ?>
 
-    <?php if (!isset($_SESSION['userGUID'])) : ?>
+    <?php if (!isset($_SESSION['userUUID'])) : ?>
     <li onclick="showLogin()" class="side-menu__list__li">
       <i class="material-icons">input</i>
       <span class="side-menu__list__li__text">Anmelden</span>
     </li>
     <?php endif; ?>
 
-    <?php if (isset($_SESSION['userGUID'])) : ?>
+    <?php if (isset($_SESSION['userUUID'])) : ?>
     <li class="side-menu__list__li">
       <a href="/logout/">
         <i class="material-icons">input</i>
@@ -147,8 +152,8 @@
     </div>
 
     <div class="container__login">
-      <img class="container__login__logo container__login__logo--light" src="/framework/icons/logo--light.svg" alt="die Edith kleines Logo. E">
-      <img class="container__login__logo container__login__logo--dark" src="/framework/icons/logo--dark.svg" alt="die Edith kleines Logo. E">
+      <img class="container__login__logo container__login__logo--light" src="/framework/icons/logo--small--light.svg" alt="die Edith kleines Logo. E">
+      <img class="container__login__logo container__login__logo--dark" src="/framework/icons/logo--small--dark.svg" alt="die Edith kleines Logo. E">
       <h2>Anmelden</h2>
       <p class="container__login__error"></p>
       <form class="container__login__form">
