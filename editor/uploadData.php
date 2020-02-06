@@ -95,14 +95,19 @@ if ($pdo === false) {
 		if ($owner == $userUUID) {
 
 	    // Update existing article
-	    $response['request'] = 'success';
-	    unset($response['error']);
 
 	    // prepare statement
-	    $stmntUpdate = $pdo->prepare("UPDATE articles SET data = ? WHERE UUID = ?");
+	    $stmntUpdate = $pdo->prepare("UPDATE articles SET jsondata = ? WHERE UUID = ?");
 
 	    // execute statement and put response into array
 	    $stmntUpdate->execute(array($data, $articleUUID));
+
+			if ($stmntUpdate->rowCount() > 0) {
+				$response['request'] = 'success';
+			  unset($response['error']);
+			} else {
+				$response['error'] = 'Mysql request failed';
+			}
 
 		} else {
 			$response['request'] = 'failed';
