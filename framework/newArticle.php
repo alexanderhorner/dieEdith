@@ -33,10 +33,10 @@ $response = array();
 $response['request'] = 'failed';
 $response['error'] = 'unknown';
 
-if (isset($_POST['text'])) {
-  $text = htmlspecialchars($_POST['text'], ENT_QUOTES, 'UTF-8');
-  if (ctype_space($text)) {
-    $response['error'] = 'Kommentar ist leer';
+if (isset($_POST['title'])) {
+  $title = $_POST['title'];
+  if (ctype_space($title)) {
+    $response['error'] = 'Titel ist leer';
     goto end;
   }
 }
@@ -62,19 +62,11 @@ if ($pdo === false) {
   unset($response['error']);
 
 
-  $content = <<<JSON
-  {
-    "text": "$text"
-  }
-  JSON;
-
-
-
   // prepare statement
-  $statement = $pdo->prepare("INSERT INTO `posts`(`UUID`, `owner`, `type`, `content`) VALUES (?, ?, ?, ?)");
+  $statement = $pdo->prepare("INSERT INTO `articles`(`UUID`, `owner`, `title`, `jsondata`) VALUES (?, ?, ?, ?)");
 
   // execute statement and put response into array
-  $statement->execute(array(UUID::v4(), $userUUID, 'post', $content));
+  $statement->execute(array(UUID::v4(), $userUUID, $title, '{}'));
 
 }
 

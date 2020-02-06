@@ -82,55 +82,57 @@ function fetchPage(page) {
   $.ajax({
     type: 'GET',
     url: 'fetchposts.php',
-    dataType: 'html',
+    dataType: 'json',
     data: 'page=' + loadpage,
     timeout: 30000,
     success: function(data) {
 
-      // check if data is empty
-      if (data != "") {
+      // check if request was succesfull
+      if (data.request != "failed") {
 
-        // Append data
-        $(".grid").append(data);
+        // check if data is empty
+        if (data.content != "") {
 
-        // set pageLoading state to false
-        window.pageLoading = false;
+          // Append data
+          $(".grid").append(data.content).ready(function() {
 
-        // wait for appending
-        setTimeout(function() {
+            // after append
+            // relayout items after appending
+            $grid.masonry('reloadItems');
+            $grid.masonry('layout');
 
-          // relayout items after appending
-          $grid.masonry('reloadItems');
-          $grid.masonry('layout');
+            // Save next Page
+            window.nextPage = loadpage + 1;
 
+            // Render time
+            var selector = '.R' + data.requestIdentifier;
+            var nodes = document.querySelectorAll(selector);
+            timeago.render(nodes, 'de');
+
+            if (page == "init") {
+                // Mark init as complete
+                window.initComplete = true;
+            }
+
+          })
+
+          // set pageLoading state to false
+          window.pageLoading = false;
+
+          // layout masonry grid when images loaded
+          $grid.imagesLoaded().progress(function(instance) {
+            $grid.masonry('reloadItems');
+            $grid.masonry('layout');
+          })
+
+        } else {
           // Save next Page
-          window.nextPage = loadpage + 1;
-        }, 50);
-
-        // layout masonry grid when images loaded
-        $grid.imagesLoaded().progress(function(instance) {
-          $grid.masonry('reloadItems');
-          $grid.masonry('layout');
-        })
-
-        if (page == "init") {
-
-
-          // wait for appending of elements
-          setTimeout(function() {
-
-            // Mark init as complete
-            setTimeout(function() {
-              window.initComplete = true;
-            }, 11);
-
-          }, 40);
-
+          window.nextPage = 'end';
         }
       } else {
-        // Save next Page
-        window.nextPage = 'end';
+        error("Es gab ein Problem beim Laden der Posts (" + data.error + "). Überprüfe deine Internetverbindung und versuche es später erneut.");
       }
+
     },
     error: function(jqXHR, textStatus, errorThrown) {
 

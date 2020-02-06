@@ -29,7 +29,11 @@ if (isset($_GET['user'])) {
     if (isset($_SESSION['userUUID'])) {
       if ($_SESSION['userUUID'] == $pageOwnerUUID) {
         $isOwnProfile = "true";
+      } else {
+        $isOwnProfile = "false";
       }
+    } else {
+      $isOwnProfile = "false";
     }
 
   } else {
@@ -62,6 +66,8 @@ if (isset($_GET['user'])) {
 
   <?php include '../framework/head.php'?>
 
+  <script src="/framework/timeago.js"></script>
+
 
   <link rel="stylesheet" type="text/css" href="profil.css">
   <script src="profil.js"></script>
@@ -88,25 +94,42 @@ if (isset($_GET['user'])) {
         ?>
       </div>
     </div>
+    <div class="background--grayish"></div>
 
-    <div class="selection">
-      <button onclick="linkto('#beitraege')">Beiträge</button>
-      <button onclick="linkto('#artikel')">Nur Artikel</button>
 
-      <?php if ($isOwnProfile == 'true') : ?>
-      <button onclick="linkto('#entwuerfe')">Deine Entwürfe</button>
-      <?php endif; ?>
-
+    <div class="prompt--new-article">
+      <div onclick="$('html').removeClass('prompt--new-article--shown');" class="prompt--new-article__close"><i class="material-icons">close</i></div>
+      <h2>Neuen Artikel erstellen:</h2>
+      <form class="prompt--new-article__form">
+        <div>Titel:</div>
+        <input tabindex="-1" class="prompt--new-article__form__input" maxlength="180" type="text" value="">
+        <input class="prompt--new-article__form__submit" type="submit" value="Erstellen">
+      </form>
     </div>
 
-    <section class="cards">
+    <div class="selection__wrapper">
+      <div class="selection">
+        <button class="selection__button selection__button--selection selection__button--selection--posts" onclick="linkto('#beitraege')">Beiträge</button>
+        <button class="selection__button selection__button--selection selection__button--selection--articles" onclick="linkto('#artikel')">Nur Artikel</button>
 
-      <div class="card card--new-post">
-        <form>
-          <textarea class="card--new-post__textarea" required rows="4" cols="80" placeholder="Was gibt's neues?" maxlength="280"></textarea>
-          <input class="card--new-post__submit" type="submit" value="Posten">
-        </form>
+        <?php if ($isOwnProfile == 'true') : ?>
+        <button class="selection__button selection__button--selection selection__button--selection--drafts" onclick="linkto('#entwuerfe')">Deine Entwürfe</button>
+        <button class="selection__button selection__button--new-article" onclick="$('html').addClass('prompt--new-article--shown')">Neuer Artikel</button>
+        <?php endif; ?>
+
       </div>
+    </div>
+
+    <section style="opacity: 0" class="cards">
+      
+      <?php if ($isOwnProfile == 'true') : ?>
+        <div tabindex="-1" data-postedOn="9999999999" class="card card--new-post">
+          <form>
+            <textarea rows="4" class="card--new-post__textarea" required placeholder="Was gibt's neues?" maxlength="280"></textarea>
+            <input class="card--new-post__submit" type="submit" value="Posten">
+          </form>
+        </div>
+      <?php endif; ?>
 
       <?php
 
@@ -116,37 +139,23 @@ if (isset($_GET['user'])) {
 
       // Print out all posts
       while($row = $statement->fetch()) {
-
         $content_decoded = json_decode($row['content'], true);
-        $time = date('m.d.Y', strtotime($row['posted_on']));
-        $ammountOfPosts = 0;
-        $ammountOfArticles = 0;
+        $unixTimeStamp = strtotime($row['posted_on']);
+        $unixTimeStampMs = $unixTimeStamp * 1000 - 3600000;
 
         if ($row['type'] == 'post') {
-          $ammountOfPosts =+ 1;
           echo <<<HTML
-          <div class="card card--post">
+          <div data-postedOn="$unixTimeStamp" class="card card--post">
             <div class="post__text">
               <span>{$content_decoded['text']}</span>
             </div>
-            <div class="card__time">$time</div>
+            <div data-timeago="$unixTimeStampMs" class="card__time"></div>
           </div>
           HTML;
         } else {
 
-          $ammountOfPosts =+ 1;
-          $ammountOfArticles =+ 1;
-
-          // Check if alternate date exists
-          if (isset($content_decoded['alternativeDate'])) {
-            $card__info__textbox__time = $content_decoded['alternativeDate'];
-          } else {
-            $card__info__textbox__time = $row['posted_on'];
-          }
-
           echo <<<HTML
-          <div onclick="linkto('/Artikel/{$content_decoded['name']}')" class="card card--article">
-            <div class="card__time">$card__info__textbox__time</div>
+          <div data-postedOn="$unixTimeStamp"  onclick="linkto('/Artikel/{$content_decoded['name']}')" class="card card--article">
             <div class="article__info">
               <h3 class="article__title">{$content_decoded['headline']}</h3>
               <div class="article__preview">
@@ -154,24 +163,10 @@ if (isset($_GET['user'])) {
               </div>
             </div>
             <img class="article__img" src="/Artikel/{$content_decoded['name']}/pic1.jpg" alt="">
+            <div data-timeago="$unixTimeStampMs" class="card__time"></div>
           </div>
           HTML;
         }
-      }
-
-      if ($ammountOfPosts == 0) {
-        echo <<<HTML
-        <div class="card card--null card--null--posts">
-          <span>Keine Beiträge</span>
-        </div>
-        HTML;
-      }
-      if ($ammountOfArticles == 0) {
-        echo <<<HTML
-        <div class="card card--null card--null--article">
-          <span>Keine Artikel</span>
-        </div>
-        HTML;
       }
 
       ?>

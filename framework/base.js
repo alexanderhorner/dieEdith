@@ -35,6 +35,9 @@ function switchHeaderProfileMenu() {
     $("html").removeClass('header__profile-menu--shown');
   } else {
     $("html").addClass('header__profile-menu--shown');
+    if ($('html').hasClass('side-menu--shown')) {
+      $('html').removeClass('side-menu--shown');
+    }
   }
 }
 
@@ -64,7 +67,7 @@ function message(message, type) {
   var html = '<div class="message--' + messageCount + ' message--' + type + ' message"><div class="message__ribbon"><i class="material-icons">error_outline</i></div><div class="message__close"><i class="material-icons">close</i></div><div class="message__float-fix"></div><span>' + message + '</span></div>';
   $(".message-box").prepend(html);
   if (type == 'error') {
-    console.error(message);
+    console.warn(message);
   } else {
     console.warn(message);
   }
@@ -245,6 +248,9 @@ $(document).ready(function() {
     } else {
       $('html').addClass("side-menu--shown");
     }
+    if ($('html').hasClass('header__profile-menu--shown')) {
+      $('html').removeClass('header__profile-menu--shown');
+    }
   });
 
   // close side-menu when a click somwhere else is detected
@@ -307,8 +313,16 @@ $(document).on('keypress', function(e) {
   if (e.key === "Escape") {
     if (window.isLoginShown == true) {
       e.preventDefault();
+      hideLogin();
     }
-    hideLogin();
+    if ($('html').hasClass('side-menu--shown')) {
+      e.preventDefault();
+      $('html').removeClass('side-menu--shown');
+    }
+    if ($('html').hasClass('header__profile-menu--shown')) {
+      e.preventDefault();
+      $('html').removeClass('header__profile-menu--shown');
+    }
   }
 });
 

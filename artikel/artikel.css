@@ -158,9 +158,8 @@ h3 {
 }
 
 @media only screen and (max-width: 730px) {
-  html, body {
-    font-size: 18px;
-    line-height: 28px;
+  .wrapper {
+    font-size: 17px;
   }
 }
 

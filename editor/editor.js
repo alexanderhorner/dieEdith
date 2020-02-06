@@ -1,11 +1,3 @@
-$("body").keydown(function(e) {
-  var zKey = 90;
-  if ((e.ctrlKey || e.metaKey) && e.keyCode == zKey) {
-    e.preventDefault();
-    return false;
-  }
-});
-
 function uploadData(saveData) {
   // Send data
   $.ajax({
@@ -22,12 +14,37 @@ function uploadData(saveData) {
         error("Der Artikel konnte nicht gespeichert werden, da du im Hintergrund abgemeldet wurdest. Öffne einen neuen Tab und logge dich ein und versuche dann nochmal zu speichern");
       } else if (data.request == "failed" && data.error == "No Permission") {
         error("Der Artikel konnte nicht gespeichert werden, da du keine Rechte dafür hast. Frage den Besitzer oder versuche es später erneut.");
+      } else if (data.request == "failed" && data.error == "Mysql request failed") {
+        error('Der Artikel konnte nicht gespeichert werden, da die gesendeten Daten ein falsches Format haben ("Mysql request failed"). Frage einen Admin oder versuche es später erneut.');
+      } else if (data.request == "failed") {
+        error("Der Artikel konnte nicht gespeichert werden (" + data.error + "). Überprüfe deine Internetverbindung und probiere es später erneut.");
       }
     },
     error: function(jqXHR, textStatus, errorThrown) {
       window.saved = false;
       saveState('unsaved');
       error("Der Artikel konnte nicht gespeichert werden (" + textStatus + "). Überprüfe deine Internetverbindung und probiere es später erneut.");
+    }
+  });
+}
+
+function publishArticle(saveData) {
+  // Send data
+  $.ajax({
+    type: 'POST',
+    url: '/framework/publishArticle.php',
+    dataType: 'json',
+    data: 'articleUUID=' + encodeURI($('.main-title').attr('data-UUID')) + '&data=' + encodeURI(JSON.stringify(saveData)),
+    timeout: 30000,
+    success: function(data) {
+      if (data.request == "failed" && data.error == "Session expired") {
+        error("Der Artikel konnte nicht veröffentlicht werden, da du im Hintergrund abgemeldet wurdest. Öffne einen neuen Tab und logge dich ein und versuche dann nochmal zu speichern");
+      } else if (data.request == "failed" && data.error == "No Permission") {
+        error("Der Artikel konnte nicht veröffentlicht werden, da du keine Rechte dafür hast. Frage den Besitzer oder versuche es später erneut.");
+      }
+    },
+    error: function(jqXHR, textStatus, errorThrown) {
+      error("Der Artikel konnte nicht veröffetnlicht werden (" + textStatus + "). Überprüfe deine Internetverbindung und probiere es später erneut.");
     }
   });
 }

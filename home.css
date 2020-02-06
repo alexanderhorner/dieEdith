@@ -48,7 +48,6 @@
   border-radius: 8px;
   background-color: var(--foreground);
   box-shadow: 0 1px 8px 0 hsla(0, 0%, 0%, 0.1);
-  cursor: pointer;
 }
 
 html.dark .card {
@@ -63,12 +62,11 @@ html.dark .card {
   }
 }
 
-.card__text a {
-  z-index: 9000
+.card--article {
+  cursor: pointer;
 }
 
-/* Card background */
-.card::before {
+/* .card::before {
   z-index: 2300;
   position: absolute;
   top: -30px;
@@ -87,10 +85,11 @@ html.dark .card {
 .card:hover::before {
   transform: scale(1);
   opacity: 1;
-}
+} */
 
 /* .card__info */
 .card__info {
+  cursor: pointer;
   display: flex;
   z-index: 1500;
   position: absolute;

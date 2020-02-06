@@ -13,8 +13,8 @@
       </button>
       <div class="header__profile-menu">
         <ul>
-          <li><a href="/profil/<?php echo $_SESSION['username'] ?>#beitraege">Dein Profil</a></li>
-          <li><a href="/profil/<?php echo $_SESSION['username'] ?>#artikel">Deine Artikel</a></li>
+          <li><a href="/profil/<?php echo $_SESSION['username'] ?>#beitraege">Mein Profil</a></li>
+          <li><a href="/profil/<?php echo $_SESSION['username'] ?>#artikel">Meine Artikel</a></li>
           <li><a href="/profil/<?php echo $_SESSION['username'] ?>#entwuerfe">Entwürfe</a></li>
         </ul>
       </div>
@@ -64,12 +64,12 @@
       </a>
     </li>
 
-    <li class="side-menu__list__li">
-      <a href="/artikel/">
+    <!-- <li class="side-menu__list__li">
+      <a href="/profil/">
         <i class="material-icons">notes</i>
         <span class="side-menu__list__li__text">Artikel</span>
       </a>
-    </li>
+    </li> -->
 
     <?php if (isset($_SESSION['userUUID'])) : ?>
     <li class="side-menu__list__li">

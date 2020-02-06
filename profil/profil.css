@@ -1,7 +1,7 @@
 .wrapper {
   width: calc(100% - 20px);
   max-width: 700px;
-  margin: 70px auto 60px auto;
+  margin: 70px auto 0 auto;
 }
 
 html.dark .wrapper {
@@ -95,18 +95,153 @@ html.dark .profile-head__profilepicture {
   }
 }
 
-.selection {
+.background--grayish {
+  opacity: 0;
+  pointer-events: none;
+  z-index: 13000;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: hsla(0, 0%, 0%, 0.5);
+  transition: opacity 0.2s, background 0.2s;
+}
+
+html.prompt--new-article--shown .background--grayish {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.prompt--new-article {
+  opacity: 0;
+  pointer-events: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 14000;
+  background-color: var(--foreground);
+  box-shadow: 0 1px 12px 0 hsla(0, 0%, 0%, 0.1);
+  padding: 20px;
+  border-radius: 8px;
+  width: calc(100% - 20px);
+  max-width: 400px;
+  transition: opacity 0.2s, background 0.2s;
+}
+
+html.prompt--new-article--shown .prompt--new-article {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.prompt--new-article__close {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  cursor: pointer;
+}
+
+.prompt--new-article h2 {
+  margin: 0;
+  margin-bottom: 20px;
+}
+
+.prompt--new-article__form {
+  font-size: 18px;
+  width: 100%;
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+.prompt--new-article__form__input {
+  width: 100%;
+  margin: 0;
+  margin-left: 10px;
+  overflow: hidden;
+  outline: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  resize: none;
+  margin-right: 10px;
+  padding: 6px 6px;
+  font-size: inherit;
+  border: 1px solid hsla(0, 0%, 50%, 0.3);
+  border-radius: 4px;
+  background-color: var(--foreground);
+  box-shadow: inset 0 1px 4px 0 hsla(0, 0%, 0%, 0.1);
+  color: inherit;
+  font-family: inherit;
+}
+
+html.dark .prompt--new-article__form__input {
+  box-shadow: inset 0 1px 4px 0 hsla(0, 0%, 0%, 0.5);
+}
+
+.prompt--new-article__form__submit {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  display: block;
+  width: 160px;
+  height: 35px;
+  margin: 0;
+  border: none;
+  border-radius: 18px;
+  background-color: hsl(211, 100%, 50%);
+  color: #FFF;
+  font-size: 17px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 150ms ease-in-out, transform 150ms ease;
+}
+
+.prompt--new-article__form__submit:hover,
+.prompt--new-article__form__submit:focus {
+  background: hsl(211, 100%, 40%);
+}
+
+.prompt--new-article__form__submit:active {
+  transform: scale(0.98);
+}
+
+.prompt--new-article__form__submit:disabled {
+  transform: scale(1);
+  cursor: progress;
+  opacity: 0.8;
+}
+
+
+.selection__wrapper {
+  width: 100vw;
+  overflow-x: scroll;
+  -ms-overflow-style: none;
+  transform: translateX(-10px);
+  max-width: 720px;
+}
+
+.selection__wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.selection {
+  display: inline-flex;
   flex-wrap: nowrap;
   justify-content: flex-start;
   align-items: center;
-  width: 100%;
-  margin: 12px 0;
+  margin: 12px 10px;
   border: none;
   font-size: 16px;
+  min-width: 400px;
 }
 
-.selection button {
+.selection__button {
+  min-width: 120px;
+  cursor: pointer;
+  font-family: 'Roboto', sans-serif;
   box-sizing: content-box;
   height: 38px;
   color: inherit;
@@ -120,26 +255,43 @@ html.dark .profile-head__profilepicture {
   border-radius: 20px;
   background-color: var(--foreground);
   box-shadow: 0 1px 8px 0 hsla(0, 0%, 0%, 0.1);
-  transition: background 0.2s, opacity 0.15s;
+  transition: background 0.2s, box-shadow 0.15s, opacity 0.15s, transform 0.15s;
 }
 
-html.dark .selection button {
+.selection__button:last-of-type {
+  margin-right: 0;
+}
+
+.selection__button--selection {}
+
+html.dark .selection__button--selection {
   padding: 0 0 1px;
   border: 1px solid hsla(0, 0%, 50%, 0.2);
 }
 
-.selection button:hover {
-  opacity: 0.6;
+.selection__button:hover {
+  transform: scale(1.015);
+  box-shadow: 0 1px 12px 0 hsla(0, 0%, 0%, 0.1);
 }
 
-.selection button:focus {
-  transform: scale(0.98);
+.selection__button:focus {
   color: inherit;
 }
 
+.selection__button--selection--active {
+  opacity: 0.6;
+  box-shadow: 0 1px 4px 0 hsla(0, 0%, 0%, 0.1);
+  transform: scale(0.985) !important;
+  color: inherit;
+}
+
+.selection__button--new-article {
+  background-color: var(--teslablue);
+  color: #FFF;
+}
 
 .cards {
-  overflow: visible;
+  padding-bottom: 60px;
 }
 
 .card {
@@ -172,21 +324,35 @@ html.dark .card {
   height: 192px;
 }
 
-.card--new-post {
+.card--new-post {}
+
+.card--new-post form {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
 }
 
 .card--new-post__textarea {
+  overflow: hidden;
+  outline: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
   resize: none;
   margin: 0;
+  margin-right: 10px;
   padding: 6px 6px;
   font-size: inherit;
   border: 1px solid hsla(0, 0%, 50%, 0.3);
   border-radius: 4px;
-  width: 100%;
   background-color: var(--foreground);
   box-shadow: inset 0 1px 4px 0 hsla(0, 0%, 0%, 0.1);
   color: inherit;
   font-family: inherit;
+}
+
+html.dark .card--new-post__textarea {
+  box-shadow: inset 0 1px 4px 0 hsla(0, 0%, 0%, 0.5);
 }
 
 .card--new-post__textarea:focus {
@@ -198,8 +364,7 @@ html.dark .card {
   -moz-appearance: none;
   display: block;
   width: 90px;
-  height: 30px;
-  margin-top: 8px;
+  height: 33px;
   border: none;
   border-radius: 25px;
   background-color: var(--teslablue);
@@ -247,7 +412,6 @@ html.dark .card__time {
   border: 1px solid hsla(0, 0%, 50%, 0.2);
   box-shadow: 0 -1px 4px 0 hsla(0, 0%, 0%, 0.5)
 }
-
 
 .article__info {
   margin-right: 10px;

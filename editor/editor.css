@@ -4,6 +4,7 @@
 
 .article {
   margin: 34px -30px auto;
+  background-color: hsla(0, 0%, 50%, 0.05);
 }
 
 @media only screen and (max-width: 850px) {
@@ -12,48 +13,43 @@
   }
 }
 
+
+
 #editorjs * {
   box-sizing: content-box;
 }
 
-.ce-inline-toolbar {
-  color: black;
+.editor-information {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.ce-paragraph {
-  line-height: 33px;
-  padding: 9px 0 9px;
+.editor-information > * {
+  overflow: hidden;
 }
 
-.ce-block__content, .ce-toolbar__content {
-  max-width: 680px;
-}
-
-.ce-header {
-  margin: 0.6em 0 -0.3em;
-  padding: 0.3em 0;
-}
-
-.cdx-notifies {
-  color: black;
-  box-sizing: content-box;
-}
-
-.cdx-notifies * {
-  color: black;
-  box-sizing: content-box;
-}
-
-.codex-editor--narrow .codex-editor__redactor {
-  margin-right: auto !important;
-}
-
-.codex-editor--narrow .ce-block {
-  margin: auto !important;
-  padding: auto !important;
+.publish-btn {
+  vertical-align: middle;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  display: inline-block;
+  width: 147px;
+  flex: none;
+  height: 35px;
+  border: none;
+  border-radius: 25px;
+  background-color: var(--teslablue);
+  color: #FFF;
+  font-size: 17px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 150ms ease-in-out, transform 150ms ease;
 }
 
 .save-state {
+  width: 227px;
   position: relative;
   display: inline-block;
   height: 44px;
@@ -75,6 +71,7 @@
 }
 
 .save-state .save-state__text {
+  white-space: nowrap;
   -moz-user-select: none;
   -khtml-user-select: none;
   -webkit-user-select: none;
@@ -100,6 +97,38 @@
   display: none;
 }
 
+.publish-btn:hover,
+.publish-btn:focus {
+  background: hsl(211, 100%, 40%);
+}
+
+.publish-btn:active {
+  transform: scale(0.98);
+}
+
+
+.ce-inline-toolbar {
+  color: black;
+}
+
+.ce-paragraph {
+  line-height: 1.58;
+  padding: 9px 0 21px;
+}
+
+.ce-block__content, .ce-toolbar__content {
+  max-width: 680px;
+}
+
+.cdx-notifies {
+  color: black;
+  box-sizing: content-box;
+}
+
+.cdx-notifies * {
+  color: black;
+  box-sizing: content-box;
+}
 
 @keyframes ldio-7m1gexeqndq {
   0% {

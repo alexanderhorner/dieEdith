@@ -349,13 +349,13 @@ html.dark .header__logo--big--dark {
 .header__profile-menu {
   pointer-events: none;
   opacity: 0;
-  font-size: 16px;
+  font-size: 18px;
   box-shadow: 0 1px 12px 0 rgba(0, 0, 0, 0.1);
   position: absolute;
-  width: 106px;
+  width: 121px;
   top: 48px;
   left: 50%;
-  transform: translateY(-50%) translateX(-50%) scale(0.5);
+  transform: translate(-50%, -60%) scale(0.4);
   z-index: -1;
   padding: 4px 8px;
   border-radius: 4px;
@@ -389,7 +389,7 @@ html.header__profile-menu--shown .header__profile-menu {
 }
 
 .header__profile-menu li {
-  line-height: 30px;
+  line-height: 35px;
 }
 
 

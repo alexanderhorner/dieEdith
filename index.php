@@ -8,6 +8,8 @@
 
   <script src="masonry.js"></script>
   <script src="https://unpkg.com/imagesloaded@4.1.4/imagesloaded.pkgd.min.js"></script>
+  <script src="/framework/timeago.js"></script>
+
 
   <link rel="stylesheet" type="text/css" href="home.css">
   <script src="home.js"></script>
@@ -18,9 +20,8 @@
 
   <div class="wrapper">
     <div class="grid">
-
     </div>
-    
+
     <div class="loading">
       <div class="loading__center">
 
