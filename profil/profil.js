@@ -11,7 +11,7 @@ function hashSort() {
     $('.selection__button--selection').removeClass('selection__button--selection--active');
     $('.selection__button--selection--articles').addClass('selection__button--selection--active');
     $grid.isotope({
-      filter: '.card--article, .card--null--article'
+      filter: '.card--article--released, .card--null--article'
     })
 
   } else if (hash == 'entwuerfe') {
@@ -27,9 +27,12 @@ function hashSort() {
     $('.selection__button--selection').removeClass('selection__button--selection--active');
     $('.selection__button--selection--posts').addClass('selection__button--selection--active');
     $grid.isotope({
-      filter: '.card--article, .card--post, .card--null--posts, .card--new-post'
+      filter: '.card--article--released, .card--post, .card--null--posts, .card--new-post'
     })
+  }
 
+  if (hash == 'neuerArtikel') {
+    $('html').addClass('prompt--new-article--shown')
   }
 }
 
@@ -147,6 +150,8 @@ $(document).ready(function() {
   // Submit post
   $('.card--new-post form').submit(function(event) {
     event.preventDefault();
+
+    $('.card--null--posts').remove();
 
     // Disable Button
     $(".card--new-post__submit").prop("disabled", true);

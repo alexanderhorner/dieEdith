@@ -6,8 +6,8 @@ $response['request'] = 'failed';
 $response['error'] = 'unknown';
 
 session_start();
-if (isset($_SESSION['userUUID'])) {
-    $userUUID = $_SESSION['userUUID'];
+if (isset($_SESSION['UID'])) {
+    $UID = $_SESSION['UID'];
 } else {
     $response['request'] = 'success';
     $response['error'] = "User isn't logged in";
@@ -30,10 +30,10 @@ if ($pdo === false) {
     $color_scheme = $_POST['color_scheme'];
 
     // prepare statement
-    $statement = $pdo->prepare("UPDATE user SET color_scheme = ? WHERE UUID = ?");
+    $statement = $pdo->prepare("UPDATE user SET color_scheme = ? WHERE UID = ?");
 
     // execute statement and put response into array
-    $statement->execute(array($color_scheme, $userUUID));
+    $statement->execute(array($color_scheme, $UID));
 
     // response
     if ($statement->rowCount() == 1) {
@@ -49,10 +49,10 @@ if ($pdo === false) {
     $color_scheme = $_POST['description'];
 
     // prepare statement
-    $statement = $pdo->prepare("UPDATE user SET description = ? WHERE UUID = ?");
+    $statement = $pdo->prepare("UPDATE user SET description = ? WHERE UID = ?");
 
     // execute statement and put response into array
-    $statement->execute(array($color_scheme, $userUUID));
+    $statement->execute(array($color_scheme, $UID));
 
     // response
     if ($statement->rowCount() == 1) {

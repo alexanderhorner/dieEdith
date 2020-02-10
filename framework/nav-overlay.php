@@ -6,16 +6,17 @@
   <ul class="header__nav-items">
 
     <?php
-    if (isset($_SESSION['userUUID'])) : ?>
+    if (isset($_SESSION['UID'])) : ?>
     <li>
       <button onclick="switchHeaderProfileMenu()" class="header__nav-items__button header__nav-items__profile-btn" type="button">
-        <img class="header__nav-items__button__picture" src="/user/<?php echo $_SESSION['userUUID'] ?>/pb-small.jpg" alt="Profilbild">
+        <img class="header__nav-items__button__picture" src="/user/<?php echo $_SESSION['UID'] ?>/pb-small.jpg" alt="Profilbild">
       </button>
       <div class="header__profile-menu">
         <ul>
           <li><a href="/profil/<?php echo $_SESSION['username'] ?>#beitraege">Mein Profil</a></li>
           <li><a href="/profil/<?php echo $_SESSION['username'] ?>#artikel">Meine Artikel</a></li>
           <li><a href="/profil/<?php echo $_SESSION['username'] ?>#entwuerfe">Entwürfe</a></li>
+          <li><a href="/logout">Abmelden</a></li>
         </ul>
       </div>
     </li>
@@ -71,7 +72,7 @@
       </a>
     </li> -->
 
-    <?php if (isset($_SESSION['userUUID'])) : ?>
+    <?php if (isset($_SESSION['UID'])) : ?>
     <li class="side-menu__list__li">
       <a href="/profil/<?php echo $_SESSION['username'] ?>">
         <i class="material-icons">person</i>
@@ -80,14 +81,14 @@
     </li>
     <?php endif; ?>
 
-    <?php if (!isset($_SESSION['userUUID'])) : ?>
+    <?php if (!isset($_SESSION['UID'])) : ?>
     <li onclick="showLogin()" class="side-menu__list__li">
       <i class="material-icons">input</i>
       <span class="side-menu__list__li__text">Anmelden</span>
     </li>
     <?php endif; ?>
 
-    <?php if (isset($_SESSION['userUUID'])) : ?>
+    <?php if (isset($_SESSION['UID'])) : ?>
     <li class="side-menu__list__li">
       <a href="/logout/">
         <i class="material-icons">input</i>

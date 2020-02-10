@@ -70,6 +70,7 @@ html.dark .wrapper {
   flex-direction: column;
   justify-content: center;
   height: 44px;
+  margin-top: 0px;
   margin-right: 20px;
   margin-bottom: 8px;
   margin-left: 30px;
@@ -124,7 +125,7 @@ html.editMode .article {
 }
 
 .article {
-  margin-top: 34px;
+  margin-top: 20px;
   font-family: 'Lora', serif;
 }
 
@@ -136,25 +137,48 @@ html.editMode .article {
   font-family: 'Roboto', sans-serif;
   font-size: 2em;
   font-weight: normal;
-  line-height: 48px;
+  line-height: 1.1;
+  margin: 0 !important;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  margin: 0 0 15px;
+h1, h2, h3, h4 {
   font-family: 'Roboto', sans-serif;
+  padding: 0.4em 0 !important;
+  margin: 0.55em 0 -0.85em !important;
 }
 
 h1 {
   font-size: 2em;
 }
 
-h3 {
-  font-size: 1.25em;
+h2 {
+  font-size: 1.5em;
 }
 
-.article p {
+h3 {
+  font-size: 1.2em;
+}
+
+h4 {
+  font-size: 1em;
+}
+
+.article ol, .article ul {
+  padding: 0.4em 0;
+  padding-left: 40px;
+  font-family: inherit;
+  margin-bottom: 1.1em;
+  /* margin-top: -1.1em; */
+}
+
+.article li {
+  padding: 5.5px 0 5.5px 3px;
+}
+
+.article p, .ce-paragraph {
   display: block;
-  margin: 0 0 40px;
+  padding: .4em 0;
+  margin: 0.55em 0 0.55em;
 }
 
 @media only screen and (max-width: 730px) {
@@ -201,20 +225,8 @@ html.dark .article figcaption {
   }
 }
 
-.article ul, .article ol {
-  margin: 0 0 40px;
-  font-family: inherit;
-}
-
-blockquote {
-  box-sizing: content-box;
-  width: 100%;
-  margin-left: -25px;
-  padding: 0 0 0 22px;
-  border-left: 3px solid black;
-  font-style: oblique;
-}
-
-html.dark blockquote {
-  border-left: 3px solid white;
+mark {
+  background-color: rgba(245,235,111,0.29);
+  padding: 3px 0;
+  color: inherit;
 }

@@ -19,6 +19,18 @@
   <?php include 'framework/nav-overlay.php'?>
 
   <div class="wrapper">
+    <div class="quickstart">
+      <h2 class="titles">Schnellstart</h2>
+      <div class="quickstart__options__wrapper">
+        <div class="quickstart__options">
+          <div class="quickstart__options__option" onclick="linkto('/profil/<?php echo $_SESSION['username'] ?>">Neuer Artikel</div>
+          <div class="quickstart__options__option" onclick="linkto('/profil/<?php echo $_SESSION['username'] ?>#entwuerfe')">Deine Entwürfe</div>
+          <div class="quickstart__options__option" onclick="linkto('/profil/<?php echo $_SESSION['username'] ?>#artikel')">Alle Artikel</div>
+          <div class="quickstart__options__option" onclick="linkto('/profil/<?php echo $_SESSION['username'] ?>#beitraege')">Profil</div>
+        </div>
+      </div> 
+      <h2 class="titles">Neuste Beiträge</h2>
+    </div>
     <div class="grid">
     </div>
 

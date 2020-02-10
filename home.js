@@ -105,7 +105,7 @@ function fetchPage(page) {
             window.nextPage = loadpage + 1;
 
             // Render time
-            var selector = '.R' + data.requestIdentifier;
+            var selector = '.' + data.requestIdentifier;
             var nodes = document.querySelectorAll(selector);
             timeago.render(nodes, 'de');
 

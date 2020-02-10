@@ -93,9 +93,9 @@ $(document).ready(function() {
 
   // log Support
   if (supportsPreferedColorScheme()) {
-    console.log('Supports Media Query prefered-color-scheme.');
+    console.info('Supports Media Query prefered-color-scheme.');
   } else {
-    console.log('Doesnt support Media Query prefered-color-scheme. Using sunrise/sunset calculations.')
+    console.info('Doesnt support Media Query prefered-color-scheme. Using sunrise/sunset calculations.')
   }
 
 

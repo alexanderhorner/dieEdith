@@ -45,8 +45,10 @@ html.dark .profile-head {
   max-height: 114px;
   margin-top: 20px;
   margin-right: 200px;
-  overflow-y: hidden;
-  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical; 
 }
 
 .profile-head__profilepicture {
@@ -86,6 +88,10 @@ html.dark .profile-head__profilepicture {
   }
 
   .profile-head__description {
+    overflow: unset;
+    display: unset;
+    -webkit-line-clamp: unset;
+    -webkit-box-orient: unset; 
     margin-top: 20px;
     margin-right: initial;
   }
@@ -125,7 +131,7 @@ html.prompt--new-article--shown .background--grayish {
   box-shadow: 0 1px 12px 0 hsla(0, 0%, 0%, 0.1);
   padding: 20px;
   border-radius: 8px;
-  width: calc(100% - 20px);
+  width: calc(100% - 10px);
   max-width: 400px;
   transition: opacity 0.2s, background 0.2s;
 }
@@ -235,7 +241,6 @@ html.dark .prompt--new-article__form__input {
   margin: 12px 10px;
   border: none;
   font-size: 16px;
-  min-width: 400px;
 }
 
 .selection__button {
@@ -279,8 +284,10 @@ html.dark .selection__button--selection {
 }
 
 .selection__button--selection--active {
+  cursor: default !important;
+  pointer-events: none;
   opacity: 0.6;
-  box-shadow: 0 1px 4px 0 hsla(0, 0%, 0%, 0.1);
+  box-shadow: 0 1px 4px 0 hsla(0, 0%, 0%, 0.1) !important;
   transform: scale(0.985) !important;
   color: inherit;
 }
@@ -295,6 +302,7 @@ html.dark .selection__button--selection {
 }
 
 .card {
+  outline: none;
   width: 100%;
   position: relative;
   margin-bottom: 12px;
@@ -321,10 +329,48 @@ html.dark .card {
 .card--article {
   display: flex;
   align-items: flex-start;
-  height: 192px;
+  height: 187px;
 }
 
-.card--new-post {}
+.card--article__headline {
+  margin-top: 0;
+  margin-bottom: 10px;
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card--article__picture {
+  border-radius: 4px;
+  height: 100%;
+  margin-left: auto;
+}
+
+.card--article__information {
+  margin-right: 10px;
+  overflow: hidden;
+  max-width: 100%;
+}
+
+.card--article__text {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  -webkit-box-orient: vertical; 
+}
+
+@media only screen and (max-width: 400px) {
+  .card--article {
+    flex-direction: column-reverse;
+    height: auto;
+  }
+
+  .card--article__picture {
+    margin-bottom: 15px;
+    width: 100%;
+    height: auto;
+  }
+}
 
 .card--new-post form {
   display: flex;
@@ -400,7 +446,7 @@ html.dark .card--new-post__textarea {
   transform: translateY(50%);
   border-radius: 12px;
   background-color: var(--foreground);
-  box-shadow: 0 -1px 4px 0 hsla(0, 0%, 0%, 0.1);
+  box-shadow: 0 1px 4px 0 hsla(0, 0%, 0%, 0.1);
   color: hsla(0, 0%, 50%, 1);
   font-size: 12px;
 }
@@ -410,7 +456,7 @@ html.dark .card__time {
   bottom: 4px;
   padding: 3px 5px;
   border: 1px solid hsla(0, 0%, 50%, 0.2);
-  box-shadow: 0 -1px 4px 0 hsla(0, 0%, 0%, 0.5)
+  box-shadow: 0 1px 4px 0 hsla(0, 0%, 0%, 0.5)
 }
 
 .article__info {

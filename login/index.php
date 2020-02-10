@@ -1,6 +1,6 @@
 <?php include '../framework/document-start.php';
 
-if (isset($_SESSION['userUUID'])) {
+if (isset($_SESSION['UID'])) {
   header("Location: /");
   die();
 }

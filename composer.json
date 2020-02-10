@@ -1,0 +1,12 @@
+{
+    "name": "alexanderhorner/die-edith",
+    "authors": [
+        {
+            "name": "Alexander Horner",
+            "email": "mail@alexanderhorner.com"
+        }
+    ],
+    "require": {
+        "codex-team/editor.js": "dev-master"
+    }
+}

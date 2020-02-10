@@ -2,19 +2,6 @@
   outline: 0 solid transparent;
 }
 
-.article {
-  margin: 34px -30px auto;
-  background-color: hsla(0, 0%, 50%, 0.05);
-}
-
-@media only screen and (max-width: 850px) {
-  .article {
-    margin: 34px auto auto;
-  }
-}
-
-
-
 #editorjs * {
   box-sizing: content-box;
 }
@@ -113,8 +100,11 @@
 
 .ce-paragraph {
   line-height: 1.58;
-  padding: 9px 0 21px;
 }
+
+.ce-block {
+}
+
 
 .ce-block__content, .ce-toolbar__content {
   max-width: 680px;

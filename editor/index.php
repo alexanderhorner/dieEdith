@@ -4,8 +4,8 @@ date_default_timezone_set('Europe/Berlin');
 include '../framework/document-start.php';
 
 
-if (isset($_SESSION['userUUID'])) {
-    $userUUID = $_SESSION['userUUID'];
+if (isset($_SESSION['UID'])) {
+    $UID = $_SESSION['UID'];
     $firstname = $_SESSION['firstname'];
     $lastname = $_SESSION['lastname'];
 } else {
@@ -24,7 +24,7 @@ if (isset($_GET['article'])) {
   include '../framework/mysqlcredentials.php';
 
   // Check if Article exists
-  $stmntSearch = $pdo->prepare("SELECT UUID FROM articles WHERE title = ?");
+  $stmntSearch = $pdo->prepare("SELECT AID FROM articles WHERE title = ?");
 
   // execute statement and put response into array
   $stmntSearch->execute(array($article));
@@ -35,19 +35,19 @@ if (isset($_GET['article'])) {
   //check if article is already in database
   if ($stmntSearch->rowCount() > 0) {
 
-    $articleUUID = $row['UUID'];
+    $AID = $row['AID'];
 
     // Download Data
     // Check if Article exists
-    $stmntDownload = $pdo->prepare("SELECT jsondata, owner FROM articles WHERE UUID = ?");
+    $stmntDownload = $pdo->prepare("SELECT jsondata, owner FROM articles WHERE AID = ?");
 
     // execute statement and put response into array
-    $stmntDownload->execute(array($articleUUID));
+    $stmntDownload->execute(array($AID));
 
     // fetch
     $row = $stmntDownload->fetch();
     $owner = $row['owner'];
-    if ($owner == $userUUID) {
+    if ($owner == $UID) {
       $articleData = $row['jsondata'];
     } else {
       echo 'Du hast keine Rechte zu diesem Artikel! Frage den Besitzer oder einen Admin.';
@@ -76,18 +76,18 @@ if (isset($_GET['article'])) {
   <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700" rel="stylesheet">
 
   <!-- Editor.js -->
-  <script src="/framework/editorjsplugins/editor.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
   <!-- Editor.js Plugins -->
   <!-- Header -->
-  <script src="/framework/editorjsplugins/editorjsHeader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
   <!-- List -->
-  <script src="/framework/editorjsplugins/editorjslist.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@editorjs/list@latest"></script>
   <!-- picture -->
-  <script src="/framework/editorjsplugins/editorjssimpleimages.js"></script>
-  <!-- inline-code -->
-  <script src="/framework/editorjsplugins/editorjsinline-code.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@editorjs/image@latest"></script>
   <!-- marker -->
-  <script src="/framework/editorjsplugins/editorjsmarker.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@editorjs/marker@latest"></script>
+  <!-- link -->
+  <script src="https://cdn.jsdelivr.net/npm/@editorjs/link@latest"></script>
 
   <link rel="stylesheet" type="text/css" href="/artikel/artikel.css">
   <link rel="stylesheet" type="text/css" href="editor.css">
@@ -132,18 +132,18 @@ if (isset($_GET['article'])) {
 
 
       <!-- Publiush -->
-      <button type="button" class="publish-btn">Veröffentlichen</button>
+      <button class="publish-btn" onclick="publishArticle()">Veröffentlichen</button>
 
     </div>
 
-    <h1 data-UUID="<?php echo $articleUUID ?>" class="main-title">
+    <h1 data-AID="<?php echo $AID ?>" class="main-title">
       <?php echo htmlspecialchars($articleName, ENT_QUOTES, 'UTF-8'); ?>
     </h1>
 
 
 
     <div class="article__info">
-      <img class="article__info__picture" src="/user/<?php echo $userUUID ?>/pb-small.jpg" alt="profile picture">
+      <img class="article__info__picture" src="/user/<?php echo $UID ?>/pb-small.jpg" alt="profile picture">
       <div class="article__info__textbox">
         <div class="article__info__textbox__name">
           <?php echo $firstname." ".$lastname; ?>
@@ -171,19 +171,26 @@ if (isset($_GET['article'])) {
         header: {
           class: Header,
           config: {
-            placeholder: 'Überschrift hinzufügen...'
+            placeholder: 'Überschrift hinzufügen...',
+            levels: [2, 3, 4],
+            defaultLevel: 3
           }
         },
-        image: SimpleImage,
+        image: {
+          class: ImageTool,
+          config: {
+            endpoints: {
+              byFile: 'http://localhost:8008/uploadFile', // Your backend file uploader endpoint
+              byUrl: 'http://localhost:8008/fetchUrl', // Your endpoint that provides uploading by Url
+            }
+          }
+        },
         list: List,
         Marker: {
           class: Marker,
           shortcut: 'CMD+SHIFT+M',
         },
-        inlineCode: {
-          class: InlineCode,
-          shortcut: 'CMD+SHIFT+C',
-        }
+        
       }
     });
     </script>

@@ -1,17 +1,8 @@
 <?php
-header('Content-Type: application/json');
 
-function generateRandomString($length = 30) {
-    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    $charactersLength = strlen($characters);
-    $randomString = '';
-    for ($i = 0; $i < $length; $i++) {
-        $randomString .= $characters[rand(0, $charactersLength - 1)];
-    }
-    return $randomString;
-}
+require_once __DIR__ . '/framework/randomID.php';
 
-$randomRequestIdentifier = generateRandomString();
+$randomRequestIdentifier = 'R'.random_str(10);
 
 // Set up all variables
 $response = array();
@@ -46,7 +37,7 @@ if ($pdo === false) {
     unset($response['error']);
 
     // prepare statement
-    $statement = $pdo->prepare("SELECT UUID, owner, posted_on, type, content FROM posts ORDER BY posted_on DESC LIMIT ?, ?");
+    $statement = $pdo->prepare("SELECT PID, owner, postedon, type, content FROM posts ORDER BY postedon DESC LIMIT ?, ?");
 
     // execute statement
     $statement->bindParam(1, $startAtPost, PDO::PARAM_INT);
@@ -57,9 +48,9 @@ if ($pdo === false) {
     while ($row = $statement->fetch()) {
 
         // put data in variable
-        $postUUID = $row['UUID'];
+        $PID = $row['PID'];
         $owner = $row['owner'];
-        $unixTimeStamp = strtotime($row['posted_on']);
+        $unixTimeStamp = strtotime($row['postedon']);
         $unixTimeStampMs = $unixTimeStamp * 1000 - 3600000;
         $type = $row['type'];
         $content = $row['content'];
@@ -69,7 +60,7 @@ if ($pdo === false) {
 
 
         // prepare statement
-        $statement1 = $pdo->prepare("SELECT username, firstname, lastname FROM user WHERE UUID = ?");
+        $statement1 = $pdo->prepare("SELECT username, firstname, lastname FROM user WHERE UID = ?");
 
         // execute statement
         $statement1->execute(array($owner));
@@ -93,30 +84,34 @@ if ($pdo === false) {
 
           // generate response
             $responseString .= <<<HTML
-<div data-postedOn="$unixTimeStamp" onclick="linkto('Artikel/{$content_decoded['name']}')" class="card card--article">
-  <div class="card__info" onclick="linkto('/profil/$username')">
-    <img class="card__info__picture" src="user/$owner/pb-small.jpg" alt="profile picture">
-    <div class="card__info__textbox">
-      <div class="card__info__textbox__name">$fullname</div>
-      <div data-timeago="$unixTimeStampMs" class="R$randomRequestIdentifier card__info__textbox__time"></div>
-    </div>
-  </div>
-  <img class="card__picture" src="artikel/{$content_decoded['name']}/pic1.jpg" alt="">
-  <h3>{$content_decoded['headline']}</h3>
-  <span class="card__text">{$content_decoded['text']}... <a href="Artikel/{$content_decoded['name']}">Weiter lesen</a></span>
-</div>\n
-HTML;
+            <div data-PID="$PID" data-postedOn="$unixTimeStamp" onclick="linkto('Artikel/{$content_decoded['name']}')" class="card card--article">
+              <div class="card__info" onclick="linkto('/profil/$username')">
+                <img class="card__info__picture" src="user/$owner/pb-small.jpg" alt="profile picture">
+                <div class="card__info__textbox">
+                  <div class="card__info__textbox__name">$fullname</div>
+                  <div data-timeago="$unixTimeStampMs" class="$randomRequestIdentifier card__info__textbox__time"></div>
+                </div>
+              </div>
+            HTML;
+            if (isset($content_decoded['pic'])) {
+              $responseString .=  '<img class="card__picture" src="artikel/{$content_decoded["name"]}/pic1.jpg" alt="">';
+            }
+            $responseString .= <<<HTML
+              <h3>{$content_decoded['headline']}</h3>
+              <span class="card__text">{$content_decoded['text-medium']}... <a href="Artikel/{$content_decoded['name']}">Weiter lesen</a></span>
+            </div>\n
+            HTML;
         } elseif ($type == "post") {
             $responseString .= <<<HTML
-<div data-postedOn="$unixTimeStamp" class="card card--post">
-  <div class="card__info" onclick="linkto('/profil/$username')">
-    <img class="card__info__picture" src="user/$owner/pb-small.jpg" alt="profile picture">
-    <div class="card__info__textbox">
-      <div class="card__info__textbox__name">$fullname</div>
-      <div data-timeago="$unixTimeStampMs" class="R$randomRequestIdentifier card__info__textbox__time"></div>
-    </div>
-  </div>\n
-HTML;
+            <div data-PID="$PID" data-postedOn="$unixTimeStamp" class="card card--post">
+              <div class="card__info" onclick="linkto('/profil/$username')">
+                <img class="card__info__picture" src="user/$owner/pb-small.jpg" alt="profile picture">
+                <div class="card__info__textbox">
+                  <div class="card__info__textbox__name">$fullname</div>
+                  <div data-timeago="$unixTimeStampMs" class="$randomRequestIdentifier card__info__textbox__time"></div>
+                </div>
+              </div>\n
+            HTML;
             if (isset($content_decoded['text'])) {
                 $responseString .= '  <span class="card__text">'.$content_decoded['text'].'</span>'."\n";
             }

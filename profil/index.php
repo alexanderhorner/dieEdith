@@ -8,7 +8,7 @@ if (isset($_GET['user'])) {
   include '../framework/mysqlcredentials.php';
 
   // Check if Article exists
-  $stmntSearch = $pdo->prepare("SELECT UUID, firstname, lastname, role, description FROM user WHERE username = ?");
+  $stmntSearch = $pdo->prepare("SELECT `UID`, `firstname`, `lastname`, `role`, `description` FROM user WHERE username = ?");
 
   // execute statement and put response into array
   $stmntSearch->execute(array($username));
@@ -19,15 +19,15 @@ if (isset($_GET['user'])) {
   //check if user exists
   if ($stmntSearch->rowCount() > 0) {
     // Set up variables
-    $pageOwnerUUID = $row['UUID'];
+    $pageOwnerUID = $row['UID'];
     $firstname = $row['firstname'];
     $lastname = $row['lastname'];
     $fullname = $firstname.' '.$lastname;
     $role = $row['role'];
     $description = $row['description'];
 
-    if (isset($_SESSION['userUUID'])) {
-      if ($_SESSION['userUUID'] == $pageOwnerUUID) {
+    if (isset($_SESSION['UID'])) {
+      if ($_SESSION['UID'] == $pageOwnerUID) {
         $isOwnProfile = "true";
       } else {
         $isOwnProfile = "false";
@@ -39,7 +39,7 @@ if (isset($_GET['user'])) {
   } else {
     // Set up variables
     $isOwnProfile = "false";
-    $pageOwnerUUID = '00000000-0000-0000-000000000000';
+    $pageOwnerUID = 'U0000000000';
     $firstname = 'Unbekannter';
     $lastname = 'Nutzer';
     $fullname = $firstname.' '.$lastname;
@@ -50,7 +50,7 @@ if (isset($_GET['user'])) {
 } else {
   // Set up variables
   $isOwnProfile = "false";
-  $pageOwnerUUID = '00000000-0000-0000-000000000000';
+  $pageOwnerUID = 'U0000000000';
   $firstname = 'Unbekannter';
   $lastname = 'Nutzer';
   $fullname = $firstname.' '.$lastname;
@@ -78,8 +78,8 @@ if (isset($_GET['user'])) {
   <?php include '../framework/nav-overlay.php'?>
 
   <div class="wrapper">
-    <div data-pageOwnerUUID="<?php echo $pageOwnerUUID ?>" class="profile-head">
-      <img class="profile-head__profilepicture" src="/user/<?php echo $pageOwnerUUID ?>/pb-small.jpg" alt="Profilbild">
+    <div data-pageOwnerUID="<?php echo $pageOwnerUID ?>" class="profile-head">
+      <img class="profile-head__profilepicture" src="/user/<?php echo $pageOwnerUID ?>/pb-small.jpg" alt="Profilbild">
       <div class="profile-head__center">
         <div class="profile-head__name">
           <?php echo $fullname ?>
@@ -123,7 +123,7 @@ if (isset($_GET['user'])) {
     <section style="opacity: 0" class="cards">
       
       <?php if ($isOwnProfile == 'true') : ?>
-        <div tabindex="-1" data-postedOn="9999999999" class="card card--new-post">
+        <div tabindex="-1" data-postedOn="9999999997" class="card card--new-post">
           <form>
             <textarea rows="4" class="card--new-post__textarea" required placeholder="Was gibt's neues?" maxlength="280"></textarea>
             <input class="card--new-post__submit" type="submit" value="Posten">
@@ -133,17 +133,24 @@ if (isset($_GET['user'])) {
 
       <?php
 
+      $ammountofPosts = 0;
+      $ammountofArticles = 0;
+      $ammountofDrafts = 0;
+
       // Fetch all posts
-      $statement = $pdo->prepare("SELECT posted_on, type, content FROM posts WHERE owner = ?");
-      $statement->execute(array($pageOwnerUUID));
+      $stmntFetchPosts = $pdo->prepare("SELECT `PID`, `postedon`, `type`, `content` FROM posts WHERE owner = ?");
+      $stmntFetchPosts->execute(array($pageOwnerUID));
 
       // Print out all posts
-      while($row = $statement->fetch()) {
+      while($row = $stmntFetchPosts->fetch()) {
+        $type = $row['type']; 
+        $PID = $row['PID']; 
         $content_decoded = json_decode($row['content'], true);
-        $unixTimeStamp = strtotime($row['posted_on']);
+        $unixTimeStamp = strtotime($row['postedon']);
         $unixTimeStampMs = $unixTimeStamp * 1000 - 3600000;
 
-        if ($row['type'] == 'post') {
+        $ammountofPosts += 1;
+        if ($type == 'post') {
           echo <<<HTML
           <div data-postedOn="$unixTimeStamp" class="card card--post">
             <div class="post__text">
@@ -152,31 +159,66 @@ if (isset($_GET['user'])) {
             <div data-timeago="$unixTimeStampMs" class="card__time"></div>
           </div>
           HTML;
-        } else {
+
+        } else if ($type == 'article') {
+          $ammountofArticles += 1;
 
           echo <<<HTML
-          <div data-postedOn="$unixTimeStamp"  onclick="linkto('/Artikel/{$content_decoded['name']}')" class="card card--article">
-            <div class="article__info">
-              <h3 class="article__title">{$content_decoded['headline']}</h3>
-              <div class="article__preview">
-                <span>{$content_decoded['text']}</span> <a href="#">Mehr lesen</a>
-              </div>
+           <div data-PID="$PID" data-postedOn="$unixTimeStamp" onclick="linkto('/artikel/{$content_decoded['name']}')" class="card card--article card--article--released">
+            <div class="card--article__information">
+              <h3 class="card--article__headline">{$content_decoded['headline']}</h3>
+              <span class="card--article__text">{$content_decoded['text-long']}... <a href="/artikel/{$content_decoded['name']}">Weiter lesen</a></span>
             </div>
-            <img class="article__img" src="/Artikel/{$content_decoded['name']}/pic1.jpg" alt="">
-            <div data-timeago="$unixTimeStampMs" class="card__time"></div>
-          </div>
           HTML;
-        }
-      }
+          if (isset($content_decoded['pic'])) {
+            echo '<img class="card--article__picture" src="/artikel/Solardorf-HERRNRIED/pic1.jpg" alt="">'."\n";
+          }
+          echo "</div>\n";
 
+        } else {
+          // draft
+
+          $ammountofDrafts += 1;
+
+          echo <<<HTML
+           <div data-PID="$PID" data-postedOn="$unixTimeStamp" onclick="linkto('/editor/{$content_decoded['name']}')" class="card card--article card--draft">
+            <div class="card--article__information">
+              <h3 class="card--article__headline">{$content_decoded['headline']}</h3>
+              <span class="card--article__text">{$content_decoded['text-long']}... <a href="/editor/{$content_decoded['name']}">Editieren</a></span>
+            </div>
+          HTML;
+          if (isset($content_decoded['pic'])) {
+            echo '<img class="card--article__picture" src="/artikel/Solardorf-HERRNRIED/pic1.jpg" alt="">'."\n";
+          }
+          echo "</div>\n";
+        }
+
+      }
+      if ($ammountofPosts == 0) {
+        echo <<<HTML
+          <div data-postedOn="9999999995" class="card card--null card--null--posts">
+            <span>Keine Beiträge</span>
+          </div>
+        HTML;
+      }
+      if ($ammountofArticles == 0) {
+        echo <<<HTML
+          <div data-postedOn="9999999995" class="card card--null card--null--articles">
+            <span>Keine Artikel</span>
+          </div>
+        HTML;
+      }
+      if ($ammountofDrafts == 0) {
+        echo <<<HTML
+          <div data-postedOn="9999999995" class="card card--null card--null--draft">
+            <span>Keine Entwürfe</span>
+          </div>
+        HTML;
+      }
       ?>
 
 
-
-      <div class="card card--null card--null--draft">
-        <span>Keine Entwürfe</span>
-      </div>
-
+         
 
     </section>
 

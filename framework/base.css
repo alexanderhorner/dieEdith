@@ -355,7 +355,7 @@ html.dark .header__logo--big--dark {
   width: 121px;
   top: 48px;
   left: 50%;
-  transform: translate(-50%, -60%) scale(0.4);
+  transform: translate(-50%, -50%) scale(0.4);
   z-index: -1;
   padding: 4px 8px;
   border-radius: 4px;
@@ -658,8 +658,8 @@ html.no-cookies .message--cookies {
   transform: translateX(101%);
   backdrop-filter: var(--transparent__backdrop-filter);
   background-color: var(--transparent__color);
-  box-shadow: -1px 0 12px 0 rgba(0, 0, 0, 0.1);
-  transition: background-color 0.2s, transform 0.2s cubic-bezier(0.4, 0.0, 1, 1);
+  box-shadow: none;
+  transition: background-color 0.2s, transform 0.2s cubic-bezier(0.4, 0.0, 1, 1), box-shadow 1s cubic-bezier(0.4, 0.0, 1, 1);
 }
 
 .side-menu hr {
@@ -677,8 +677,9 @@ html.no-cookies .message--cookies {
 }
 
 html.side-menu--shown .side-menu {
+  box-shadow: -1px 0 12px 0 rgba(0, 0, 0, 0.1);
   transform: translateX(0%);
-  transition: background-color 0.2s, transform 0.25s cubic-bezier(0.0, 0.0, 0.2, 1);
+  transition: background-color 0.2s, transform 0.25s cubic-bezier(0.0, 0.0, 0.2, 1), box-shadow 0.25s cubic-bezier(0.0, 0.0, 0.2, 1);
 }
 
 html.dark .side-menu {

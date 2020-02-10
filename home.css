@@ -7,7 +7,7 @@
 .wrapper {
   width: calc(100% - 10px);
   max-width: 1100px;
-  margin: 60px auto 0;
+  margin: 64px auto 0;
   padding-bottom: 15px;
   transition: transform 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
   ;
@@ -35,6 +35,73 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.titles {
+  margin-top: 0.8em;
+  margin-bottom: 0.2em;
+}
+
+/* Quickstart */
+.quickstart {
+  margin: 0 5px;
+}
+
+.quickstart__options__wrapper {
+  margin-top: -10px;
+  margin-left: -10px;
+  margin-right: -10px;
+  overflow-x: scroll;
+  margin-bottom: 10px;
+  -ms-overflow-style: none;
+}
+
+.quickstart__options__wrapper::-webkit-scrollbar { 
+  display: none; 
+}
+
+.quickstart__options {
+  min-width: 600px;
+  width: calc(100vw - 10px);
+  max-width: 700px;
+  align-items: center;
+  height: 70px;
+  display: inline-flex;
+  margin-left: 10px;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+.quickstart__options__option {
+  line-height: 38px;
+  text-align: center;
+  flex-grow: 1;
+  flex-basis: auto;
+  cursor: pointer;
+  padding: 1px 10px;
+  height: 38px;
+  box-sizing: content-box;
+  margin-right: 10px;
+  background-color: var(--foreground);
+  border-radius: 20px;
+  box-shadow: 0 1px 8px 0 hsla(0, 0%, 0%, 0.1);
+  transition: background 0.2s, box-shadow 0.15s, opacity 0.15s, transform 0.15s;
+}
+
+
+html.dark .quickstart__options__option {
+  border: 1px solid hsla(0, 0%, 50%, 0.2);
+  padding: 0px 9px;
+}
+
+.quickstart__options__option:hover {
+  cursor: pointer;
+  box-shadow: 0 1px 12px 0 hsla(0, 0%, 0%, 0.1);
+  transform: scale(1.015);
+}
+
+html.dark .quickstart__options__option {
+  box-shadow: none;
 }
 
 /* Card */
