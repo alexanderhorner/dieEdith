@@ -1,4 +1,6 @@
 <?php include '../framework/document-start.php';
+require_once __DIR__ . '/../framework/isTeamMember.php';
+
 
 if (isset($_GET['user'])) {
   $username = $_GET['user'];
@@ -112,7 +114,7 @@ if (isset($_GET['user'])) {
         <button class="selection__button selection__button--selection selection__button--selection--posts" onclick="linkto('#beitraege')">Beiträge</button>
         <button class="selection__button selection__button--selection selection__button--selection--articles" onclick="linkto('#artikel')">Nur Artikel</button>
 
-        <?php if ($isOwnProfile == 'true') : ?>
+        <?php if ($isOwnProfile == 'true' && isTeamMember()) : ?>
         <button class="selection__button selection__button--selection selection__button--selection--drafts" onclick="linkto('#entwuerfe')">Deine Entwürfe</button>
         <button class="selection__button selection__button--new-article" onclick="$('html').addClass('prompt--new-article--shown')">Neuer Artikel</button>
         <?php endif; ?>
@@ -122,7 +124,7 @@ if (isset($_GET['user'])) {
 
     <section style="opacity: 0" class="cards">
       
-      <?php if ($isOwnProfile == 'true') : ?>
+      <?php if ($isOwnProfile == 'true' && isTeamMember()) : ?>
         <div tabindex="-1" data-postedOn="9999999997" class="card card--new-post">
           <form>
             <textarea rows="4" class="card--new-post__textarea" required placeholder="Was gibt's neues?" maxlength="280"></textarea>
@@ -138,58 +140,92 @@ if (isset($_GET['user'])) {
       $ammountofDrafts = 0;
 
       // Fetch all posts
-      $stmntFetchPosts = $pdo->prepare("SELECT `PID`, `postedon`, `type`, `content` FROM posts WHERE owner = ?");
+      $stmntFetchPosts = $pdo->prepare("SELECT PID as ID, postedon as 'time', owner, 'post' as 'type', text, NULL as 'title'
+      FROM posts 
+      UNION 
+      SELECT AID as ID, publishedon as 'time', owner, status as 'type', previewdata as 'text', title
+      FROM articles 
+      WHERE owner = 'UoaWWOeSsGk' AND status = 'public'
+      UNION 
+      SELECT AID as ID, createdon as 'time', owner, status as 'type', previewdata as 'text', title
+      FROM articles 
+      WHERE owner = 'UoaWWOeSsGk' AND status = 'draft'
+      ORDER BY time desc");
       $stmntFetchPosts->execute(array($pageOwnerUID));
 
       // Print out all posts
       while($row = $stmntFetchPosts->fetch()) {
-        $type = $row['type']; 
-        $PID = $row['PID']; 
-        $content_decoded = json_decode($row['content'], true);
-        $unixTimeStamp = strtotime($row['postedon']);
+        $ID = $row['ID'];
+        $owner = $row['owner'];
+        $unixTimeStamp = strtotime($row['time']);
         $unixTimeStampMs = $unixTimeStamp * 1000 - 3600000;
+        $type = $row['type'];
+        $text = $row['text'];
+        $text_sanitized = htmlspecialchars($text);
+        $text_medium = mb_substr($text, 0, 400, 'UTF-8');
+        $text_medium_sanitized = htmlspecialchars($text_medium);
+        $text_sanitized = htmlspecialchars($text);
+        $title = $row['title'];
+        $title_sanitized = htmlspecialchars($title);
+        $titleLink = rawurlencode($title);
+        $titleLink_sanitized = htmlspecialchars($titleLink);
 
-        $ammountofPosts += 1;
+        
         if ($type == 'post') {
+          $ammountofPosts += 1;
           echo <<<HTML
-          <div data-postedOn="$unixTimeStamp" class="card card--post">
+          <div data-postedOn="$unixTimeStamp" data-PID="$ID" class="card card--post">
             <div class="post__text">
-              <span>{$content_decoded['text']}</span>
+              <span>$text_sanitized</span>
             </div>
             <div data-timeago="$unixTimeStampMs" class="card__time"></div>
           </div>
           HTML;
 
-        } else if ($type == 'article') {
+        } else if ($type == 'public') {
+          $ammountofPosts += 1;
           $ammountofArticles += 1;
 
+          if (!isset($content_decoded['pic'])) {
+            $picture = 'card--article--no-picture';
+          } else {
+            $picture = '';
+          }
+
           echo <<<HTML
-           <div data-PID="$PID" data-postedOn="$unixTimeStamp" onclick="linkto('/artikel/{$content_decoded['name']}')" class="card card--article card--article--released">
+           <div data-AID="$ID" data-postedOn="$unixTimeStamp" onclick="linkto('/artikel/$titleLink_sanitized')" class="card card--article card--article--released $picture">
             <div class="card--article__information">
-              <h3 class="card--article__headline">{$content_decoded['headline']}</h3>
-              <span class="card--article__text">{$content_decoded['text-long']}... <a href="/artikel/{$content_decoded['name']}">Weiter lesen</a></span>
+              <h3 class="card--article__headline">$title_sanitized</h3>
+              <span class="card--article__text">$text_medium_sanitized... <a href="/artikel/$titleLink_sanitized">Weiter lesen</a></span>
             </div>
           HTML;
           if (isset($content_decoded['pic'])) {
-            echo '<img class="card--article__picture" src="/artikel/Solardorf-HERRNRIED/pic1.jpg" alt="">'."\n";
+            echo '<img class="card--article__picture" src="/artikel/$titleLink_sanitized/thumbnail.jpg" alt="">'."\n";
           }
+          echo '<div data-timeago="'.$unixTimeStampMs.'" class="card__time"></div>'."\n";
           echo "</div>\n";
 
         } else {
           // draft
-
           $ammountofDrafts += 1;
 
+          if (!isset($content_decoded['pic'])) {
+            $picture = 'card--article--no-picture';
+          } else {
+            $picture = '';
+          }
+
           echo <<<HTML
-           <div data-PID="$PID" data-postedOn="$unixTimeStamp" onclick="linkto('/editor/{$content_decoded['name']}')" class="card card--article card--draft">
+           <div data-AID="$ID" data-postedOn="$unixTimeStamp" onclick="linkto('/artikel/$titleLink_sanitized')" class="card card--article card--article--draft $picture">
             <div class="card--article__information">
-              <h3 class="card--article__headline">{$content_decoded['headline']}</h3>
-              <span class="card--article__text">{$content_decoded['text-long']}... <a href="/editor/{$content_decoded['name']}">Editieren</a></span>
+              <h3 class="card--article__headline">$title_sanitized</h3>
+              <span class="card--article__text">$text_medium_sanitized... <a href="/artikel/$titleLink_sanitized">Weiter lesen</a></span>
             </div>
           HTML;
           if (isset($content_decoded['pic'])) {
-            echo '<img class="card--article__picture" src="/artikel/Solardorf-HERRNRIED/pic1.jpg" alt="">'."\n";
+            echo '<img class="card--article__picture" src="/artikel/$titleLink_sanitized/thumbnail.jpg" alt="">'."\n";
           }
+          echo '<div data-timeago="'.$unixTimeStampMs.'" class="card__time"></div>'."\n";
           echo "</div>\n";
         }
 

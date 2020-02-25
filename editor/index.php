@@ -1,5 +1,5 @@
 <?php
-date_default_timezone_set('Europe/Berlin');
+ 
 
 include '../framework/document-start.php';
 
@@ -180,13 +180,20 @@ if (isset($_GET['article'])) {
           class: ImageTool,
           config: {
             endpoints: {
-              byFile: 'http://localhost:8008/uploadFile', // Your backend file uploader endpoint
-              byUrl: 'http://localhost:8008/fetchUrl', // Your endpoint that provides uploading by Url
+              byFile: 'uploadPicture.php', // Your backend file uploader endpoint
+              byUrl: 'fetchPictureByUrl.php', // Your endpoint that provides uploading by Url
+            },
+            captionPlaceholder: "Beschreibung des Bildes",
+            additionalRequestData: {
+              'AID': '<?php echo $AID ?>'
             }
           }
         },
-        list: List,
-        Marker: {
+        list: {
+          class: List,
+          inlineToolbar: true
+        },
+        marker: {
           class: Marker,
           shortcut: 'CMD+SHIFT+M',
         },

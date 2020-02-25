@@ -1,5 +1,5 @@
 <?php
-date_default_timezone_set('Europe/Berlin');
+ 
 
 include '../framework/document-start.php';
 
@@ -9,8 +9,9 @@ if (isset($_SESSION['UID'])) {
     $firstname = $_SESSION['firstname'];
     $lastname = $_SESSION['lastname'];
 } else {
-  header("Location: /login/");
-  die();
+    $UID = 'U0000000000';
+    $firstname = 'Unbekannter';
+    $lastname = 'Nutzer';
 }
 
 

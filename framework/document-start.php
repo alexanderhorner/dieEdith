@@ -1,4 +1,6 @@
 <?php
+date_default_timezone_set('Europe/Berlin');
+
 session_start();
 if (isset($_COOKIE['color_scheme'])) {
 

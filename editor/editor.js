@@ -10,22 +10,22 @@ function uploadArticleData(saveData) {
       saveState('saved');
       if (data.request == "failed" && data.error == "Session expired") {
         window.saved = false;
-        window.saveLockTimer = 3000;
+        window.saveLockTimer = 6000;
         saveState('unsaved');
         error("Der Artikel konnte nicht gespeichert werden, da du im Hintergrund abgemeldet wurdest. Öffne einen neuen Tab und logge dich ein und versuche dann nochmal zu speichern");
       } else if (data.request == "failed" && data.error == "No Permission") {
         window.saved = false;
-        window.saveLockTimer = 3000;
+        window.saveLockTimer = 6000;
         saveState('unsaved');
         error("Der Artikel konnte nicht gespeichert werden, da du keine Rechte dafür hast. Frage den Besitzer oder versuche es später erneut.");
       } else if (data.request == "failed" && data.error == "Mysql request(s) failed") {
         window.saved = false;
-        window.saveLockTimer = 3000;
+        window.saveLockTimer = 6000;
         saveState('unsaved');
         error('Der Artikel konnte nicht gespeichert werden, da die gesendeten Daten ein falsches Format haben ("Mysql request(s) failed"). Frage einen Admin oder versuche es später erneut.');
       } else if (data.request == "failed") {
         window.saved = false;
-        window.saveLockTimer = 3000;
+        window.saveLockTimer = 6000;
         saveState('unsaved');
         error("Der Artikel konnte nicht gespeichert werden (" + data.error + "). Überprüfe deine Internetverbindung und probiere es später erneut.");
       }
@@ -33,7 +33,7 @@ function uploadArticleData(saveData) {
     error: function(jqXHR, textStatus, errorThrown) {
       window.saved = false;
       saveState('unsaved');
-      window.saveLockTimer = 3000;
+      window.saveLockTimer = 6000;
       error("Der Artikel konnte nicht gespeichert werden (" + textStatus + "). Überprüfe deine Internetverbindung und probiere es später erneut.");
     }
   });
@@ -70,7 +70,7 @@ function publishArticle() {
 }
 
 
-window.saveLockTimer = 1000;
+window.saveLockTimer = 1500;
 window.saved = true;
 
 setInterval(function() {
@@ -92,7 +92,7 @@ function saveData() {
   }).catch((error1) => {
     console.log('Saving failed: ', error1)
     saveState('unsaved');
-    window.saveLockTimer = 3000;
+    window.saveLockTimer = 6000;
     error('Der Artikel konnte nicht gespeichert werden (JavaScript-Fehler). Probiere es später erneut.')
     window.saved = false;
   });
@@ -122,6 +122,8 @@ $(window).on('load', function() {
       window.saveLockTimer = 1500;
       window.saved = false;
       saveState('unsaved');
+      $("div:has(> div:has(> .image-tool__tune))").remove();
+      
 
     });
 
@@ -137,8 +139,16 @@ $(window).on('load', function() {
 });
 
 $(document).ready(function() {
+
+  // save button
   $('.save-state').click(function() {
     saveState('loading');
     saveData();
   });
+
+  // periodically search for 
+  setInterval(function() {
+    
+  }, 100);
 });
+

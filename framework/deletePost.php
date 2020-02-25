@@ -1,8 +1,7 @@
 <?php 
 header('Content-type: application/json');
 
-require_once __DIR__ . '/randomID.php';
-require_once __DIR__ . '/isTeamMember.php';
+require_once __DIR__ . '/validateID.php';
 
 // Set up all response parameters
 $response = array();
@@ -10,6 +9,23 @@ $response['status'] = 'failed';
 $response['error'] = array();
 $response['error']['category'] = 'Unknown';
 $response['error']['description'] = 'An unknown error has occured';
+
+// Set up all input parameters
+// $UID = UID
+if (isset($_POST['PID'])) {
+  $PID = $_POST['PID'];
+} else {
+  $response['error']['category'] = 'Parameter error';
+  $response['error']['description'] = 'One or more parameter are missing';
+  goto end;
+}
+
+// Check Parameters
+if (validateID('P', $PID) == false) {
+  $response['error']['category'] = 'Parameter error';
+  $response['error']['description'] = 'The parameter "PID" is wrong';
+  goto end;
+}
 
 // Check Permissions
 session_start();
@@ -21,30 +37,6 @@ if (isset($_SESSION['UID'])) {
     $response['error']['descriptopn'] = "User isn't logged in";
     goto end;
 }
-if (isTeamMember() == false) {
-  $response['request'] = 'failed';
-  $response['error']['category'] = "No permission";
-  $response['error']['descriptopn'] = "The logged in user isn't part of a permitted group";
-  goto end;
-} 
-
-// Set up all input parameters
-// $UID = UID
-if (isset($_POST['text'])) {
-  $text = $_POST['text'];
-} else {
-  $response['error']['category'] = 'Parameter error';
-  $response['error']['description'] = 'One or more parameter are missing';
-  goto end;
-}
-
-// Check Parameters
-if (strlen($text) <= 0) {
-  $response['error']['category'] = 'Parameter error';
-  $response['error']['description'] = 'The parameter "text" is wrong';
-  goto end;
-}
-
 
 // Request
 // Connenct to database
@@ -57,12 +49,12 @@ if ($pdo === false) {
     goto end;
 } else {
 
-    // Update database
+    // Delete from database
     // prepare statement
-    $statement = $pdo->prepare("INSERT INTO `posts`(`PID`, `owner`, `text`) VALUES (?, ?, ?)");
+    $statement = $pdo->prepare("DELETE FROM `posts` WHERE `PID` = ? AND `owner` = ?");
 
     // execute statement
-    $statement->execute(array('P'.random_str(), $UID, $text));
+    $statement->execute(array($PID, $UID));
 
     // check response from statement
     if($statement->errorCode() != 0) {
@@ -75,7 +67,7 @@ if ($pdo === false) {
         // Check how many rows were affected
         if ($statement->rowCount() <= 0) {
           $response['error']['category'] = 'MySQL error';
-          $response['error']['description'] = 'Failed to save into database';
+          $response['error']['description'] = 'Failed to delete entry from database. Either no permissions OR wrong Post ID';
           goto end;
         } else {
           $response['status'] = 'successful';

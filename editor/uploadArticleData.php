@@ -12,8 +12,8 @@ $response['requestJSON'] = 'failed';
 $response['errorJSON'] = 'unknown';
 $response['requestHTML'] = 'failed';
 $response['errorHTML'] = 'unknown';
-$response['requestPost'] = 'failed';
-$response['errorPost'] = 'unknown';
+$response['requestPreview'] = 'failed';
+$response['errorPreview'] = 'unknown';
 
 
 session_start();
@@ -33,14 +33,14 @@ if ($pdo === false) {
     $response['error'] = 'Could not connect to database.';
     goto end;
 } else {
-
+	
 	// Get variables
 	$AID = $_POST['AID'];
 	$data = $_POST['data'];
 
 
 	// prepare statement
-	$stmntSearch = $pdo->prepare("SELECT `title`, `owner`, `linkedpost` FROM articles WHERE AID = ?");
+	$stmntSearch = $pdo->prepare("SELECT title, `owner` FROM articles WHERE AID = ?");
 
 	// execute statement and put response into array
 	$stmntSearch->execute(array($AID));
@@ -51,7 +51,6 @@ if ($pdo === false) {
 	//put in variables
 	$articleOwner = $row['owner'];
 	$articleTitle = $row['title'];
-	$PID = $row['linkedpost'];
 
 	
 	//check if article is already in database
@@ -60,7 +59,7 @@ if ($pdo === false) {
 		// article doesnt exist
 		$response['request'] = 'failed';
 		$response['error'] = 'Article doesnt exist';
-
+		
 
 	} else {
 
@@ -93,24 +92,31 @@ if ($pdo === false) {
 
 				// paragraph
 				if ($block['type'] == 'paragraph') {
-				$return .= '<p>'.$block['data']['text']."</p>\n";
+					$return .= '<p>'.$block['data']['text']."</p>\n";
 				}
 				
 				// header
 				else if ($block['type'] == 'header') {
-				$return .= '<h'.$block['data']['level'].'>'.$block['data']['text'].'</h'.$block['data']['level'].">\n";
+					$return .= '<h'.$block['data']['level'].'>'.$block['data']['text'].'</h'.$block['data']['level'].">\n";
 				}
 
 				// list
 				else if ($block['type'] == 'list') {
-				$listtag = ($block['data']['style'] == 'ordered') ? 'ol' : 'ul';
-				$return .= '<'.$listtag.">\n";
-				foreach ($block['data']['items'] as $itemtext) {
-					$return .= "\t<li>".$itemtext."</li>\n";
-				}
-				$return .= '</'.$listtag.">\n";
+					$listtag = ($block['data']['style'] == 'ordered') ? 'ol' : 'ul';
+					$return .= '<'.$listtag.">\n";
+					foreach ($block['data']['items'] as $itemtext) {
+						$return .= "\t<li>".$itemtext."</li>\n";
+					}
+					$return .= '</'.$listtag.">\n";
 				}
 
+				// image 
+				else if ($block['type'] == 'image' && isset($block['data']['file']['url'])) {
+					$return .= "<figure>\n";
+					$return .= "\t".'<img src="'.$block['data']['file']['url'].'" alt="'.$block['data']['caption'].'">'."\n";
+					$return .= "<figcaption>".$block['data']['caption']."</figcaption>\n";
+					$return .= "</figure>\n";
+				}
 			}
 
 			return $return;
@@ -121,48 +127,61 @@ if ($pdo === false) {
 			{
 			"tools": {
 				"header": {
-				"text": {
-					"type": "string",
-					"allowedTags": ""
-				},
-				"level": {
-					"type": "int",
-					"canBeOnly": [2, 3, 4]
-				}
+					"text": {
+						"type": "string",
+						"allowedTags": ""
+					},
+					"level": {
+						"type": "int",
+						"canBeOnly": [2, 3, 4]
+					}
 				},
 				"paragraph": {
-				"text": {
-					"type": "string",
-					"allowedTags": "i,b,u,a[href],mark"
-				}
+					"text": {
+						"type": "string",
+						"allowedTags": "i,b,u,a[href],mark"
+					}
 				},
 				"list": {
-				"style": {
-					"type": "string",
-					"canBeOnly": ["ordered", "unordered"]
-				},
-				"items": {
-					"type": "array",
-					"data": {
-					"-": {
+					"style": {
 						"type": "string",
-						"allowedTags": "i,b,u"
+						"canBeOnly": ["ordered", "unordered"]
+					},
+					"items": {
+						"type": "array",
+						"data": {
+							"-": {
+								"type": "string",
+								"allowedTags": "i,b,u"
+							}
+						}
 					}
+				},
+				"image": {
+					"caption": {
+						"type": "string"
+					},
+					"file": {
+						"type": "array",
+						"data": {
+							"url": {
+								"type": "string",
+								"required": false
+							}
+						}
+					},
+					"stretched": {
+						"type": "bool",
+						"canBeOnly": [false]
+					},
+					"withBackground": {
+						"type": "bool",
+						"canBeOnly": [false]
+					},
+					"withBorder": {
+						"type": "bool",
+						"canBeOnly": [false]
 					}
-				}
-				},
-				"quote": {
-				"text": {
-					"type": "string",
-					"allowedTags": "i,b,u"
-				},
-				"caption": {
-					"type": "string"
-				},
-				"alignment": {
-					"type": "string",
-					"canBeOnly": ["left"]
-				}
 				}
 			}
 			}
@@ -186,7 +205,7 @@ if ($pdo === false) {
 			
 
 			// prepare statement
-			$stmntUpdateHTML = $pdo->prepare("UPDATE `articles` SET `htmldata` = ? WHERE AID = ?");
+			$stmntUpdateHTML = $pdo->prepare("UPDATE articles SET htmldata = ? WHERE AID = ?");
 
 			// execute statement and put response into array
 			$stmntUpdateHTML->execute(array($html, $AID));
@@ -200,7 +219,7 @@ if ($pdo === false) {
 			}
 			
 			//****
-			//post
+			// prviewdata
 			function renderPreview($blocks)
 			{
 			$return = "";
@@ -226,55 +245,103 @@ if ($pdo === false) {
 
 			}
 
-			return $return;
+			return trim($return);
 			}
 
+			$previewConfig = <<<JSON
+			{
+			"tools": {
+				"header": {
+					"text": {
+						"type": "string",
+						"allowedTags": ""
+					},
+					"level": {
+						"type": "int",
+						"canBeOnly": [2, 3, 4]
+					}
+				},
+				"paragraph": {
+					"text": {
+						"type": "string",
+						"allowedTags": ""
+					}
+				},
+				"list": {
+					"style": {
+						"type": "string",
+						"canBeOnly": ["ordered", "unordered"]
+					},
+					"items": {
+						"type": "array",
+						"data": {
+							"-": {
+								"type": "string",
+								"allowedTags": ""
+							}
+						}
+					}
+				},
+				"image": {
+					"caption": {
+						"type": "string"
+					},
+					"file": {
+						"type": "array",
+						"data": {
+							"url": {
+								"type": "string",
+								"required": false
+							}
+						}
+					},
+					"stretched": {
+						"type": "bool",
+						"canBeOnly": [false]
+					},
+					"withBackground": {
+						"type": "bool",
+						"canBeOnly": [false]
+					},
+					"withBorder": {
+						"type": "bool",
+						"canBeOnly": [false]
+					}
+				}
+			}
+			}
+			JSON;
 
+
+			try {
+			// Initialize Editor backend and validate structure
+			$previeweditor = new EditorJS( $data, $previewConfig );
+			
+			// Get sanitized blocks (according to the rules from configuration)
+			$previewblocks = $previeweditor->getBlocks();
+			
+			} catch (\EditorJSException $e) {
+			// process exception
+			$response['HTMLerror'] = 'Conversion failed';
+			goto end;
+			}
+			 
+			$previewdata = mb_substr(renderpreview($previewblocks), 0, 1024, 'UTF-8');
+			
 			// prepare statement
-			$stmntSelectPost = $pdo->prepare("SELECT `content` FROM posts WHERE PID = ?");
+			$stmntUpdatePreview = $pdo->prepare("UPDATE articles SET previewdata = ? WHERE AID = ?");
 
 			// execute statement and put response into array
-			$stmntSelectPost->execute(array($PID));
+			$stmntUpdatePreview->execute(array($previewdata, $AID));
 
-			// fetch
-			$row = $stmntSelectPost->fetch();
-			$jsoncontent = $row['content'];
-			$content = json_decode($jsoncontent, true);
-			
-			if ($stmntSelectPost->rowCount() > 0) {
-
-				// catch preview
-				$previewdatamedium = json_encode(substr(renderPreview($blocks), 0, 280));
-				$previewdatalong = json_encode(substr(renderPreview($blocks), 0, 480));
-
-				// build content
-				$content = <<<JSON
-				{
-				"headline": "{$content['headline']}",
-				"name": "{$content['name']}",
-				"text-medium": $previewdatamedium,
-				"text-long": $previewdatalong
-				}
-				JSON;
-
-				// prepare statement
-				$stmntUpdatePost = $pdo->prepare("UPDATE `posts` SET `content` = ?, `postedon` = CURRENT_TIMESTAMP() WHERE PID = ?");
-
-				// execute statement and put response into array
-				$stmntUpdatePost->execute(array($content, $PID));
-
-				if ($stmntUpdatePost->rowCount() > 0) {
-					$response['requestPost'] = 'success';
-					unset($response['errorPost']);
-				} else {
-					$response['requestPost'] = 'success';
-					$response['errorPost'] = 'No changes were made';
-				}
-
+			if ($stmntUpdatePreview->rowCount() > 0) {
+				$response['requestPreview'] = 'success';
+				unset($response['errorPreview']);
 			} else {
-				$response['requestPost'] = 'error';
-				$response['errorPost'] = 'Linked post was not found';
+				$response['requestPreview'] = 'success';
+				$response['errorPreview'] = 'No changes were made';
 			}
+			
 
 
 		} else {
@@ -288,11 +355,11 @@ if ($pdo === false) {
 }
 
 end:
-if ($response['requestJSON'] == 'success' && $response['requestHTML'] == 'success' && $response['requestPost'] == 'success') {
+if ($response['requestJSON'] == 'success' && $response['requestHTML'] == 'success' && $response['requestPreview'] == 'success') {
 	unset($response['error']);
 	$response['request'] = 'success';
 } else {
-	$response['error'] = 'Mysql request(s) failed';
+	$response['error'] .= ' / Mysql request(s) failed';
 }
 // Encode response array into json
 echo json_encode($response, JSON_PRETTY_PRINT);

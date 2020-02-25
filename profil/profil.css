@@ -274,14 +274,17 @@ html.dark .selection__button--selection {
   border: 1px solid hsla(0, 0%, 50%, 0.2);
 }
 
-.selection__button:hover {
-  transform: scale(1.015);
-  box-shadow: 0 1px 12px 0 hsla(0, 0%, 0%, 0.1);
-}
-
 .selection__button:focus {
   color: inherit;
 }
+
+
+.selection__button:active {
+  color: inherit;
+  transform: scale(0.985);
+  box-shadow: 0 1px 4px 0 hsla(0, 0%, 0%, 0.1);
+}
+
 
 .selection__button--selection--active {
   cursor: default !important;
@@ -370,6 +373,10 @@ html.dark .card {
     width: 100%;
     height: auto;
   }
+}
+
+.card--article--no-picture {
+  height: auto;
 }
 
 .card--new-post form {

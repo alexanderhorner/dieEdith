@@ -1,4 +1,7 @@
-<?php include 'framework/document-start.php'?>
+<?php include 'framework/document-start.php';
+require_once __DIR__ . '/framework/isTeamMember.php';
+?>
+
 
 <head>
   <title>Die Edith</title>
@@ -19,18 +22,20 @@
   <?php include 'framework/nav-overlay.php'?>
 
   <div class="wrapper">
+    <?php if (isTeamMember()) : ?>
     <div class="quickstart">
-      <h2 class="titles">Schnellstart</h2>
+      <h1 class="titles">Schnellstart</h1>
       <div class="quickstart__options__wrapper">
         <div class="quickstart__options">
-          <div class="quickstart__options__option" onclick="linkto('/profil/<?php echo $_SESSION['username'] ?>">Neuer Artikel</div>
+          <div class="quickstart__options__option" onclick="linkto('/profil/<?php echo $_SESSION['username'] ?>#neuerArtikel')">Neuer Artikel</div>
           <div class="quickstart__options__option" onclick="linkto('/profil/<?php echo $_SESSION['username'] ?>#entwuerfe')">Deine Entwürfe</div>
           <div class="quickstart__options__option" onclick="linkto('/profil/<?php echo $_SESSION['username'] ?>#artikel')">Alle Artikel</div>
           <div class="quickstart__options__option" onclick="linkto('/profil/<?php echo $_SESSION['username'] ?>#beitraege')">Profil</div>
         </div>
       </div> 
-      <h2 class="titles">Neuste Beiträge</h2>
+      <h1 class="titles">Neuste Beiträge</h1>
     </div>
+    <?php endif; ?>
     <div class="grid">
     </div>
 

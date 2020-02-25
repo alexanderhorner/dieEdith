@@ -120,10 +120,6 @@ html.dark .article__info__picture {
   line-height: 16px;
 }
 
-html.editMode .article {
-  min-height: 50vh;
-}
-
 .article {
   margin-top: 20px;
   font-family: 'Lora', serif;
@@ -144,7 +140,7 @@ html.editMode .article {
 h1, h2, h3, h4 {
   font-family: 'Roboto', sans-serif;
   padding: 0.4em 0 !important;
-  margin: 0.55em 0 -0.85em !important;
+  margin: 0.85em 0 -0.75em !important;
 }
 
 h1 {
@@ -178,7 +174,7 @@ h4 {
 .article p, .ce-paragraph {
   display: block;
   padding: .4em 0;
-  margin: 0.55em 0 0.55em;
+  margin: 0 0 1.1em;
 }
 
 @media only screen and (max-width: 730px) {
@@ -190,6 +186,8 @@ h4 {
 /* Picture */
 .article figure {
   margin: 0;
+  padding: .4em 0;
+  margin: -0.95em 0 1.1em;
 }
 
 .article img {

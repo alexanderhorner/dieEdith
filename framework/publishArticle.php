@@ -1,7 +1,7 @@
 <?php
 
 
-date_default_timezone_set('Europe/Berlin');
+ 
 
 // Set up all variables
 $response = array();
@@ -34,7 +34,7 @@ if ($pdo === false) {
 } else {  
 
     // prepare statement
-    $stmntCeck = $pdo->prepare("SELECT `owner`, `status`, `linkedpost` FROM articles WHERE `AID` = ?");
+    $stmntCeck = $pdo->prepare("SELECT `owner`, `status` FROM articles WHERE `AID` = ?");
 
     // execute statement and put response into array
     $stmntCeck->execute(array($AID));
@@ -60,21 +60,8 @@ if ($pdo === false) {
 
                 // response
                 if ($stmntUpdate->rowCount() == 1) {
-                   
-                    // prepare statement
-                    $stmntUpdate = $pdo->prepare("UPDATE posts SET `type` = ?, `postedon` = CURRENT_TIMESTAMP() WHERE PID = ?");
-
-                    // execute statement and put response into array
-                    $stmntUpdate->execute(array('article', $article['linkedpost']));
-
-                    // response
-                    if ($stmntUpdate->rowCount() == 1) {
-                        $response['request'] = 'success';
-                        unset($response['error']);
-                    } else {
-                        $response['error'] = 'unknown MYSQL error occured while posting the article';
-                    }
-
+                    $response['request'] = 'success';
+                    unset($response['error']);
                 } else {
                     $response['error'] = 'unknown MYSQL error occured while publishing the article';
                 }

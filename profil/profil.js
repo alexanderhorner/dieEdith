@@ -11,7 +11,7 @@ function hashSort() {
     $('.selection__button--selection').removeClass('selection__button--selection--active');
     $('.selection__button--selection--articles').addClass('selection__button--selection--active');
     $grid.isotope({
-      filter: '.card--article--released, .card--null--article'
+      filter: '.card--article--released, .card--null--articles'
     })
 
   } else if (hash == 'entwuerfe') {
@@ -19,7 +19,7 @@ function hashSort() {
     $('.selection__button--selection').removeClass('selection__button--selection--active');
     $('.selection__button--selection--drafts').addClass('selection__button--selection--active');
     $grid.isotope({
-      filter: '.card--draft, .card--null--draft'
+      filter: '.card--article--draft, .card--null--draft'
     })
 
   } else {
@@ -165,12 +165,12 @@ $(document).ready(function() {
       data: 'text=' + encodeURIComponent($('.card--new-post__textarea').val()),
       timeout: 10000,
       success: function(data) {
-        if (data.request == "failed") {
+        if (data.status != "successful") {
           // Enable Button
           $(".card--new-post__submit").prop("disabled", false);
           $(".card--new-post__submit").attr("value", "Posten");
 
-          error("Es ist ein Fehler beim posten aufgetreten (" + data.error + "). Probiere es später erneut.");
+          error("Es ist ein Fehler beim posten aufgetreten (" + data.error['category'] + ': ' + data.error['description'] + "). Probiere es später erneut.");
         } else {
 
           // prepend

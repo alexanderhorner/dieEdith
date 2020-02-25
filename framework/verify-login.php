@@ -19,7 +19,7 @@ if (!isset($_SESSION['UID'])) {
   } else {
 
       // prepare statement
-      $statement = $pdo->prepare("SELECT UID, password, firstname, lastname, color_scheme FROM user WHERE username = ?");
+      $statement = $pdo->prepare("SELECT `UID`, `role`, `password`, `firstname`, `lastname`, `color_scheme` FROM user WHERE username = ?");
 
       // execute statement and put response into array
       $statement->execute(array($post_username));
@@ -33,6 +33,7 @@ if (!isset($_SESSION['UID'])) {
           $username_validity = "valid";
           // put data in variable
           $UID = $row['UID'];
+          $role = $row['role'];
           $password_hash = $row['password'];
           $firstname = $row['firstname'];
           $lastname = $row['lastname'];
@@ -46,6 +47,7 @@ if (!isset($_SESSION['UID'])) {
 
               // set Session variables
               $_SESSION['UID'] = $UID;
+              $_SESSION['role'] = $role;
               $_SESSION['username'] = $post_username;
               $_SESSION['firstname'] = $firstname;
               $_SESSION['lastname'] = $lastname;

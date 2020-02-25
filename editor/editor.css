@@ -2,7 +2,7 @@
   outline: 0 solid transparent;
 }
 
-#editorjs * {
+#editorjs *:not(.cdx-input) {
   box-sizing: content-box;
 }
 
@@ -105,7 +105,6 @@
 .ce-block {
 }
 
-
 .ce-block__content, .ce-toolbar__content {
   max-width: 680px;
 }
@@ -118,6 +117,10 @@
 .cdx-notifies * {
   color: black;
   box-sizing: content-box;
+}
+
+.image-tool__tune {
+  display: none;
 }
 
 @keyframes ldio-7m1gexeqndq {
@@ -160,7 +163,6 @@
   transform: translateZ(0) scale(0.24);
   backface-visibility: hidden;
   transform-origin: 0 0;
-  /* see note above */
 }
 
 .ldio-7m1gexeqndq div {
@@ -170,3 +172,22 @@
 .cdx-marker {
   color: inherit;
 }
+
+.main-title {
+  position: relative;
+}
+
+.main-title:hover::after {
+  pointer-events: none;
+  content: "";
+  background-color: hsla(0, 0%, 50%, 0.2);
+  position: absolute;
+  top: 15px;
+  right: -5px;
+  bottom: 15px;
+  left: -5px;
+}
+
+.ce-inline-tool--unlink .icon--unlink {
+  margin-bottom: 10px !important;
+} 

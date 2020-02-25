@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . '/randomID.php';
+require_once __DIR__ . '/isTeamMember.php';
 
 // Set up all variables
 $response = array();
@@ -24,6 +25,12 @@ if (isset($_SESSION['UID'])) {
     goto end;
 }
 
+if (isTeamMember() == false) {
+  $response['request'] = 'failed';
+  $response['error'] = "No permission";
+  goto end;
+} 
+
 // Connenct to database
 include '../framework/mysqlcredentials.php';
 
@@ -33,43 +40,15 @@ if ($pdo === false) {
     goto end;
 } else {
 
-  $PID = 'P'.random_str(10);
-
   // prepare statement
-  $stmntNewArticle = $pdo->prepare("INSERT INTO `articles`(`AID`, `owner`, `title`, `jsondata`, `linkedpost`) VALUES (?, ?, ?, ?, ?)");
+  $stmntNewArticle = $pdo->prepare("INSERT INTO `articles`(`AID`, `owner`, `title`, `jsondata`) VALUES (?, ?, ?, ?)");
 
   // execute statement and put response into array
-  $stmntNewArticle->execute(array("A".random_str(10), $UID, $title, '{}', $PID));
+  $stmntNewArticle->execute(array("A".random_str(10), $UID, $title, '{}'));
 
-    if ($stmntNewArticle->rowCount() > 0) {
-      
-      function encodeURIComponent($str) {
-        $revert = array('%21'=>'!', '%2A'=>'*', '%27'=>"'", '%28'=>'(', '%29'=>')');
-        return strtr(rawurlencode($str), $revert);
-    }
-
-      $name = encodeURIComponent($title);
-      $content = <<<JSON
-      {
-        "headline": "$title",
-        "name": "$name",
-        "text-medium": "",
-        "text-long": ""
-      }
-      JSON;
-
-      // prepare statement
-      $statement = $pdo->prepare("INSERT INTO `posts`(`PID`, `owner`, `type`, `content`) VALUES (?, ?, ?, ?)");
-
-      // execute statement and put response into array
-      $statement->execute(array($PID, $UID, 'draft', $content));
-      
-      if ($stmntNewArticle->rowCount() > 0) {
+    if ($stmntNewArticle->rowCount() >= 0) {
         $response['request'] = 'success';
-        unset($response['error']);
-      } else {
-        $response['error'] = 'Article could not be posted.';
-      }
+        unset($response['error']); 
     } else {
       $response['error'] = 'Article could not be created.';
     }

@@ -96,7 +96,7 @@ function fetchPage(page) {
           // Append data
           $(".grid").append(data.content).ready(function() {
 
-            // after append
+            // after append when dom is ready to manipulate
             // relayout items after appending
             $grid.masonry('reloadItems');
             $grid.masonry('layout');

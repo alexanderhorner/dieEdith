@@ -37,37 +37,48 @@ if ($pdo === false) {
     unset($response['error']);
 
     // prepare statement
-    $statement = $pdo->prepare("SELECT PID, owner, postedon, type, content FROM posts ORDER BY postedon DESC LIMIT ?, ?");
+    $stmntposts = $pdo->prepare("SELECT PID as ID, postedon as 'time', owner, 'post' as 'type', text, NULL as 'title'
+    FROM posts 
+    UNION 
+    SELECT AID as ID, publishedon as 'time', owner, 'article' as 'type', previewdata as 'text', title
+    FROM articles 
+    WHERE status = 'public' 
+    ORDER BY time desc
+    LIMIT ?, ?");
 
     // execute statement
-    $statement->bindParam(1, $startAtPost, PDO::PARAM_INT);
-    $statement->bindParam(2, $numberOfPosts, PDO::PARAM_INT);
-    $statement->execute();
+    $stmntposts->bindParam(1, $startAtPost, PDO::PARAM_INT);
+    $stmntposts->bindParam(2, $numberOfPosts, PDO::PARAM_INT);
+    $stmntposts->execute();
 
     // fetch
-    while ($row = $statement->fetch()) {
+    while ($row = $stmntposts->fetch()) {
 
         // put data in variable
-        $PID = $row['PID'];
+        $ID = $row['ID'];
         $owner = $row['owner'];
-        $unixTimeStamp = strtotime($row['postedon']);
+        $unixTimeStamp = strtotime($row['time']);
         $unixTimeStampMs = $unixTimeStamp * 1000 - 3600000;
         $type = $row['type'];
-        $content = $row['content'];
+        $text = $row['text'];
+        $text_sanitized = htmlspecialchars($text);
+        $text_short = mb_substr($text, 0, 256, 'UTF-8');
+        $text_short_sanitized = htmlspecialchars($text_short);
+        $title = $row['title'];
+        $title_sanitized = htmlspecialchars($title);
+        $titleLink = rawurlencode($title);
+        $titleLink_sanitized = htmlspecialchars($titleLink);
 
-        // Decode jason data
-        $content_decoded = json_decode($content, true);
 
-
-        // prepare statement
-        $statement1 = $pdo->prepare("SELECT username, firstname, lastname FROM user WHERE UID = ?");
+        // get name of owner
+        $stmntowner = $pdo->prepare("SELECT username, firstname, lastname FROM user WHERE UID = ?");
 
         // execute statement
-        $statement1->execute(array($owner));
+        $stmntowner->execute(array($owner));
 
         // fetch
-        $row = $statement1->fetch();
-        if ($statement1->rowCount() > 0) {
+        $row = $stmntowner->fetch();
+        if ($stmntowner->rowCount() > 0) {
             $username = $row['username'];
             $firstname= $row['firstname'];
             $lastname = $row['lastname'];
@@ -84,7 +95,7 @@ if ($pdo === false) {
 
           // generate response
             $responseString .= <<<HTML
-            <div data-PID="$PID" data-postedOn="$unixTimeStamp" onclick="linkto('Artikel/{$content_decoded['name']}')" class="card card--article">
+            <div data-PID="$ID" data-postedOn="$unixTimeStamp" onclick="linkto('Artikel/$titleLink_sanitized')" class="card card--article">
               <div class="card__info" onclick="linkto('/profil/$username')">
                 <img class="card__info__picture" src="user/$owner/pb-small.jpg" alt="profile picture">
                 <div class="card__info__textbox">
@@ -97,13 +108,13 @@ if ($pdo === false) {
               $responseString .=  '<img class="card__picture" src="artikel/{$content_decoded["name"]}/pic1.jpg" alt="">';
             }
             $responseString .= <<<HTML
-              <h3>{$content_decoded['headline']}</h3>
-              <span class="card__text">{$content_decoded['text-medium']}... <a href="Artikel/{$content_decoded['name']}">Weiter lesen</a></span>
+              <h3>$title_sanitized</h3>
+              <span class="card__text">$text_short_sanitized... <a href="Artikel/$titleLink_sanitized">Weiter lesen</a></span>
             </div>\n
             HTML;
         } elseif ($type == "post") {
             $responseString .= <<<HTML
-            <div data-PID="$PID" data-postedOn="$unixTimeStamp" class="card card--post">
+            <div data-PID="$ID" data-postedOn="$unixTimeStamp" class="card card--post">
               <div class="card__info" onclick="linkto('/profil/$username')">
                 <img class="card__info__picture" src="user/$owner/pb-small.jpg" alt="profile picture">
                 <div class="card__info__textbox">
@@ -112,12 +123,7 @@ if ($pdo === false) {
                 </div>
               </div>\n
             HTML;
-            if (isset($content_decoded['text'])) {
-                $responseString .= '  <span class="card__text">'.$content_decoded['text'].'</span>'."\n";
-            }
-            if (isset($content_decoded['image'])) {
-                $responseString .= '  <img class="card__picture" src="'.$content_decoded['image'].'" alt="Color placeholder">'."\n";
-            }
+            $responseString .= '<span class="card__text">'.$text_sanitized.'</span>'."\n";
             $responseString .= '</div>'."\n";
         }
     }
