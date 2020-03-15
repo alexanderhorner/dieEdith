@@ -1,20 +1,5 @@
 <?php
- 
-
 include '../framework/document-start.php';
-
-
-if (isset($_SESSION['UID'])) {
-    $UID = $_SESSION['UID'];
-    $firstname = $_SESSION['firstname'];
-    $lastname = $_SESSION['lastname'];
-} else {
-    $UID = 'U0000000000';
-    $firstname = 'Unbekannter';
-    $lastname = 'Nutzer';
-}
-
-
 
 if (isset($_GET['article'])) {
   $article = $_GET['article'];
@@ -48,11 +33,33 @@ if (isset($_GET['article'])) {
     // fetch
     $row = $stmntDownload->fetch();
     $articleState = $row['status'];
+    $owner = $row['owner'];
     $publishedon = $row['publishedon'];
 
 
     if ($articleState == 'public') {
       $articleData = $row['htmldata'];
+
+      // get name of owner
+      $stmntowner = $pdo->prepare("SELECT username, firstname, lastname FROM user WHERE UID = ?");
+
+      // execute statement
+      $stmntowner->execute(array($owner));
+
+      // fetch
+      $row = $stmntowner->fetch();
+      if ($stmntowner->rowCount() > 0) {
+          $username = $row['username'];
+          $firstname= $row['firstname'];
+          $lastname = $row['lastname'];
+          $fullname = $firstname." ".$lastname;
+      } else {
+          $username = 'unknown.user';
+          $firstname= $row['Unknown'];
+          $lastname = $row['User'];
+          $fullname = $firstname." ".$lastname;
+      }
+
     } else {
       echo 'Dieser Artikel wurde noch nicht veröffentlicht.';
       die();
@@ -77,7 +84,9 @@ if (isset($_GET['article'])) {
 
   <?php include '../framework/head.php'?>
 
-  <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
+  <script src="/framework/timeago.js"></script>
 
   <link rel="stylesheet" type="text/css" href="/artikel/artikel.css">
 
@@ -93,16 +102,18 @@ if (isset($_GET['article'])) {
     </h1>
 
     <div class="article__info">
-      <img class="article__info__picture" src="/user/<?php echo $UID ?>/pb-small.jpg" alt="profile picture">
+      <img class="article__info__picture" src="/user/<?php echo $owner ?>/pb-small.jpg" alt="profile picture">
       <div class="article__info__textbox">
         <div class="article__info__textbox__name">
-          <?php echo $firstname." ".$lastname; ?>
+          <?php echo $fullname; ?>
         </div>
-        <div class="article__info__textbox__time">
-          Unveröffentlichter Entwurf
-        </div>
+        <div class="article__info__textbox__time" data-timeago="<?php echo $publishedon ?>"></div>
       </div>
     </div>
+    <script>
+      var nodes = document.querySelectorAll('.article__info__textbox__time');
+      timeago.render(nodes, 'de');
+    </script>
 
     <p class="clear"></p>
 

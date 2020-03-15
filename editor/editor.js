@@ -7,8 +7,10 @@ function uploadArticleData(saveData) {
     data: 'AID=' + encodeURI($('.main-title').attr('data-AID')) + '&data=' + encodeURIComponent(JSON.stringify(saveData)),
     timeout: 10000,
     success: function(data) {
-      saveState('saved');
-      if (data.request == "failed" && data.error == "Session expired") {
+      if (data.request == "success") {
+        saveState('saved');
+        window.saveCount += 1;
+      } else if (data.request == "failed" && data.error == "Session expired") {
         window.saved = false;
         window.saveLockTimer = 6000;
         saveState('unsaved');
@@ -23,7 +25,7 @@ function uploadArticleData(saveData) {
         window.saveLockTimer = 6000;
         saveState('unsaved');
         error('Der Artikel konnte nicht gespeichert werden, da die gesendeten Daten ein falsches Format haben ("Mysql request(s) failed"). Frage einen Admin oder versuche es später erneut.');
-      } else if (data.request == "failed") {
+      } else {
         window.saved = false;
         window.saveLockTimer = 6000;
         saveState('unsaved');
@@ -70,8 +72,8 @@ function publishArticle() {
 }
 
 
-window.saveLockTimer = 1500;
 window.saved = true;
+window.saveCount = 0;
 
 setInterval(function() {
 
@@ -100,13 +102,13 @@ function saveData() {
 
 function saveState(state) {
   if (state == 'saved') {
-    $('.save-state, .save-state--saved').css('display', 'inline-block');
+    $('.save-state, .save-state--saved').css('display', '');
     $('.save-state:not(.save-state--saved)').css('display', 'none');
   } else if (state == 'loading') {
-    $('.save-state, .save-state--loading').css('display', 'inline-block');
+    $('.save-state, .save-state--loading').css('display', '');
     $('.save-state:not(.save-state--loading)').css('display', 'none');
   } else if (state == 'unsaved') {
-    $('.save-state, .save-state--unsaved').css('display', 'inline-block');
+    $('.save-state, .save-state--unsaved').css('display', '');
     $('.save-state:not(.save-state--unsaved)').css('display', 'none');
   } else {
     return 'Unvalid save state';
@@ -120,6 +122,9 @@ $(window).on('load', function() {
     var observer = new MutationObserver(function(mutations, observer) {
       
       window.saveLockTimer = 1500;
+      if (window.saveCount == 0) {
+        window.saveLockTimer = 0;
+      }
       window.saved = false;
       saveState('unsaved');
       $("div:has(> div:has(> .image-tool__tune))").remove();

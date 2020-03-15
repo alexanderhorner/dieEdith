@@ -27,10 +27,10 @@ require_once __DIR__ . '/framework/isTeamMember.php';
       <h1 class="titles">Schnellstart</h1>
       <div class="quickstart__options__wrapper">
         <div class="quickstart__options">
-          <div class="quickstart__options__option" onclick="linkto('/profil/<?php echo $_SESSION['username'] ?>#neuerArtikel')">Neuer Artikel</div>
-          <div class="quickstart__options__option" onclick="linkto('/profil/<?php echo $_SESSION['username'] ?>#entwuerfe')">Deine Entwürfe</div>
-          <div class="quickstart__options__option" onclick="linkto('/profil/<?php echo $_SESSION['username'] ?>#artikel')">Alle Artikel</div>
-          <div class="quickstart__options__option" onclick="linkto('/profil/<?php echo $_SESSION['username'] ?>#beitraege')">Profil</div>
+          <a class="quickstart__options__option" href="/profil/<?php echo $_SESSION['username'] ?>#neuerArtikel">Neuer Artikel</a>
+          <a class="quickstart__options__option" href="/profil/<?php echo $_SESSION['username'] ?>#entwuerfe">Deine Entwürfe</a>
+          <a class="quickstart__options__option" href="/profil/<?php echo $_SESSION['username'] ?>#artikel">Alle Artikel</a>
+          <a class="quickstart__options__option" href="/profil/<?php echo $_SESSION['username'] ?>#beitraege">Profil</a>
         </div>
       </div> 
       <h1 class="titles">Neuste Beiträge</h1>

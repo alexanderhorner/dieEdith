@@ -41,7 +41,7 @@ window.prependedPostCount = 0;
 $(document).ready(function() {
 
   // close prompt
-  $('.background--grayish').click(function() {
+  $('.prompt-bg').click(function() {
     $('html').removeClass('prompt--new-article--shown');
   })
   $(document).on('keypress', function(e) {
@@ -177,7 +177,7 @@ $(document).ready(function() {
           var today = new Date();
           var date = today.getDate() + '.' + (today.getMonth() + 1) + '.' + today.getFullYear();
 
-          var $items = $('<div id="prependedPost' + window.prependedPostCount + '" data-postedOn="' + Math.floor(Date.now() / 1000 + 3600) + '" class="card card--post"><div class="post__text"><span>' + htmlEntities($('.card--new-post__textarea').val()) + '</span></div><div data-timeago="' + Math.floor(Date.now()) + '" class="card__time"></div></div>');
+          var $items = $('<div id="prependedPost' + window.prependedPostCount + '" data-pid="' + data.PID + '" data-postedOn="' + Math.floor(Date.now() / 1000 + 3600) + '" class="card card--post ' + data.PID + '"><div onclick="deletePost(\'' + data.PID + '\')" class="card__delete"><i class="material-icons">delete_forever</i></div><div class="post__text"><span>' + htmlEntities($('.card--new-post__textarea').val()) + '</span></div><div data-timeago="' + Math.floor(Date.now()) + '" class="card__time"></div></div>');
           $grid.prepend($items).isotope('insert', $items);
 
           // render prepended Post's time
@@ -206,3 +206,59 @@ $(document).ready(function() {
   });
 
 });
+
+// delete Post
+function deletePost(pid) {
+  if (confirm('Willst du diesen Post wirklich löschen?')) {
+    $.ajax({
+      type: 'POST',
+      url: '/framework/deletePost.php',
+      dataType: 'json',
+      data: 'PID=' + pid,
+      timeout: 10000,
+      success: function(data) {
+        if (data.status != "successful") {
+          error("Es ist ein Fehler beim Löschen des Posts aufgetreten (" + data.error['category'] + ": " + data.error['description'] + "). Überprüfe deine Internetverbindung und versuche es später erneut.");
+        } else {
+          var postClass = "." + pid;
+          $grid.isotope('remove', $(postClass));
+          $grid.isotope('layout');
+        }
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        error("Es ist ein Fehler beim Löschen des Posts aufgetreten (" + textStatus + "). Überprüfe deine Internetverbindung und versuche es später erneut.");
+      }
+    });
+  } else {
+    // Do nothing!
+  }
+}
+// delete Post
+function deletePost(pid) {
+  $('html').addClass('prompt--delete-post--shown');
+  window.promptFunction = function() {
+    console.log('deleteing ' + pid);
+    $.ajax({
+      type: 'POST',
+      url: '/framework/deletePost.php',
+      dataType: 'json',
+      data: 'PID=' + pid,
+      timeout: 10000,
+      success: function(data) {
+        if (data.status != "successful") {
+          error("Es ist ein Fehler beim Löschen des Posts aufgetreten (" + data.error['category'] + ": " + data.error['description'] + "). Überprüfe deine Internetverbindung und versuche es später erneut.");
+        } else {
+          var postClass = "." + pid;
+          $grid.isotope('remove', $(postClass));
+          $grid.isotope('layout');
+
+          $('html').removeClass('prompt--delete-post--shown');
+          window.promptFunction = function() {return 'function unset'};
+        }
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        error("Es ist ein Fehler beim Löschen des Posts aufgetreten (" + textStatus + "). Überprüfe deine Internetverbindung und versuche es später erneut.");
+      }
+    });
+  }
+}

@@ -10,28 +10,27 @@ $response['status'] = 'failed';
 $response['error'] = array();
 $response['error']['category'] = 'Unknown';
 $response['error']['description'] = 'An unknown error has occured';
+// $response['PID'] = ''; Set after succesfull request
 
 // Check Permissions
 session_start();
 if (isset($_SESSION['UID'])) {
     $UID = $_SESSION['UID'];
 } else {
-    $response['request'] = 'failed';
     $response['error']['category'] = "No permission";
-    $response['error']['descriptopn'] = "User isn't logged in";
+    $response['error']['description'] = "User isn't logged in";
     goto end;
 }
 if (isTeamMember() == false) {
-  $response['request'] = 'failed';
   $response['error']['category'] = "No permission";
-  $response['error']['descriptopn'] = "The logged in user isn't part of a permitted group";
+  $response['error']['description'] = "The logged in user isn't part of a permitted group";
   goto end;
 } 
 
 // Set up all input parameters
 // $UID = UID
 if (isset($_POST['text'])) {
-  $text = $_POST['text'];
+  $text = trim($_POST['text']);
 } else {
   $response['error']['category'] = 'Parameter error';
   $response['error']['description'] = 'One or more parameter are missing';
@@ -39,7 +38,7 @@ if (isset($_POST['text'])) {
 }
 
 // Check Parameters
-if (strlen($text) <= 0) {
+if (mb_strlen($text, 'UTF-8') <= 0 || mb_strlen($text, 'UTF-8') > 280) {
   $response['error']['category'] = 'Parameter error';
   $response['error']['description'] = 'The parameter "text" is wrong';
   goto end;
@@ -62,7 +61,8 @@ if ($pdo === false) {
     $statement = $pdo->prepare("INSERT INTO `posts`(`PID`, `owner`, `text`) VALUES (?, ?, ?)");
 
     // execute statement
-    $statement->execute(array('P'.random_str(), $UID, $text));
+    $newPID = 'P'.random_str();
+    $statement->execute(array($newPID, $UID, $text));
 
     // check response from statement
     if($statement->errorCode() != 0) {
@@ -80,6 +80,7 @@ if ($pdo === false) {
         } else {
           $response['status'] = 'successful';
           unset($response['error']);
+          $response['PID'] = $newPID;
         }
     }
 

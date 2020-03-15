@@ -11,6 +11,18 @@ function linkto(x) {
   }
 }
 
+function closePrompt(prompt) {
+  if (prompt == 'all') {
+    $("html").removeClass('prompt--delete-post--shown');
+    $("html").removeClass('prompt--new-article--shown');
+    return true
+  } else {
+    return false
+  }
+}
+
+window.promptFunction = function() {return 'function unset'};
+
 function updateSettings(settings) {
   // Send data
   $.ajax({
@@ -48,6 +60,16 @@ $(document).click(function(e) {
     $('html').removeClass('header__profile-menu--shown');
   }
 });
+
+// close all prompts
+$(document).click(function(e) {
+  if ($(e.target).closest(".prompt-bg").length > 0) {
+    $('html').removeClass('prompt--delete-post--shown');
+  } else {
+    
+  }
+});
+
 
 // Messages
 var messageCount = 2;
@@ -322,6 +344,11 @@ $(document).on('keypress', function(e) {
     if ($('html').hasClass('header__profile-menu--shown')) {
       e.preventDefault();
       $('html').removeClass('header__profile-menu--shown');
+    }
+    if ($('html').hasClass('prompt--delete-post--shown')) {
+      e.preventDefault();
+      $('html').removeClass('prompt--delete-post--shown');
+      window.promptFunction = function() {return 'function unset'};
     }
   }
 });

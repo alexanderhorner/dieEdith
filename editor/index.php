@@ -73,7 +73,7 @@ if (isset($_GET['article'])) {
 
   <?php include '../framework/head.php'?>
 
-  <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 
   <!-- Editor.js -->
   <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
@@ -111,7 +111,7 @@ if (isset($_GET['article'])) {
       </div>
 
       <!-- Loading -->
-      <div class="save-state save-state--loading">
+      <div class="save-state save-state--loading" style="display: none">
         <div class="save-state__icon">
           <div class="loadingio-spinner-rolling-rqt9h9gqbtl">
             <div class="ldio-7m1gexeqndq">
@@ -123,7 +123,7 @@ if (isset($_GET['article'])) {
       </div>
 
       <!-- Unsaved -->
-      <div class="save-state save-state--unsaved">
+      <div class="save-state save-state--unsaved" style="display: none">
         <div class="save-state__icon">
           <i class="material-icons save-state__icon--unsaved">error_outline</i>
         </div>

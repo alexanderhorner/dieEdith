@@ -1,3 +1,24 @@
+<div class="prompt-bg"></div>
+
+<div class="prompt prompt--delete-post">
+  <h2 class="prompt__headline">Beitrag löschen</h2>
+  <div class="prompt__description">Bist du dir sicher, dass du diesen Beitrag löschen willst?</div>
+  <div class="prompt__btn-container">
+    <button onclick="closePrompt('all'); window.promptFunction = '';" tabindex="0" class="prompt__btn-container__btn prompt__btn-container__btn--abort">Abbrechen</button>
+    <button onclick="promptFunction()" tabindex="0" class="prompt__btn-container__btn prompt__btn-container__btn--confirm">Löschen</button>
+  </div>
+</div>
+
+<div class="prompt--new-article">
+  <div onclick="$('html').removeClass('prompt--new-article--shown');" class="prompt--new-article__close"><i class="material-icons">close</i></div>
+  <h2>Neuen Artikel erstellen:</h2>
+  <form class="prompt--new-article__form">
+    <div>Titel:</div>
+    <input tabindex="-1" class="prompt--new-article__form__input" maxlength="180" type="text" value="">
+    <input class="prompt--new-article__form__submit" type="submit" value="Erstellen">
+  </form>
+</div>
+
 <header class="header">
   <a href="/"><img class="header__logo header__logo--big--light" src="/framework/icons/logo--big--light.svg" alt="Die Edith Logo"></a>
   <a href="/"><img class="header__logo header__logo--big--dark" src="/framework/icons/logo--big--dark.svg" alt="Die Edith Logo"></a>
@@ -96,14 +117,6 @@
       </a>
     </li>
     <?php endif; ?>
-
-
-    <li class="side-menu__list__li">
-      <a href="/Einstellungen">
-        <i class="material-icons">tune</i>
-        <span class="side-menu__list__li__text">Einstellungen</span>
-      </a>
-    </li>
   </ul>
 
   <hr>
@@ -112,7 +125,7 @@
 
     <div class="side-menu__theme-selection__option side-menu__theme-selection__option--auto">
       <div class="side-menu__theme-selection__option__center">
-        <span>Auto</span>
+        <div class="side-menu__theme-selection__option__center__text">Auto</div>
         <i class="material-icons">settings_brightness</i>
       </div>
     </div>
@@ -121,7 +134,7 @@
 
     <div class="side-menu__theme-selection__option side-menu__theme-selection__option--light">
       <div class="side-menu__theme-selection__option__center">
-        <span>Hell</span>
+        <div class="side-menu__theme-selection__option__center__text">Hell</div>
         <i class="material-icons">brightness_high</i>
       </div>
     </div>
@@ -130,7 +143,7 @@
 
     <div class="side-menu__theme-selection__option side-menu__theme-selection__option--dark">
       <div class="side-menu__theme-selection__option__center">
-        <span>Dunkel</span>
+        <div class="side-menu__theme-selection__option__center__text">Dunkel</div>
         <i class="material-icons">brightness_2</i>
       </div>
     </div>
@@ -170,3 +183,4 @@
 <!-- Feauture detect prefers-color-scheme  -->
 <div class="feature-detect--prefers-color-scheme--1"></div>
 <div class="feature-detect--prefers-color-scheme--2"></div>
+

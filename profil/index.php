@@ -1,6 +1,6 @@
-<?php include '../framework/document-start.php';
+<?php 
+include '../framework/document-start.php';
 require_once __DIR__ . '/../framework/isTeamMember.php';
-
 
 if (isset($_GET['user'])) {
   $username = $_GET['user'];
@@ -30,17 +30,17 @@ if (isset($_GET['user'])) {
 
     if (isset($_SESSION['UID'])) {
       if ($_SESSION['UID'] == $pageOwnerUID) {
-        $isOwnProfile = "true";
+        $isOwnProfile = true;
       } else {
-        $isOwnProfile = "false";
+        $isOwnProfile = false;
       }
     } else {
-      $isOwnProfile = "false";
+      $isOwnProfile = false;
     }
 
   } else {
     // Set up variables
-    $isOwnProfile = "false";
+    $isOwnProfile = false;
     $pageOwnerUID = 'U0000000000';
     $firstname = 'Unbekannter';
     $lastname = 'Nutzer';
@@ -51,7 +51,7 @@ if (isset($_GET['user'])) {
 
 } else {
   // Set up variables
-  $isOwnProfile = "false";
+  $isOwnProfile = false;
   $pageOwnerUID = 'U0000000000';
   $firstname = 'Unbekannter';
   $lastname = 'Nutzer';
@@ -96,25 +96,13 @@ if (isset($_GET['user'])) {
         ?>
       </div>
     </div>
-    <div class="background--grayish"></div>
-
-
-    <div class="prompt--new-article">
-      <div onclick="$('html').removeClass('prompt--new-article--shown');" class="prompt--new-article__close"><i class="material-icons">close</i></div>
-      <h2>Neuen Artikel erstellen:</h2>
-      <form class="prompt--new-article__form">
-        <div>Titel:</div>
-        <input tabindex="-1" class="prompt--new-article__form__input" maxlength="180" type="text" value="">
-        <input class="prompt--new-article__form__submit" type="submit" value="Erstellen">
-      </form>
-    </div>
 
     <div class="selection__wrapper">
       <div class="selection">
         <button class="selection__button selection__button--selection selection__button--selection--posts" onclick="linkto('#beitraege')">Beiträge</button>
         <button class="selection__button selection__button--selection selection__button--selection--articles" onclick="linkto('#artikel')">Nur Artikel</button>
 
-        <?php if ($isOwnProfile == 'true' && isTeamMember()) : ?>
+        <?php if ($isOwnProfile == true && isTeamMember()) : ?>
         <button class="selection__button selection__button--selection selection__button--selection--drafts" onclick="linkto('#entwuerfe')">Deine Entwürfe</button>
         <button class="selection__button selection__button--new-article" onclick="$('html').addClass('prompt--new-article--shown')">Neuer Artikel</button>
         <?php endif; ?>
@@ -124,7 +112,7 @@ if (isset($_GET['user'])) {
 
     <section style="opacity: 0" class="cards">
       
-      <?php if ($isOwnProfile == 'true' && isTeamMember()) : ?>
+      <?php if ($isOwnProfile == true && isTeamMember()) : ?>
         <div tabindex="-1" data-postedOn="9999999997" class="card card--new-post">
           <form>
             <textarea rows="4" class="card--new-post__textarea" required placeholder="Was gibt's neues?" maxlength="280"></textarea>
@@ -142,23 +130,24 @@ if (isset($_GET['user'])) {
       // Fetch all posts
       $stmntFetchPosts = $pdo->prepare("SELECT PID as ID, postedon as 'time', owner, 'post' as 'type', text, NULL as 'title'
       FROM posts 
+      WHERE owner = ?
       UNION 
       SELECT AID as ID, publishedon as 'time', owner, status as 'type', previewdata as 'text', title
       FROM articles 
-      WHERE owner = 'UoaWWOeSsGk' AND status = 'public'
+      WHERE owner = ? AND status = 'public'
       UNION 
       SELECT AID as ID, createdon as 'time', owner, status as 'type', previewdata as 'text', title
       FROM articles 
-      WHERE owner = 'UoaWWOeSsGk' AND status = 'draft'
+      WHERE owner = ? AND status = 'draft'
       ORDER BY time desc");
-      $stmntFetchPosts->execute(array($pageOwnerUID));
+      $stmntFetchPosts->execute(array($pageOwnerUID, $pageOwnerUID, $pageOwnerUID));
 
       // Print out all posts
       while($row = $stmntFetchPosts->fetch()) {
         $ID = $row['ID'];
         $owner = $row['owner'];
         $unixTimeStamp = strtotime($row['time']);
-        $unixTimeStampMs = $unixTimeStamp * 1000 - 3600000;
+        $unixTimeStampMs = $unixTimeStamp * 1000;
         $type = $row['type'];
         $text = $row['text'];
         $text_sanitized = htmlspecialchars($text);
@@ -173,8 +162,18 @@ if (isset($_GET['user'])) {
         
         if ($type == 'post') {
           $ammountofPosts += 1;
+
           echo <<<HTML
-          <div data-postedOn="$unixTimeStamp" data-PID="$ID" class="card card--post">
+          <div data-postedOn="$unixTimeStamp" data-PID="$ID" class="card card--post $ID">
+          HTML;
+          if ($isOwnProfile == true) {
+            echo <<<HTML
+              <div onclick="deletePost('$ID')" class="card__delete">
+                <i class="material-icons">delete_forever</i>
+              </div>
+            HTML;
+          }
+          echo <<<HTML
             <div class="post__text">
               <span>$text_sanitized</span>
             </div>
@@ -216,10 +215,10 @@ if (isset($_GET['user'])) {
           }
 
           echo <<<HTML
-           <div data-AID="$ID" data-postedOn="$unixTimeStamp" onclick="linkto('/artikel/$titleLink_sanitized')" class="card card--article card--article--draft $picture">
+           <div data-AID="$ID" data-postedOn="$unixTimeStamp" onclick="linkto('/editor/$titleLink_sanitized')" class="card card--article card--article--draft $picture">
             <div class="card--article__information">
               <h3 class="card--article__headline">$title_sanitized</h3>
-              <span class="card--article__text">$text_medium_sanitized... <a href="/artikel/$titleLink_sanitized">Weiter lesen</a></span>
+              <span class="card--article__text">$text_medium_sanitized... <a href="/editor/$titleLink_sanitized">Editieren</a></span>
             </div>
           HTML;
           if (isset($content_decoded['pic'])) {

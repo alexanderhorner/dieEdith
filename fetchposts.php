@@ -19,6 +19,10 @@ if (isset($_GET["page"])) {
   $page = 1;
 }
 
+session_start();
+if (isset($_SESSION['UID'])) {
+  $UID = $_SESSION['UID'];
+}
 
 
 $numberOfPosts = 15;
@@ -92,8 +96,6 @@ if ($pdo === false) {
 
 
         if ($type == "article") {
-
-          // generate response
             $responseString .= <<<HTML
             <div data-PID="$ID" data-postedOn="$unixTimeStamp" onclick="linkto('Artikel/$titleLink_sanitized')" class="card card--article">
               <div class="card__info" onclick="linkto('/profil/$username')">
@@ -113,18 +115,36 @@ if ($pdo === false) {
             </div>\n
             HTML;
         } elseif ($type == "post") {
-            $responseString .= <<<HTML
-            <div data-PID="$ID" data-postedOn="$unixTimeStamp" class="card card--post">
-              <div class="card__info" onclick="linkto('/profil/$username')">
-                <img class="card__info__picture" src="user/$owner/pb-small.jpg" alt="profile picture">
-                <div class="card__info__textbox">
-                  <div class="card__info__textbox__name">$fullname</div>
-                  <div data-timeago="$unixTimeStampMs" class="$randomRequestIdentifier card__info__textbox__time"></div>
-                </div>
-              </div>\n
-            HTML;
-            $responseString .= '<span class="card__text">'.$text_sanitized.'</span>'."\n";
-            $responseString .= '</div>'."\n";
+          if (isset($UID)) {
+            if ($owner == $UID) {
+              $isOwnerClass = " card--post--isOwner";
+              $isOwnerDiv = <<<HTML
+              <div onclick="deletePost('$ID')" class="card__delete">
+                <i class="material-icons">delete_forever</i>
+              </div>
+              HTML;
+            } else {
+            $isOwnerClass = "";
+            $isOwnerDiv = "";
+            }
+          } else {
+            $isOwnerClass = "";
+            $isOwnerDiv = "";
+          }
+
+          $responseString .= <<<HTML
+          <div data-PID="$ID" data-postedOn="$unixTimeStamp" class="$ID card card--post$isOwnerClass">
+            <div class="card__info" onclick="linkto('/profil/$username')">
+              <img class="card__info__picture" src="user/$owner/pb-small.jpg" alt="profile picture">
+              <div class="card__info__textbox">
+                <div class="card__info__textbox__name">$fullname</div>
+                <div data-timeago="$unixTimeStampMs" class="$randomRequestIdentifier card__info__textbox__time"></div>
+              </div>
+            </div>
+            $isOwnerDiv
+            <span class="card__text">$text_sanitized</span>
+          </div>\n
+          HTML;
         }
     }
 }

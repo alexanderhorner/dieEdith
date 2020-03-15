@@ -13,7 +13,7 @@
   ;
 }
 
-@media only screen and (max-width: 1510px) and (min-width: 1320px) {
+@media (max-width: 1510px) and (min-width: 1320px) {
   .side-menu--shown .wrapper {
     transform: translateX(var(--wrapper-margin-small-full-difference));
     transition: transform 0.25s cubic-bezier(0.4, 0.0, 0.2, 1);
@@ -38,7 +38,8 @@
 }
 
 .titles {
-  font-weight: bolder;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
   margin-top: 0.4em;
   margin-bottom: 0.3em;
 }
@@ -74,6 +75,8 @@
 }
 
 .quickstart__options__option {
+  text-decoration: none !important;
+  color: var(--font) !important;
   line-height: 38px;
   text-align: center;
   flex-grow: 1;
@@ -85,18 +88,22 @@
   margin-right: 10px;
   background-color: var(--foreground);
   border-radius: 20px;
-  box-shadow: 0 1px 8px 0 hsla(0, 0%, 0%, 0.1);
+  box-shadow: 0 1px 8px 0 hsla(0, 0%, 0%, 0.05);
   transition: background 0.2s, box-shadow 0.15s, opacity 0.15s, transform 0.15s;
 }
 
+.quickstart__options__option:active {
+  transform: scale(0.985);
+  box-shadow: 0 1px 4px 0 hsla(0, 0%, 0%, 0.05);
+}
 
-html.dark .quickstart__options__option {
+.dark .quickstart__options__option {
   border: 1px solid hsla(0, 0%, 50%, 0.2);
   padding: 0px 9px;
 }
 
 
-html.dark .quickstart__options__option {
+.dark .quickstart__options__option {
   box-shadow: none;
 }
 
@@ -110,16 +117,16 @@ html.dark .quickstart__options__option {
   border: none;
   border-radius: 8px;
   background-color: var(--foreground);
-  box-shadow: 0 1px 8px 0 hsla(0, 0%, 0%, 0.1);
+  box-shadow: 0 1px 8px 0 hsla(0, 0%, 0%, 0.05);
 }
 
-html.dark .card {
+.dark .card {
   padding: 29px 9px 9px;
   border: 1px solid hsla(0, 0%, 50%, 0.2);
   box-shadow: none;
 }
 
-@media only screen and (max-width: 700px) {
+@media (max-width: 700px) {
   .card {
     width: calc(100% - 10px);
   }
@@ -129,32 +136,11 @@ html.dark .card {
   cursor: pointer;
 }
 
-/* .card::before {
-  z-index: 2300;
-  position: absolute;
-  top: -30px;
-  right: -5px;
-  bottom: -5px;
-  left: -5px;
-  transform: scale(0.95);
-  border-radius: 12px;
-  background-color: hsla(0, 0%, 50%, 0.15);
-  content: "";
-  opacity: 0;
-  pointer-events: none;
-  transition: transform 0.2s, opacity 0.2s;
-}
-
-.card:hover::before {
-  transform: scale(1);
-  opacity: 1;
-} */
-
 /* .card__info */
 .card__info {
   cursor: pointer;
   display: flex;
-  z-index: 1500;
+  z-index: 2500;
   position: absolute;
   top: 0px;
   left: 40px;
@@ -170,7 +156,7 @@ html.dark .card {
   white-space: nowrap;
 }
 
-html.dark .card__info {
+.dark .card__info {
   top: -1px;
   left: 39px;
   padding: 0px 14px 0px 29px;
@@ -189,7 +175,7 @@ html.dark .card__info {
   box-shadow: 0 1px 4px 0 hsla(0, 0%, 0%, 0.1);
 }
 
-html.dark .card__info__picture {
+.dark .card__info__picture {
   left: -1px;
   box-shadow: 0 1px 4px 0 hsla(0, 0%, 0%, 0.5);
 }
@@ -205,8 +191,65 @@ html.dark .card__info__picture {
   font-size: 12px;
 }
 
+.card__delete {
+  transform: translateY(-50%);
+  background-color: var(--foreground);
+  width: 36px;
+  height: 36px;
+  border-radius: 100%;
+  position: absolute;
+  top: 0;
+  right: 20px;
+  box-shadow: 0 1px 4px 0 hsla(0, 0%, 0%, 0.1);
+  color: var(--error);
+  cursor: pointer;
+
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  display: block;
+  border: none;
+  text-align: center;
+  text-decoration: none;
+  transition: opacity 150ms, background 150ms, transform 150ms;
+
+  padding: 1px;
+}
+
+.dark .card__delete {
+  padding: 0;
+  border: 1px solid hsla(0, 0%, 50%, 0.2);
+  box-shadow: 0 1px 4px 0 hsla(0, 0%, 0%, 0.5);
+  top: -1px;
+  right: 19px;
+}
+
+.no-touchevents .card__delete:hover,
+.card__delete:focus {
+  opacity: 0.8;
+}
+
+.card__delete:active {
+  transform: translateY(-50%) scale(0.94);
+}
+
+.card__delete .material-icons {
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
+  display: block;
+  pointer-events: none;
+  user-select: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 20px;
+}
+
 /* card headline */
 .card--article h3 {
+  font-family: 'Montserrat', sans-serif;
   margin: 0 0 5px;
 }
 
@@ -233,7 +276,7 @@ html.dark .card__info__picture {
   border-radius: 4px;
 }
 
-@media only screen and (max-width: 350px) {
+@media (max-width: 350px) {
   .card--article .card__picture {
     width: 100%;
     margin-left: initial;

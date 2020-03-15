@@ -38,7 +38,8 @@
 .save-state {
   width: 227px;
   position: relative;
-  display: inline-block;
+  display: flex;
+  align-items: center;
   height: 44px;
   cursor: pointer;
   -moz-user-select: none;
@@ -51,13 +52,15 @@
 .save-state .save-state__icon {
   width: 24px;
   height: 24px;
-  display: inline-block;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+  font-size: 24px;
+}
+
+.save-state .save-state__icon .material-icons {
+  display: block;
 }
 
 .save-state .save-state__text {
+  font-weight: 700;
   white-space: nowrap;
   -moz-user-select: none;
   -khtml-user-select: none;
@@ -65,26 +68,23 @@
   -o-user-select: none;
   user-select: none;
   font-size: 16px;
-  margin-left: 25px;
-  line-height: 44px;
+  margin-left: 3px;
+  line-height: 24px;
 }
 
 .save-state--saved {
   color: var(--green);
-  display: inline-block;
 }
 
 .save-state--loading {
-  display: none;
   color: hsla(0, 0%, 50%, 1)
 }
 
 .save-state--unsaved {
   color: var(--warning);
-  display: none;
 }
 
-.publish-btn:hover,
+.no-touchevents .publish-btn:hover,
 .publish-btn:focus {
   background: hsl(211, 100%, 40%);
 }
@@ -151,7 +151,7 @@
 .loadingio-spinner-rolling-rqt9h9gqbtl {
   width: 24px;
   height: 24px;
-  display: inline-block;
+  display: block;
   overflow: hidden;
   background: none;
 }
@@ -177,7 +177,7 @@
   position: relative;
 }
 
-.main-title:hover::after {
+.no-touchevents .main-title:hover::after {
   pointer-events: none;
   content: "";
   background-color: hsla(0, 0%, 50%, 0.2);

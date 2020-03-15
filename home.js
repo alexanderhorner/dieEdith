@@ -20,6 +20,46 @@ $(document).ready(function() {
   infiniteScrollLoop()
 });
 
+// delete Post
+function deletePost(pid) {
+  $('html').addClass('prompt--delete-post--shown');
+  window.promptFunction = function() {
+    console.log('deleteing ' + pid);
+    $.ajax({
+      type: 'POST',
+      url: '/framework/deletePost.php',
+      dataType: 'json',
+      data: 'PID=' + pid,
+      timeout: 10000,
+      success: function(data) {
+        if (data.status != "successful") {
+          error("Es ist ein Fehler beim Löschen des Posts aufgetreten (" + data.error['category'] + ": " + data.error['description'] + "). Überprüfe deine Internetverbindung und versuche es später erneut.");
+        } else {
+          $('.grid').masonry({
+            transitionDuration: '0.4s'
+          });
+          var postClass = "." + pid
+          $(postClass).remove()
+
+          $('html').removeClass('prompt--delete-post--shown');
+          window.promptFunction = function() {return 'function unset'};
+
+          $grid.masonry('reloadItems');
+          $grid.masonry('layout');
+          setTimeout(function() {
+            $('.grid').masonry({
+              transitionDuration: 0
+            });
+          }, 450);
+        }
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        error("Es ist ein Fehler beim Löschen des Posts aufgetreten (" + textStatus + "). Überprüfe deine Internetverbindung und versuche es später erneut.");
+      }
+    });
+  }
+}
+
 // infinite Scroll
 function infiniteScrollLoop() {
 
