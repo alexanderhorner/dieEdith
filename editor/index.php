@@ -50,16 +50,16 @@ if (isset($_GET['article'])) {
     if ($owner == $UID) {
       $articleData = $row['jsondata'];
     } else {
-      echo 'Du hast keine Rechte zu diesem Artikel! Frage den Besitzer oder einen Admin.';
+      header('Location: /');
       die();
     }
   } else {
-    echo 'Artikel wurde nicht gefunden!';
+    header('Location: /');
     die();
   }
 
 } else {
-  echo 'Kein Artikel spezifiziert!';
+  header('Location: /');
   die();
 }
 

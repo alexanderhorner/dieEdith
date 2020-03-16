@@ -23,8 +23,9 @@ $(document).ready(function() {
 // delete Post
 function deletePost(pid) {
   $('html').addClass('prompt--delete-post--shown');
+  $('body').scrollLock('enable');
+  $('')
   window.promptFunction = function() {
-    console.log('deleteing ' + pid);
     $.ajax({
       type: 'POST',
       url: '/framework/deletePost.php',
@@ -41,8 +42,8 @@ function deletePost(pid) {
           var postClass = "." + pid
           $(postClass).remove()
 
-          $('html').removeClass('prompt--delete-post--shown');
-          window.promptFunction = function() {return 'function unset'};
+          closePrompt('all');
+          
 
           $grid.masonry('reloadItems');
           $grid.masonry('layout');
@@ -181,8 +182,6 @@ function fetchPage(page) {
           window.loadedPages.splice(i, 1);
         }
       }
-
-      console.log(loadpage);
       error("Es gab ein Problem beim Laden der Posts (" + textStatus + "). Überprüfe deine Internetverbindung und versuche es später erneut.");
     }
   });

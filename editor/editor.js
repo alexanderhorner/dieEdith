@@ -29,14 +29,14 @@ function uploadArticleData(saveData) {
         window.saved = false;
         window.saveLockTimer = 6000;
         saveState('unsaved');
-        error("Der Artikel konnte nicht gespeichert werden (" + data.error + "). Überprüfe deine Internetverbindung und probiere es später erneut.");
+        error("Der Artikel konnte nicht gespeichert werden (" + data.error + "). Überprüfe deine Internetverbindung und versuche es später erneut.");
       }
     },
     error: function(jqXHR, textStatus, errorThrown) {
       window.saved = false;
       saveState('unsaved');
       window.saveLockTimer = 6000;
-      error("Der Artikel konnte nicht gespeichert werden (" + textStatus + "). Überprüfe deine Internetverbindung und probiere es später erneut.");
+      error("Der Artikel konnte nicht gespeichert werden (" + textStatus + "). Überprüfe deine Internetverbindung und versuche es später erneut.");
     }
   });
 }
@@ -62,11 +62,11 @@ function publishArticle() {
       } else if (data.request == "failed" && data.error == "Already public") {
         error('Der Artikel ist schon öffentlich');
       } else if (data.request == "failed") {
-        error("Der Artikel konnte nicht veröffentlicht werden (" + data.error + "). Überprüfe deine Internetverbindung und probiere es später erneut.");
+        error("Der Artikel konnte nicht veröffentlicht werden (" + data.error + "). Überprüfe deine Internetverbindung und versuche es später erneut.");
       }
     },
     error: function(jqXHR, textStatus, errorThrown) {
-      error("Der Artikel konnte nicht veröffentlicht werden (" + textStatus + "). Überprüfe deine Internetverbindung und probiere es später erneut.");
+      error("Der Artikel konnte nicht veröffentlicht werden (" + textStatus + "). Überprüfe deine Internetverbindung und versuche es später erneut.");
     }
   });
 }
@@ -95,7 +95,7 @@ function saveData() {
     console.log('Saving failed: ', error1)
     saveState('unsaved');
     window.saveLockTimer = 6000;
-    error('Der Artikel konnte nicht gespeichert werden (JavaScript-Fehler). Probiere es später erneut.')
+    error('Der Artikel konnte nicht gespeichert werden (JavaScript-Fehler). versuche es später erneut.')
     window.saved = false;
   });
 }

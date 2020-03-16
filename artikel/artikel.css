@@ -37,8 +37,8 @@
 @media (max-width: 850px) {
   .wrapper {
     width: 100%;
-    padding-right: calc((100% - 680px) / 2);
-    padding-left: calc((100% - 680px) / 2);
+    padding-right: calc((100% - 680px) / 2) !important;
+    padding-left: calc((100% - 680px) / 2) !important;
   }
 
   .dark .wrapper {

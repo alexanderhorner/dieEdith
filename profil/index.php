@@ -104,7 +104,7 @@ if (isset($_GET['user'])) {
 
         <?php if ($isOwnProfile == true && isTeamMember()) : ?>
         <button class="selection__button selection__button--selection selection__button--selection--drafts" onclick="linkto('#entwuerfe')">Deine Entwürfe</button>
-        <button class="selection__button selection__button--new-article" onclick="$('html').addClass('prompt--new-article--shown')">Neuer Artikel</button>
+        <button class="selection__button selection__button--new-article" onclick="newArticle()">Neuer Artikel</button>
         <?php endif; ?>
 
       </div>
@@ -163,8 +163,14 @@ if (isset($_GET['user'])) {
         if ($type == 'post') {
           $ammountofPosts += 1;
 
+          if ($isOwnProfile == true) {
+            $isOwnedClass = "card--post--isOwner";
+          } else {
+            $isOwnedClass = "";
+          }
+
           echo <<<HTML
-          <div data-postedOn="$unixTimeStamp" data-PID="$ID" class="card card--post $ID">
+          <div data-postedOn="$unixTimeStamp" data-PID="$ID" class="card card--post $ID $isOwnedClass">
           HTML;
           if ($isOwnProfile == true) {
             echo <<<HTML

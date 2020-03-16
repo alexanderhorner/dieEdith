@@ -216,12 +216,12 @@ input {
   transition: opacity 0.2s, background 0.2s;
 }
 
-.prompt--new-article--shown .prompt-bg, .prompt--delete-post--shown .prompt-bg{
+.prompt--new-article--shown .prompt-bg, .prompt--delete-post--shown .prompt-bg {
   opacity: 1;
   pointer-events: all;
 }
 
-.prompt--delete-post--shown .prompt--delete-post {
+.prompt--new-article--shown .prompt--new-article, .prompt--delete-post--shown .prompt--delete-post {
   opacity: 1 !important;
   pointer-events: all !important;
 }
@@ -243,7 +243,7 @@ input {
   border-radius: 8px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
   transition: opacity 0.2s;
 }
 
@@ -255,11 +255,13 @@ input {
 .prompt__headline {
   font-family: 'Montserrat', sans-serif;
   margin-top: 0;
+  margin-bottom: 15px;
 }
 
 .prompt__description {
   text-align: justify;
   text-align-last: center;
+  margin-bottom: 10px;
 }
 
 .no-textalignlast .prompt__description {
@@ -270,7 +272,7 @@ input {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
+  margin-top: 10px;
   width: 100%;
 }
 
@@ -280,7 +282,7 @@ input {
   border-radius: 20px;
   padding: 1px 1px 2px;
   height: 40px;
-  width: calc(50% - 15px);
+  width: calc(50% - 8px);
   max-width: 150px;
   margin: 0;
   text-decoration: none;
@@ -296,7 +298,7 @@ input {
 }
 
 .prompt__btn-container__btn:first-of-type {
-  margin-right: 15px;
+  margin-right: 16px;
 }
 
 .prompt__btn-container__btn:focus {
@@ -308,7 +310,18 @@ input {
   transform: scale(0.985);
 }
 
+.prompt__btn-container__btn:disabled {
+  opacity: 0.6;
+  transform: scale(1);
+  cursor: unset;
+}
+
 .prompt__btn-container__btn--confirm {
+  background-color: var(--teslablue);
+  color: white;
+}
+
+.prompt__btn-container__btn--confirm--danger {
   background-color: var(--error);
   color: white;
 }
@@ -323,114 +336,29 @@ input {
   }
   .prompt__btn-container__btn:first-of-type {
     margin-right: 0;
-    margin-top: 5px;
+    margin-top: 10px;
   }
 }
 
 /* new article */
-.prompt--new-article {
-  opacity: 0;
-  pointer-events: none;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 14000;
-  background-color: var(--foreground);
-  box-shadow: 0 1px 12px 0 hsla(0, 0%, 0%, 0.1);
-  padding: 20px;
-  border-radius: 8px;
-  width: calc(100% - 10px);
-  max-width: 400px;
-  transition: opacity 0.2s, background 0.2s;
-}
-
-.prompt--new-article--shown .prompt--new-article {
-  opacity: 1;
-  pointer-events: all;
-}
-
-.prompt--new-article__close {
-  position: absolute;
-  top: 3px;
-  right: 3px;
-  cursor: pointer;
-}
-.prompt--new-article__close .material-icons {
-  display: block;
-  font-size: 22px;
-}
-
-.prompt--new-article h2 {
-  margin: 0;
-  margin-bottom: 20px;
-}
-
-.prompt--new-article__form {
-  font-size: 18px;
+.prompt__text-field {
   width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: nowrap;
-}
-
-.prompt--new-article__form__input {
-  width: 100%;
-  margin: 0;
-  margin-left: 10px;
+  margin: 20px 0 10px;
+  height: 34px;
   overflow: hidden;
   outline: none;
   -moz-appearance: none;
   -webkit-appearance: none;
-  width: 100%;
   resize: none;
-  margin-right: 10px;
-  padding: 6px 6px;
+  padding: 0 0.8em;
   font-size: inherit;
   border: none;
-  border-radius: 4px;
+  border-radius: 17px;
   background-color: hsla(0, 0%, 50%, 0.1);
   box-shadow: inset 0 1px 4px 0 hsla(0, 0%, 0%, 0.1);
   color: inherit;
   font-family: inherit;
-}
 
-.dark .prompt--new-article__form__input {
-  box-shadow: inset 0 1px 4px 1px hsla(0, 0%, 0%, 0.5);
-}
-
-.prompt--new-article__form__submit {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  display: block;
-  width: 160px;
-  height: 35px;
-  margin: 0;
-  border: none;
-  border-radius: 18px;
-  background-color: hsl(211, 100%, 50%);
-  color: #FFF;
-  font-size: 17px;
-  text-align: center;
-  text-decoration: none;
-  cursor: pointer;
-  transition: background 150ms ease-in-out, transform 150ms ease;
-}
-
-.no-touchevents .prompt--new-article__form__submit:hover,
-.prompt--new-article__form__submit:focus {
-  background: hsl(211, 100%, 40%);
-}
-
-.prompt--new-article__form__submit:active {
-  transform: scale(0.98);
-}
-
-.prompt--new-article__form__submit:disabled {
-  transform: scale(1);
-  cursor: progress;
-  opacity: 0.8;
 }
 
 /* Header */

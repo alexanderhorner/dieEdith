@@ -30,28 +30,11 @@ function hashSort() {
       filter: '.card--article--released, .card--post, .card--null--posts, .card--new-post'
     })
   }
-
-  if (hash == 'neuerArtikel') {
-    $('html').addClass('prompt--new-article--shown')
-  }
 }
 
 window.prependedPostCount = 0;
 
 $(document).ready(function() {
-
-  // close prompt
-  $('.prompt-bg').click(function() {
-    $('html').removeClass('prompt--new-article--shown');
-  })
-  $(document).on('keypress', function(e) {
-    if (e.key === "Escape") {
-      if ($('html').hasClass('prompt--new-article--shown')) {
-        e.preventDefault();
-        $('html').removeClass('prompt--new-article--shown');
-      }
-    }
-  });
 
   // prevent new lines
   $('.card--new-post__textarea').on('input paste', function() {
@@ -112,41 +95,6 @@ $(document).ready(function() {
     hashSort();
   });
 
-
-  // Submit article
-  $('.prompt--new-article__form').submit(function(event) {
-    event.preventDefault();
-
-    // Disable Button
-    $(".prompt--new-article__form__submit").prop("disabled", true);
-    $(".prompt--new-article__form__submit").attr("value", "Warte");
-
-    // Send data
-    $.ajax({
-      type: 'POST',
-      url: '/framework/newArticle.php',
-      dataType: 'json',
-      data: 'title=' + encodeURIComponent($('.prompt--new-article__form__input').val()),
-      timeout: 10000,
-      success: function(data) {
-        if (data.request == "failed") {
-          error("Es ist ein Fehler beim erstellen aufgetreten (" + data.error + "). Überprüfe deine Internetverbindung und probiere es später erneut.");
-        } else {
-          window.location = '/editor/' + encodeURIComponent($('.prompt--new-article__form__input').val());
-        }
-      },
-      error: function(jqXHR, textStatus, errorThrown) {
-        error("Es ist ein Fehler beim posten aufgetreten (" + textStatus + "). Überprüfe deine Internetverbindung und probiere es später erneut.");
-
-        // Enable Button
-        $(".prompt--new-article__form__submit").prop("disabled", false);
-        $(".prompt--new-article__form__submit").attr("value", "Erstellen");
-      }
-    });
-
-  });
-
-
   // Submit post
   $('.card--new-post form').submit(function(event) {
     event.preventDefault();
@@ -170,14 +118,14 @@ $(document).ready(function() {
           $(".card--new-post__submit").prop("disabled", false);
           $(".card--new-post__submit").attr("value", "Posten");
 
-          error("Es ist ein Fehler beim posten aufgetreten (" + data.error['category'] + ': ' + data.error['description'] + "). Probiere es später erneut.");
+          error("Es ist ein Fehler beim posten aufgetreten (" + data.error['category'] + ': ' + data.error['description'] + "). versuche es später erneut.");
         } else {
 
-          // prepend
+          // insert
           var today = new Date();
           var date = today.getDate() + '.' + (today.getMonth() + 1) + '.' + today.getFullYear();
 
-          var $items = $('<div id="prependedPost' + window.prependedPostCount + '" data-pid="' + data.PID + '" data-postedOn="' + Math.floor(Date.now() / 1000 + 3600) + '" class="card card--post ' + data.PID + '"><div onclick="deletePost(\'' + data.PID + '\')" class="card__delete"><i class="material-icons">delete_forever</i></div><div class="post__text"><span>' + htmlEntities($('.card--new-post__textarea').val()) + '</span></div><div data-timeago="' + Math.floor(Date.now()) + '" class="card__time"></div></div>');
+          var $items = $('<div id="prependedPost' + window.prependedPostCount + '" data-pid="' + data.PID + '" data-postedOn="' + Math.floor(Date.now() / 1000 + 3600) + '" class="card card--post card--post--isOwner ' + data.PID + '"><div onclick="deletePost(\'' + data.PID + '\')" class="card__delete"><i class="material-icons">delete_forever</i></div><div class="post__text"><span>' + htmlEntities($('.card--new-post__textarea').val()) + '</span></div><div data-timeago="' + Math.floor(Date.now()) + '" class="card__time"></div></div>');
           $grid.prepend($items).isotope('insert', $items);
 
           // render prepended Post's time
@@ -195,7 +143,7 @@ $(document).ready(function() {
         }
       },
       error: function(jqXHR, textStatus, errorThrown) {
-        error("Es ist ein Fehler beim posten aufgetreten (" + textStatus + "). Überprüfe deine Internetverbindung und probiere es später erneut.");
+        error("Es ist ein Fehler beim posten aufgetreten (" + textStatus + "). Überprüfe deine Internetverbindung und versuche es später erneut.");
 
         // Enable Button
         $(".card--new-post__submit").prop("disabled", false);
@@ -209,33 +157,9 @@ $(document).ready(function() {
 
 // delete Post
 function deletePost(pid) {
-  if (confirm('Willst du diesen Post wirklich löschen?')) {
-    $.ajax({
-      type: 'POST',
-      url: '/framework/deletePost.php',
-      dataType: 'json',
-      data: 'PID=' + pid,
-      timeout: 10000,
-      success: function(data) {
-        if (data.status != "successful") {
-          error("Es ist ein Fehler beim Löschen des Posts aufgetreten (" + data.error['category'] + ": " + data.error['description'] + "). Überprüfe deine Internetverbindung und versuche es später erneut.");
-        } else {
-          var postClass = "." + pid;
-          $grid.isotope('remove', $(postClass));
-          $grid.isotope('layout');
-        }
-      },
-      error: function(jqXHR, textStatus, errorThrown) {
-        error("Es ist ein Fehler beim Löschen des Posts aufgetreten (" + textStatus + "). Überprüfe deine Internetverbindung und versuche es später erneut.");
-      }
-    });
-  } else {
-    // Do nothing!
-  }
-}
-// delete Post
-function deletePost(pid) {
   $('html').addClass('prompt--delete-post--shown');
+  $('body').scrollLock('enable');
+  $
   window.promptFunction = function() {
     console.log('deleteing ' + pid);
     $.ajax({
@@ -252,8 +176,7 @@ function deletePost(pid) {
           $grid.isotope('remove', $(postClass));
           $grid.isotope('layout');
 
-          $('html').removeClass('prompt--delete-post--shown');
-          window.promptFunction = function() {return 'function unset'};
+          closePrompt('all');
         }
       },
       error: function(jqXHR, textStatus, errorThrown) {

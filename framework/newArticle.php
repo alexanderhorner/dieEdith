@@ -1,62 +1,93 @@
-<?php
+<?php 
+header('Content-type: application/json');
 
 require_once __DIR__ . '/randomID.php';
 require_once __DIR__ . '/isTeamMember.php';
 
-// Set up all variables
+// Set up all response parameters
 $response = array();
-$response['request'] = 'failed';
-$response['error'] = 'unknown';
+$response['status'] = 'failed';
+$response['error'] = array();
+$response['error']['category'] = 'Unknown';
+$response['error']['description'] = 'An unknown error has occured';
 
-if (isset($_POST['title'])) {
-  $title = $_POST['title'];
-  if (ctype_space($title)) {
-    $response['error'] = 'Titel ist leer';
-    goto end;
-  }
-}
-
+// Check Permissions
 session_start();
 if (isset($_SESSION['UID'])) {
     $UID = $_SESSION['UID'];
 } else {
-    $response['request'] = 'failed';
-    $response['error'] = "User isn't logged in";
+    $response['error']['category'] = "No permission";
+    $response['error']['description'] = "User isn't logged in";
     goto end;
 }
-
 if (isTeamMember() == false) {
-  $response['request'] = 'failed';
-  $response['error'] = "No permission";
-  goto end;
+  	$response['error']['category'] = "No permission";
+  	$response['error']['description'] = "The logged in user isn't part of a permitted group";
+  	goto end;
 } 
 
+// Set up all input parameters
+// $UID = UID
+if (isset($_POST['title'])) {
+  	$title = trim($_POST['title']);
+} else {
+  	$response['error']['category'] = 'Parameter error';
+  	$response['error']['description'] = 'One or more parameter are missing';
+  	goto end;
+}
+
+// Check Parameters
+if (mb_strlen($title, 'UTF-8') <= 0 || mb_strlen($title, 'UTF-8') > 100) {
+  	$response['error']['category'] = 'Parameter error';
+  	$response['error']['description'] = 'The parameter "title" is wrong';
+  	goto end;
+}
+
+
+// Request
 // Connenct to database
 include '../framework/mysqlcredentials.php';
 
 // Check connection
 if ($pdo === false) {
-    $response['error'] = 'Could not connect to database.';
+    $response['error']['category'] = 'MySQL error';
+    $response['error']['description'] = 'Could not connect to database';
     goto end;
 } else {
 
-  // prepare statement
-  $stmntNewArticle = $pdo->prepare("INSERT INTO `articles`(`AID`, `owner`, `title`, `jsondata`) VALUES (?, ?, ?, ?)");
+    // Update database
+    // prepare statement
+    $statement = $pdo->prepare("INSERT INTO `articles`(`AID`, `owner`, `title`, `jsondata`) VALUES (?, ?, ?, ?)");
 
-  // execute statement and put response into array
-  $stmntNewArticle->execute(array("A".random_str(10), $UID, $title, '{}'));
+    // execute statement
+    $newPID = 'P'.random_str();
+    $statement->execute(array("A".random_str(10), $UID, $title, '{}'));
 
-    if ($stmntNewArticle->rowCount() >= 0) {
-        $response['request'] = 'success';
-        unset($response['error']); 
+    // check response from statement
+    if($statement->errorCode() != 0) {
+        $stmntError = $statement->errorInfo();
+        $response['error']['category'] = 'MySQL error';
+        $response['error']['description'] = $stmntError[2];
+        goto end;
     } else {
-      $response['error'] = 'Article could not be created.';
+
+        // Check how many rows were affected
+        if ($statement->rowCount() <= 0) {
+         	$response['error']['category'] = 'MySQL error';
+          	$response['error']['description'] = 'Failed to save into database';
+          	goto end;
+        } else {
+          	$response['status'] = 'successful';
+          	unset($response['error']);
+          	$response['PID'] = $newPID;
+        }
     }
 
-		
 
 }
 
+// Finish request
 end:
-// Encode response array into json
 echo json_encode($response, JSON_PRETTY_PRINT);
+
+?>

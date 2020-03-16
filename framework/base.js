@@ -15,6 +15,11 @@ function closePrompt(prompt) {
   if (prompt == 'all') {
     $("html").removeClass('prompt--delete-post--shown');
     $("html").removeClass('prompt--new-article--shown');
+    window.promptFunction = function() {return 'function unset'};
+    $('body').scrollLock('disable');
+    setTimeout(function() {
+      $('.prompt--new-article__text-field').val('');
+    }, 200)
     return true
   } else {
     return false
@@ -33,11 +38,11 @@ function updateSettings(settings) {
     timeout: 10000,
     success: function(data) {
       if (data.request == "failed") {
-        error("Es ist ein Fehler beim aktualisieren deiner Einstellungen aufgetreten (" + data.error + "). Die Einstellungen wurden nicht in deinem Account gespeichert. Probiere es später erneut.");
+        error("Es ist ein Fehler beim aktualisieren deiner Einstellungen aufgetreten (" + data.error + "). Die Einstellungen wurden nicht in deinem Account gespeichert. versuche es später erneut.");
       }
     },
     error: function(jqXHR, textStatus, errorThrown) {
-      error("Es ist ein Fehler beim aktualisieren deiner Einstellungen aufgetreten (" + textStatus + "). Die Einstellungen wurden nicht in deinem Account gespeichert. Probiere es später erneut.");
+      error("Es ist ein Fehler beim aktualisieren deiner Einstellungen aufgetreten (" + textStatus + "). Die Einstellungen wurden nicht in deinem Account gespeichert. versuche es später erneut.");
     }
   });
 }
@@ -62,14 +67,11 @@ $(document).click(function(e) {
 });
 
 // close all prompts
-$(document).click(function(e) {
-  if ($(e.target).closest(".prompt-bg").length > 0) {
-    $('html').removeClass('prompt--delete-post--shown');
-  } else {
-    
-  }
+$(document).ready(function() {
+  $(".prompt-bg").click(function() {
+    closePrompt('all');
+  });
 });
-
 
 // Messages
 var messageCount = 2;
@@ -347,19 +349,21 @@ $(document).on('keypress', function(e) {
     }
     if ($('html').hasClass('prompt--delete-post--shown')) {
       e.preventDefault();
-      $('html').removeClass('prompt--delete-post--shown');
-      window.promptFunction = function() {return 'function unset'};
+      closePrompt('all');
+    }
+    if ($('html').hasClass('prompt--new-article--shown')) {
+      e.preventDefault();
+      closePrompt('all');
     }
   }
 });
+
 
 $(document).ready(function() {
   // Check Hash For Login and open it
   if (window.location.hash === "#login") {
     showLogin()
   }
-
-  // Submit Login
   $('.container__login__form').submit(function(event) {
     event.preventDefault();
 
@@ -421,7 +425,7 @@ $(document).ready(function() {
         // on ajax error
         error: function(jqXHR, textStatus, errorThrown) {
           loginResetButton();
-          error("Es ist ein Fehler bei der Anmeldung aufgetreten (" + textStatus + "). Überprüfe deine Internetverbindung und probiere es später erneut.");
+          error("Es ist ein Fehler bei der Anmeldung aufgetreten (" + textStatus + "). Überprüfe deine Internetverbindung und versuche es später erneut.");
         }
       });
     } else if ($('.form__textfield--username').val().length == 0 && $('.form__textfield--password').val().length != 0) {
@@ -452,3 +456,48 @@ $(document).ready(function() {
     }
   });
 });
+
+function newArticle() {
+
+  // show prompt
+  $('html').addClass('prompt--new-article--shown');
+  $('body').scrollLock('enable');
+
+  // set Function
+  window.promptFunction = function() {
+    // Submit article
+    // Disable Button
+    $(".prompt--new-article .prompt__btn-container__btn--confirm").prop("disabled", true);
+    $(".prompt--new-article .prompt__btn-container__btn--confirm").text("Laden");
+
+    // get title value
+    var titleVal = encodeURIComponent($('.prompt--new-article__text-field').val())
+
+    // Send data
+    $.ajax({
+      type: 'POST',
+      url: '/framework/newArticle.php',
+      dataType: 'json',
+      data: 'title=' + titleVal,
+      timeout: 10000,
+      success: function(data) {
+        if (data.request == "failed") {
+          error("Es ist ein Fehler beim erstellen aufgetreten (" + data.error + "). Überprüfe deine Internetverbindung und versuche es später erneut.");
+        } else {
+          // Enable Button
+          $(".prompt--new-article .prompt__btn-container__btn--confirm").prop("disabled", false);
+          $(".prompt--new-article .prompt__btn-container__btn--confirm").text("Erstellen");
+          closePrompt('all');
+          window.location = '/editor/' + titleVal;
+        }
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        error("Es ist ein Fehler beim posten aufgetreten (" + textStatus + "). Überprüfe deine Internetverbindung und versuche es später erneut.");
+
+        // Enable Button
+        $(".prompt--new-article .prompt__btn-container__btn--confirm").prop("disabled", false);
+        $(".prompt--new-article .prompt__btn-container__btn--confirm").text("Erstellen");
+      }
+    });
+  }
+}

@@ -61,16 +61,16 @@ if (isset($_GET['article'])) {
       }
 
     } else {
-      echo 'Dieser Artikel wurde noch nicht veröffentlicht.';
+      header('Location: /');
       die();
     }
   } else {
-    echo 'Artikel wurde nicht gefunden!';
+    header('Location: /');
     die();
   }
 
 } else {
-  echo 'Kein Artikel spezifiziert!';
+  header('Location: /');
   die();
 }
 

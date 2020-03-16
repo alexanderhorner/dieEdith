@@ -4,19 +4,19 @@
   <h2 class="prompt__headline">Beitrag löschen</h2>
   <div class="prompt__description">Bist du dir sicher, dass du diesen Beitrag löschen willst?</div>
   <div class="prompt__btn-container">
-    <button onclick="closePrompt('all'); window.promptFunction = '';" tabindex="0" class="prompt__btn-container__btn prompt__btn-container__btn--abort">Abbrechen</button>
-    <button onclick="promptFunction()" tabindex="0" class="prompt__btn-container__btn prompt__btn-container__btn--confirm">Löschen</button>
+    <button onclick="closePrompt('all'); window.promptFunction = function() {return 'function unset'}" tabindex="0" class="prompt__btn-container__btn prompt__btn-container__btn--abort">Abbrechen</button>
+    <button onclick="promptFunction()" tabindex="0" class="prompt__btn-container__btn prompt__btn-container__btn--confirm--danger">Löschen</button>
   </div>
 </div>
 
-<div class="prompt--new-article">
-  <div onclick="$('html').removeClass('prompt--new-article--shown');" class="prompt--new-article__close"><i class="material-icons">close</i></div>
-  <h2>Neuen Artikel erstellen:</h2>
-  <form class="prompt--new-article__form">
-    <div>Titel:</div>
-    <input tabindex="-1" class="prompt--new-article__form__input" maxlength="180" type="text" value="">
-    <input class="prompt--new-article__form__submit" type="submit" value="Erstellen">
-  </form>
+<div class="prompt prompt--new-article">
+  <h2 class="prompt__headline">Neuen Artikel erstellen</h2>
+  <div class="prompt__description">Wähle einen Titel für deinen Artikel.</div>
+  <input tabindex="-1" class="prompt__text-field prompt--new-article__text-field" placeholder="Titel für deinen Artikel..." maxlength="100" type="text" value="">
+  <div class="prompt__btn-container">
+    <button onclick="closePrompt('all'); window.promptFunction = function() {return 'function unset'}" tabindex="0" class="prompt__btn-container__btn prompt__btn-container__btn--abort">Abbrechen</button>
+    <button onclick="promptFunction()" tabindex="0" class="prompt__btn-container__btn prompt__btn-container__btn--confirm">Erstellen</button>
+  </div>
 </div>
 
 <header class="header">
