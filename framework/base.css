@@ -206,7 +206,7 @@ input {
 .prompt-bg {
   opacity: 0;
   pointer-events: none;
-  z-index: 13000;
+  z-index: 1200;
   position: fixed;
   top: -100vh;
   right: -100vw;
@@ -216,12 +216,16 @@ input {
   transition: opacity 0.2s, background 0.2s;
 }
 
-.prompt--new-article--shown .prompt-bg, .prompt--delete-post--shown .prompt-bg {
+.prompt--new-article--shown .prompt-bg, 
+.prompt--delete-post--shown .prompt-bg, 
+.prompt--login--shown .prompt-bg {
   opacity: 1;
   pointer-events: all;
 }
 
-.prompt--new-article--shown .prompt--new-article, .prompt--delete-post--shown .prompt--delete-post {
+.prompt--new-article--shown .prompt--new-article, 
+.prompt--delete-post--shown .prompt--delete-post, 
+.prompt--login--shown .prompt--login {
   opacity: 1 !important;
   pointer-events: all !important;
 }
@@ -232,7 +236,7 @@ input {
   pointer-events: none;
   text-align: center;
   padding: 20px;
-  z-index: 14000;
+  z-index: 1300;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -270,7 +274,7 @@ input {
 
 .prompt__btn-container {
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
   margin-top: 10px;
   width: 100%;
@@ -344,7 +348,7 @@ input {
 .prompt__text-field {
   width: 100%;
   margin: 20px 0 10px;
-  height: 34px;
+  height: 40px;
   overflow: hidden;
   outline: none;
   -moz-appearance: none;
@@ -353,12 +357,15 @@ input {
   padding: 0 0.8em;
   font-size: inherit;
   border: none;
-  border-radius: 17px;
+  border-radius: 20px;
   background-color: hsla(0, 0%, 50%, 0.1);
   box-shadow: inset 0 1px 4px 0 hsla(0, 0%, 0%, 0.1);
   color: inherit;
   font-family: inherit;
+}
 
+.dark .prompt__text-field {
+  box-shadow: inset 0 1px 4px 0.5px hsla(0, 0%, 0%, 0.5);
 }
 
 /* Header */
@@ -369,7 +376,7 @@ input {
   -o-user-select: none;
   -webkit-backdrop-filter: var(--transparent__backdrop-filter);
   box-sizing: content-box;
-  z-index: 10000;
+  z-index: 1100;
   position: fixed;
   top: 0;
   right: 0;
@@ -517,7 +524,6 @@ input {
   top: 48px;
   left: 50%;
   transform: translate(-50%, -50%) scale(0.4);
-  z-index: -1;
   padding: 4px 8px;
   border-radius: 4px;
   -webkit-backdrop-filter: var(--transparent__backdrop-filter);
@@ -655,7 +661,7 @@ input {
 
 /* message */
 .message-box {
-  z-index: 8600;
+  z-index: 1400;
   position: fixed;
   top: 50px;
   right: 15px;
@@ -823,7 +829,7 @@ input {
 .side-menu {
   -webkit-backdrop-filter: var(--transparent__backdrop-filter);
   box-sizing: content-box;
-  z-index: 9000;
+  z-index: 1000;
   position: fixed;
   top: 50px;
   right: 0;
@@ -894,7 +900,6 @@ input {
   -khtml-user-select: none;
   -webkit-user-select: none;
   -o-user-select: none;
-  z-index: 9100;
   position: relative;
   height: 54px;
   padding: 15px 15px 15px;
@@ -914,7 +919,6 @@ input {
 }
 
 .side-menu__list__li::before {
-  z-index: 9200;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -1046,22 +1050,13 @@ input {
   font-size: 25px;
 }
 
-/* login */
-.login__wrapper {
-  display: none;
-  z-index: 8500;
-  position: fixed;
-  top: 51px;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  min-height: 520px;
-  overflow-x: hidden;
-}
-
-.login__container {
+.prompt--login {
+  transition: opacity 0.2s, background 0.2s;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1300;
   -webkit-backdrop-filter: var(--transparent__backdrop-filter);
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   width: 600px;
@@ -1076,7 +1071,7 @@ input {
 }
 
 @media (max-width: 630px) {
-  .login__container {
+  .prompt--login {
     right: 0;
     left: -150px;
     width: auto;
@@ -1085,18 +1080,18 @@ input {
   }
 }
 
-.dark .container {
+.dark .prompt--login {
   box-shadow: 0 1px 12px 0 rgba(0, 0, 0, 0.5);
 }
 
-.login__container__close {
+.prompt--login__close {
   position: absolute;
   top: 5px;
   right: 5px;
   cursor: pointer;
 }
 
-.login__container__close .material-icons {
+.prompt--login__close .material-icons {
   -moz-user-select: none;
   -khtml-user-select: none;
   -webkit-user-select: none;
@@ -1106,7 +1101,7 @@ input {
   font-size: 25px;
 }
 
-.container__pic-container {
+.prompt--login__pic-container {
   display: block;
   position: absolute;
   top: 0;
@@ -1118,7 +1113,7 @@ input {
   transform: rotate(8deg) scale(1.2);
 }
 
-.container__pic-container__picture {
+.prompt--login__pic-container__picture {
   -moz-user-select: none;
   -khtml-user-select: none;
   -webkit-user-select: none;
@@ -1131,7 +1126,7 @@ input {
   user-select: none;
 }
 
-.container__pic-container__shadow {
+.prompt--login__pic-container__shadow {
   position: absolute;
   top: 0;
   right: 0;
@@ -1140,11 +1135,11 @@ input {
   box-shadow: inset -1px 0 4px 0 rgba(0, 0, 0, 0.2);
 }
 
-.dark .container__pic-container__shadow {
+.dark .prompt--login__pic-container__shadow {
   box-shadow: inset -1px 0 4px 0 rgba(0, 0, 0, 0.4);;
 }
 
-.container__login {
+.prompt--login__login {
   position: absolute;
   top: 50%;
   right: 20px;
@@ -1152,31 +1147,31 @@ input {
   transform: translateY(-50%);
 }
 
-.container__login__logo {
+.prompt--login__login__logo {
   display: block;
   width: 50px;
   height: 50px;
 }
 
-.container__login__logo--dark {
+.prompt--login__login__logo--dark {
   display: none;
 }
 
-.dark .container__login__logo--light {
+.dark .prompt--login__login__logo--light {
   display: none;
 }
 
-.dark .container__login__logo--dark {
+.dark .prompt--login__login__logo--dark {
   display: block;
 }
 
-.container__login__error {
+.prompt--login__login__error {
   position: absolute;
   top: 290px;
   color: var(--error);
 }
 
-.form__textfield {
+.prompt--login__login__form__textfield {
   box-sizing: content-box;
   display: block;
   position: absolute;
@@ -1196,70 +1191,70 @@ input {
   transition: border-bottom 0.15s, border-radius 0.15s;
 }
 
-.container__login h2 {
+.prompt--login__login h2 {
   margin-bottom: 146px;
 }
 
-.form__textfield:nth-of-type(1) {
+.prompt--login__login__form__textfield:nth-of-type(1) {
   top: 118px;
 }
 
-.form__textfield:nth-of-type(2) {
+.prompt--login__login__form__textfield:nth-of-type(2) {
   top: 176px;
 }
 
-.form__textfield--password {
+.prompt--login__login__form__textfield--password {
   background-image: url(../framework/icons/password--66.3.svg);
 }
 
-.form__textfield--username {
+.prompt--login__login__form__textfield--username {
   background-image: url(../framework/icons/username--66.3.svg);
 }
 
-.form__textfield:focus {
+.prompt--login__login__form__textfield:focus {
   border-bottom: 5px solid hsl(211, 100%, 50%);
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
   outline: none;
 }
 
-.form__textfield--error {
+.prompt--login__login__form__textfield--error {
   border-bottom: 1px solid var(--error);
 }
 
-.form__textfield--error:focus {
+.prompt--login__login__form__textfield--error:focus {
   border-bottom: 5px solid var(--error);
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
 }
 
 /* Placeholder */
-.form__textfield::-webkit-input-placeholder {
+.prompt--login__login__form__textfield::-webkit-input-placeholder {
   font-size: 18px;
   line-height: 27px;
 }
 
-.form__textfield:-moz-placeholder {
+.prompt--login__login__form__textfield:-moz-placeholder {
   font-size: 18px;
   line-height: 27px;
 }
 
-.form__textfield::-moz-placeholder {
+.prompt--login__login__form__textfield::-moz-placeholder {
   font-size: 18px;
   line-height: 27px;
 }
 
-.form__textfield:-ms-input-placeholder {
+.prompt--login__login__form__textfield:-ms-input-placeholder {
   font-size: 18px;
   line-height: 27px;
 }
 
-.form__textfield::placeholder {
+.prompt--login__login__form__textfield::placeholder {
   font-size: 18px;
   line-height: 27px;
 }
 
-.form__submit {
+.prompt--login__login__form__submit {
   -webkit-appearance: none;
   -moz-appearance: none;
   display: block;
@@ -1277,16 +1272,16 @@ input {
   transition: background 150ms ease-in-out, transform 150ms ease;
 }
 
-.no-touchevents .form__submit:hover,
-.form__submit:focus {
+.no-touchevents .prompt--login__login__form__submit:hover,
+.prompt--login__login__form__submit:focus {
   background: hsl(211, 100%, 40%);
 }
 
-.form__submit:active {
+.prompt--login__login__form__submit:active {
   transform: scale(0.98);
 }
 
-.form__submit:disabled {
+.prompt--login__login__form__submit:disabled {
   transform: scale(1);
   cursor: progress;
   opacity: 0.8;

@@ -1,10 +1,8 @@
 $(document).ready(function() {
-  showLogin();
+  $('html').addClass('prompt--login--shown');
 
-  $('.login__container__close').remove();
+  $('.login__close').remove();
 });
 
 
-var hideLogin = function () {
-  return '';
-}
+

@@ -12,7 +12,7 @@
 <div class="prompt prompt--new-article">
   <h2 class="prompt__headline">Neuen Artikel erstellen</h2>
   <div class="prompt__description">Wähle einen Titel für deinen Artikel.</div>
-  <input tabindex="-1" class="prompt__text-field prompt--new-article__text-field" placeholder="Titel für deinen Artikel..." maxlength="100" type="text" value="">
+  <input tabindex="-1" class="prompt__text-field prompt--new-article__text-field" placeholder="Titel..." maxlength="100" type="text" value="">
   <div class="prompt__btn-container">
     <button onclick="closePrompt('all'); window.promptFunction = function() {return 'function unset'}" tabindex="0" class="prompt__btn-container__btn prompt__btn-container__btn--abort">Abbrechen</button>
     <button onclick="promptFunction()" tabindex="0" class="prompt__btn-container__btn prompt__btn-container__btn--confirm">Erstellen</button>
@@ -43,7 +43,7 @@
     </li>
     <?php else : ?>
     <li>
-      <button onclick="showLogin()" class="header__nav-items__button" type="button">
+      <button onclick="$('html').addClass('prompt--login--shown');" class="header__nav-items__button" type="button">
         <i class="material-icons">input</i>
       </button>
     </li>
@@ -103,7 +103,7 @@
     <?php endif; ?>
 
     <?php if (!isset($_SESSION['UID'])) : ?>
-    <li onclick="showLogin()" class="side-menu__list__li">
+    <li onclick="$('html').addClass('prompt--login--shown');" class="side-menu__list__li">
       <i class="material-icons">input</i>
       <span class="side-menu__list__li__text">Anmelden</span>
     </li>
@@ -157,26 +157,23 @@
 
 
 <!-- Login -->
-<div class="login__wrapper">
-  <div class="login__container">
-    <div class="login__container__close"><i class="material-icons">close</i></div>
-    <div class="container__pic-container">
-      <img class="container__pic-container__picture" src="/framework/blue-mountains.jpg" alt="Blue Mountains">
-      <div class="container__pic-container__shadow"></div>
-    </div>
+<div class="prompt--login">
+  <div class="prompt--login__close"><i class="material-icons">close</i></div>
+  <div class="prompt--login__pic-container">
+    <img class="prompt--login__pic-container__picture" src="/framework/blue-mountains.jpg" alt="Blue Mountains">
+    <div class="prompt--login__pic-container__shadow"></div>
+  </div>
 
-    <div class="container__login">
-      <img class="container__login__logo container__login__logo--light" src="/framework/icons/logo--small--light.svg" alt="die Edith kleines Logo. E">
-      <img class="container__login__logo container__login__logo--dark" src="/framework/icons/logo--small--dark.svg" alt="die Edith kleines Logo. E">
-      <h2>Anmelden</h2>
-      <p class="container__login__error"></p>
-      <form class="container__login__form">
-        <input class="form__textfield form__textfield--username" type="text" name="username" autocomplete="username" spellcheck="false" autocapitalize="none" placeholder="Benutzername">
-        <input class="form__textfield form__textfield--password" type="password" name="password" autocomplete="current-password" spellcheck="false" autocapitalize="none" placeholder="Passwort">
-        <input class="form__submit" type="submit" value="Absenden">
-      </form>
-    </div>
-
+  <div class="prompt--login__login">
+    <img class="prompt--login__login__logo prompt--login__login__logo--light" src="/framework/icons/logo--small--light.svg" alt="die Edith kleines Logo. E">
+    <img class="prompt--login__login__logo prompt--login__login__logo--dark" src="/framework/icons/logo--small--dark.svg" alt="die Edith kleines Logo. E">
+    <h2>Anmelden</h2>
+    <p class="prompt--login__login__error"></p>
+    <form class="prompt--login__login__form">
+      <input class="prompt--login__login__form__textfield prompt--login__login__form__textfield--username" type="text" name="username" autocomplete="username" spellcheck="false" autocapitalize="none" placeholder="Benutzername">
+      <input class="prompt--login__login__form__textfield prompt--login__login__form__textfield--password" type="password" name="password" autocomplete="current-password" spellcheck="false" autocapitalize="none" placeholder="Passwort">
+      <input class="prompt--login__login__form__submit" type="submit" value="Absenden">
+    </form>
   </div>
 </div>
 

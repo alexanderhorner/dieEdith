@@ -34,7 +34,7 @@ if (isset($_SESSION['UID'])) {
 } else {
     $response['request'] = 'failed';
     $response['error']['category'] = "No permission";
-    $response['error']['descriptopn'] = "User isn't logged in";
+    $response['error']['description'] = "User isn't logged in";
     goto end;
 }
 

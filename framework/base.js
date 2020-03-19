@@ -13,16 +13,25 @@ function linkto(x) {
 
 function closePrompt(prompt) {
   if (prompt == 'all') {
+
+    // delete post
     $("html").removeClass('prompt--delete-post--shown');
+
+    // new article
     $("html").removeClass('prompt--new-article--shown');
-    window.promptFunction = function() {return 'function unset'};
-    $('body').scrollLock('disable');
     setTimeout(function() {
       $('.prompt--new-article__text-field').val('');
     }, 200)
-    return true
+
+    // login
+    $("html").removeClass('prompt--login--shown');
+    // prompt functions
+    window.promptFunction = function() {return 'function unset'};
+
+    // scroll lock
+    $('body').scrollLock('disable');
+    
   } else {
-    return false
   }
 }
 
@@ -304,53 +313,35 @@ $(document).ready(function() {
 
 });
 
-// Login
-function loginResetButton() {
-  // Change button to normal
-  $(".form__submit").prop("disabled", false);
-  $(".form__submit").attr("value", "Absenden");
-}
-
-window.isLoginShown = false;
-
-function showLogin() {
-  if (window.isLoginShown == false) {
-    $('body').scrollLock('enable');
-    $('.login__wrapper').fadeIn(200);
-    window.isLoginShown = true;
-  }
-
-  if ($('html').hasClass("side-menu--shown")) {
-    $('html').removeClass("side-menu--shown");
-  }
-}
-
-var hideLogin = function() {
-  if (window.isLoginShown == true) {
-    $('body').scrollLock('disable')
-    $('.login__wrapper').fadeOut(200);
-    window.isLoginShown = false;
-  }
-}
-
+// Escape Key
 $(document).on('keypress', function(e) {
   if (e.key === "Escape") {
-    if (window.isLoginShown == true) {
+
+    // login
+    if ($('html').hasClass('prompt--login--shown')) {
       e.preventDefault();
-      hideLogin();
+      closePrompt('all');
     }
+
+    // Side-menu
     if ($('html').hasClass('side-menu--shown')) {
       e.preventDefault();
       $('html').removeClass('side-menu--shown');
     }
+
+    // header profile-menu
     if ($('html').hasClass('header__profile-menu--shown')) {
       e.preventDefault();
       $('html').removeClass('header__profile-menu--shown');
     }
+
+    // delete post
     if ($('html').hasClass('prompt--delete-post--shown')) {
       e.preventDefault();
       closePrompt('all');
     }
+
+    // new article
     if ($('html').hasClass('prompt--new-article--shown')) {
       e.preventDefault();
       closePrompt('all');
@@ -362,20 +353,20 @@ $(document).on('keypress', function(e) {
 $(document).ready(function() {
   // Check Hash For Login and open it
   if (window.location.hash === "#login") {
-    showLogin()
+    $('html').addClass('prompt--login--shown');
   }
-  $('.container__login__form').submit(function(event) {
+  $('.prompt--login__login__form').submit(function(event) {
     event.preventDefault();
 
     // Reset stlyes
-    $(".form__textfield").removeClass("form__textfield--error");
+    $(".prompt--login__login__form__textfield").removeClass("prompt--login__login__form__textfield--error");
 
     // Disable Button
-    $(".form__submit").prop("disabled", true);
-    $(".form__submit").attr("value", "Checke...");
+    $(".prompt--login__login__form__submit").prop("disabled", true);
+    $(".prompt--login__login__form__submit").attr("value", "Checke...");
 
     // check if fields are filled
-    if ($('.form__textfield--username').val().length != 0 && $('.form__textfield--password').val().length != 0) {
+    if ($('.prompt--login__login__form__textfield--username').val().length != 0 && $('.prompt--login__login__form__textfield--password').val().length != 0) {
 
       // Verify data
       $.ajax({
@@ -383,7 +374,7 @@ $(document).ready(function() {
         url: '/framework/verify-login.php',
         dataType: 'json',
         timeout: 3000,
-        data: $('.container__login__form').serialize(),
+        data: $('.prompt--login__login__form').serialize(),
 
         // on ajax success
         success: function(data) {
@@ -395,14 +386,14 @@ $(document).ready(function() {
           var errormessage = data.errormessage;
 
           // Set errormessage
-          $(".container__login__error").text(errormessage);
+          $(".prompt--login__login__error").text(errormessage);
 
 
           // check if all data is valid
           if (username == "valid" && password == "valid") {
 
             // Dye errormessage green
-            $(".container__login__error").css("color", "#30d158");
+            $(".prompt--login__login__error").css("color", "#30d158");
 
             // rederict logic
             setTimeout(function() {
@@ -412,47 +403,61 @@ $(document).ready(function() {
 
             // locate error in form
           } else if (error == '1') {} else if (username == "invalid") {
-            $(".form__textfield--username").addClass("form__textfield--error");
-            $(".form__textfield--username").focus();
-            loginResetButton();
+            $(".prompt--login__login__form__textfield--username").addClass("prompt--login__login__form__textfield--error");
+            $(".prompt--login__login__form__textfield--username").focus();
+
+            // reset login button
+            $(".prompt--login__login__form__submit").prop("disabled", false);
+            $(".prompt--login__login__form__submit").attr("value", "Absenden");;
           } else if (password == "invalid") {
-            $(".form__textfield--password").addClass("form__textfield--error");
-            $(".form__textfield--password").focus();
-            loginResetButton();
+            $(".prompt--login__login__form__textfield--password").addClass("prompt--login__login__form__textfield--error");
+            $(".prompt--login__login__form__textfield--password").focus();
+            
+            // reset login button
+            $(".prompt--login__login__form__submit").prop("disabled", false);
+            $(".prompt--login__login__form__submit").attr("value", "Absenden");;;
           }
         },
 
         // on ajax error
         error: function(jqXHR, textStatus, errorThrown) {
-          loginResetButton();
+          // reset login button
+          $(".prompt--login__login__form__submit").prop("disabled", false);
+          $(".prompt--login__login__form__submit").attr("value", "Absenden");;
           error("Es ist ein Fehler bei der Anmeldung aufgetreten (" + textStatus + "). Überprüfe deine Internetverbindung und versuche es später erneut.");
         }
       });
-    } else if ($('.form__textfield--username').val().length == 0 && $('.form__textfield--password').val().length != 0) {
+    } else if ($('.prompt--login__login__form__textfield--username').val().length == 0 && $('.prompt--login__login__form__textfield--password').val().length != 0) {
       // when the password is filled but the username isnt
-      $(".form__textfield--username").addClass("form__textfield--error");
-      $(".container__login__error").text("Gebe deinen Benutzername ein.");
-      $(".form__textfield--username").focus();
-      loginResetButton();
-    } else if ($('.form__textfield--username').val().length != 0 && $('.form__textfield--password').val().length == 0) {
+      $(".prompt--login__login__form__textfield--username").addClass("prompt--login__login__form__textfield--error");
+      $(".prompt--login__login__error").text("Gebe deinen Benutzername ein.");
+      $(".prompt--login__login__form__textfield--username").focus();
+      // reset login button
+      $(".prompt--login__login__form__submit").prop("disabled", false);
+      $(".prompt--login__login__form__submit").attr("value", "Absenden");;
+    } else if ($('.prompt--login__login__form__textfield--username').val().length != 0 && $('.prompt--login__login__form__textfield--password').val().length == 0) {
       // when the username is filled but the password isnt
-      $(".container__login__error").text("Gebe dein Passwort ein.");
-      $(".form__textfield--password").addClass("form__textfield--error");
-      $(".form__textfield--password").focus();
-      loginResetButton();
+      $(".prompt--login__login__error").text("Gebe dein Passwort ein.");
+      $(".prompt--login__login__form__textfield--password").addClass("prompt--login__login__form__textfield--error");
+      $(".prompt--login__login__form__textfield--password").focus();
+      // reset login button
+      $(".prompt--login__login__form__submit").prop("disabled", false);
+      $(".prompt--login__login__form__submit").attr("value", "Absenden");;
     } else {
       // when both are empty
-      $(".container__login__error").text("Gebe deine Benutzerdaten ein.");
-      $(".form__textfield--username").addClass("form__textfield--error");
-      $(".form__textfield--password").addClass("form__textfield--error");
-      $(".form__textfield--username").focus();
-      loginResetButton();
+      $(".prompt--login__login__error").text("Gebe deine Benutzerdaten ein.");
+      $(".prompt--login__login__form__textfield--username").addClass("prompt--login__login__form__textfield--error");
+      $(".prompt--login__login__form__textfield--password").addClass("prompt--login__login__form__textfield--error");
+      $(".prompt--login__login__form__textfield--username").focus();
+      // reset login button
+      $(".prompt--login__login__form__submit").prop("disabled", false);
+      $(".prompt--login__login__form__submit").attr("value", "Absenden");;
     }
   });
 
-  $('.login__wrapper, .login__container__close, .login__container__close .material-icons').click(function(e) {
+  $('.prompt--login__close, .prompt--login__close .material-icons').click(function(e) {
     if (e.target == this) {
-      hideLogin()
+      closePrompt('all');
     }
   });
 });
@@ -481,8 +486,11 @@ function newArticle() {
       data: 'title=' + titleVal,
       timeout: 10000,
       success: function(data) {
-        if (data.request == "failed") {
-          error("Es ist ein Fehler beim erstellen aufgetreten (" + data.error + "). Überprüfe deine Internetverbindung und versuche es später erneut.");
+        if (data.status != "successful") {
+          error("Es ist ein Fehler beim erstellen aufgetreten (" + data.error.category + ": " + data.error.description + "). Überprüfe deine Internetverbindung und versuche es später erneut.");
+          // Enable Button
+          $(".prompt--new-article .prompt__btn-container__btn--confirm").prop("disabled", false);
+          $(".prompt--new-article .prompt__btn-container__btn--confirm").text("Erstellen");
         } else {
           // Enable Button
           $(".prompt--new-article .prompt__btn-container__btn--confirm").prop("disabled", false);

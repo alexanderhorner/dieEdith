@@ -136,7 +136,7 @@ if (isset($_GET['article'])) {
 
     </div>
 
-    <h1 data-AID="<?php echo $AID ?>" class="main-title">
+    <h1 data-AID="<?php echo $AID ?>" class="main-title" contenteditable>
       <?php echo htmlspecialchars($articleName, ENT_QUOTES, 'UTF-8'); ?>
     </h1>
 

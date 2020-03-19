@@ -132,7 +132,6 @@
 
 /* Card */
 .card {
-  z-index: 2000;
   position: relative;
   width: calc(50% - 10px);
   margin: 28px 5px 8px;
@@ -163,7 +162,6 @@
 .card__info {
   cursor: pointer;
   display: flex;
-  z-index: 2500;
   position: absolute;
   top: 0px;
   left: 40px;

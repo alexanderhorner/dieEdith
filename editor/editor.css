@@ -174,18 +174,27 @@
 }
 
 .main-title {
+  cursor: text;
   position: relative;
 }
 
-.no-touchevents .main-title:hover::after {
+.main-title::after {
+  transition: opacity 0.15s, background 0.2s, box-shadow 0.2s;
   pointer-events: none;
   content: "";
   background-color: hsla(0, 0%, 50%, 0.2);
   position: absolute;
-  top: 15px;
-  right: -5px;
-  bottom: 15px;
-  left: -5px;
+  top: -5px;
+  right: -10px;
+  bottom: -5px;
+  left: -10px;
+  box-shadow: inset 0 1px 4px 0 hsla(0, 0%, 0%, 0.1);
+  border-radius: 8px;
+  opacity: 0;
+}
+
+.no-touchevents .main-title:hover::after, .main-title:focus::after {
+  opacity: 1;
 }
 
 .ce-inline-tool--unlink .icon--unlink {

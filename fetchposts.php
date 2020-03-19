@@ -97,7 +97,7 @@ if ($pdo === false) {
 
         if ($type == "article") {
             $responseString .= <<<HTML
-            <div data-PID="$ID" data-postedOn="$unixTimeStamp" onclick="linkto('Artikel/$titleLink_sanitized')" class="card card--article">
+            <div data-PID="$ID" data-postedOn="$unixTimeStamp" onclick="linkto('artikel/$titleLink_sanitized')" class="card card--article">
               <div class="card__info" onclick="linkto('/profil/$username')">
                 <img class="card__info__picture" src="user/$owner/pb-small.jpg" alt="profile picture">
                 <div class="card__info__textbox">
@@ -111,7 +111,7 @@ if ($pdo === false) {
             }
             $responseString .= <<<HTML
               <h3>$title_sanitized</h3>
-              <span class="card__text">$text_short_sanitized... <a href="Artikel/$titleLink_sanitized">Weiter lesen</a></span>
+              <span class="card__text">$text_short_sanitized... <a href="artikel/$titleLink_sanitized">Weiter lesen</a></span>
             </div>\n
             HTML;
         } elseif ($type == "post") {
