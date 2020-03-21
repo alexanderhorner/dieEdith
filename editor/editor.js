@@ -95,7 +95,7 @@ function saveData() {
     console.log('Saving failed: ', error1)
     saveState('unsaved');
     window.saveLockTimer = 6000;
-    error('Der Artikel konnte nicht gespeichert werden (JavaScript-Fehler). versuche es später erneut.')
+    error('Der Artikel konnte nicht gespeichert werden (JavaScript-Fehler). Versuche es später erneut.')
     window.saved = false;
   });
 }

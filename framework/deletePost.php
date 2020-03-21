@@ -51,7 +51,7 @@ if ($pdo === false) {
 
     // Delete from database
     // prepare statement
-    $statement = $pdo->prepare("DELETE FROM `posts` WHERE `PID` = ? AND `owner` = ?");
+    $statement = $pdo->prepare("UPDATE `posts` SET `status` = 'deleted' WHERE `PID` = ? AND `owner` = ?");
 
     // execute statement
     $statement->execute(array($PID, $UID));

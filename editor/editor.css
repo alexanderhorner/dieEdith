@@ -6,34 +6,35 @@
   box-sizing: content-box;
 }
 
-.editor-information {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.editor-information > * {
-  overflow: hidden;
-}
-
 .publish-btn {
+	font-family: 'Lato', sans-serif;
   vertical-align: middle;
   -webkit-appearance: none;
   -moz-appearance: none;
   display: inline-block;
   width: 147px;
   flex: none;
-  height: 35px;
+  height: 38px;
   border: none;
+  box-sizing: content-box;
   border-radius: 25px;
   background-color: var(--teslablue);
   color: #FFF;
-  font-size: 17px;
+  font-size: 16px;
   text-align: center;
   text-decoration: none;
   cursor: pointer;
   transition: background 150ms ease-in-out, transform 150ms ease;
 }
+
+.publish-btn:focus {
+  box-shadow: 0 0 0 2px var(--teslablue);
+}
+
+.publish-btn:active {
+  transform: scale(0.985);
+}
+
 
 .save-state {
   width: 227px;
@@ -83,16 +84,6 @@
 .save-state--unsaved {
   color: var(--warning);
 }
-
-.no-touchevents .publish-btn:hover,
-.publish-btn:focus {
-  background: hsl(211, 100%, 40%);
-}
-
-.publish-btn:active {
-  transform: scale(0.98);
-}
-
 
 .ce-inline-toolbar {
   color: black;

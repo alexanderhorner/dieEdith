@@ -1,1 +1,6 @@
-<?php phpinfo() ?>
+<?php 
+
+error_reporting();
+phpinfo() 
+
+?>

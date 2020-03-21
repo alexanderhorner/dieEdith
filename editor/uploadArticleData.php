@@ -18,11 +18,11 @@ $response['errorPreview'] = 'unknown';
 
 session_start();
 if (isset($_SESSION['UID'])) {
-    $UID = $_SESSION['UID'];
+	$UID = $_SESSION['UID'];
 } else {
-    $response['request'] = 'failed';
-    $response['error'] = "Session expired";
-    goto end;
+	$response['request'] = 'failed';
+	$response['error'] = "Session expired";
+	goto end;
 }
 
 // Connenct to database
@@ -30,8 +30,8 @@ include '../framework/mysqlcredentials.php';
 
 // Check connection
 if ($pdo === false) {
-    $response['error'] = 'Could not connect to database.';
-    goto end;
+	$response['error'] = 'Could not connect to database.';
+	goto end;
 } else {
 	
 	// Get variables
@@ -346,7 +346,7 @@ if ($pdo === false) {
 
 		} else {
 			$response['request'] = 'failed';
-	    	$response['error'] = 'No Permission';
+			$response['error'] = 'No Permission';
 		}
 
 

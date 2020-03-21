@@ -39,7 +39,7 @@ if (isset($_GET['article'])) {
 
     // Download Data
     // Check if Article exists
-    $stmntDownload = $pdo->prepare("SELECT jsondata, owner FROM articles WHERE AID = ?");
+    $stmntDownload = $pdo->prepare("SELECT jsondata, owner FROM articles WHERE AID = ? AND (status = 'public' OR status = 'draft')");
 
     // execute statement and put response into array
     $stmntDownload->execute(array($AID));

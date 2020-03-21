@@ -43,6 +43,7 @@ if ($pdo === false) {
     // prepare statement
     $stmntposts = $pdo->prepare("SELECT PID as ID, postedon as 'time', owner, 'post' as 'type', text, NULL as 'title'
     FROM posts 
+    WHERE status = 'public'
     UNION 
     SELECT AID as ID, publishedon as 'time', owner, 'article' as 'type', previewdata as 'text', title
     FROM articles 
