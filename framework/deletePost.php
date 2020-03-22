@@ -45,7 +45,7 @@ include '../framework/mysqlcredentials.php';
 // Check connection
 if ($pdo === false) {
     $response['error']['category'] = 'MySQL error';
-    $response['error']['description'] = 'Could not connect to database';
+    $response['error']['description'] = 'Could not connect to database.';
     goto end;
 } else {
 
@@ -67,7 +67,7 @@ if ($pdo === false) {
         // Check how many rows were affected
         if ($statement->rowCount() <= 0) {
           $response['error']['category'] = 'MySQL error';
-          $response['error']['description'] = 'Failed to delete entry from database. Either no permissions OR wrong Post ID';
+          $response['error']['description'] = 'No database entries were affected.';
           goto end;
         } else {
           $response['status'] = 'successful';

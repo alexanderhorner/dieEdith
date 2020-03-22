@@ -130,7 +130,7 @@ if (isset($_GET['user'])) {
 			// Fetch all posts
 			$stmntFetchPosts = $pdo->prepare("SELECT PID as ID, postedon as 'time', owner, 'post' as 'type', text, NULL as 'title'
 			FROM posts 
-			WHERE owner = ?
+			WHERE owner = ? AND status = 'public'
 			UNION 
 			SELECT AID as ID, publishedon as 'time', owner, status as 'type', previewdata as 'text', title
 			FROM articles 
