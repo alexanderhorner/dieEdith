@@ -185,3 +185,7 @@ function deletePost(pid) {
 		});
 	}
 }
+
+$(window).on('resize', function() {
+	$grid.isotope('layout');
+});

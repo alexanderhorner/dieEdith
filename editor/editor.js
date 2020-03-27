@@ -85,6 +85,10 @@ setInterval(function() {
 
 }, 50);
 
+$(window).on("unload", function () {
+  saveData();
+})
+
 function saveData() {
   window.saved = true;
   // Save

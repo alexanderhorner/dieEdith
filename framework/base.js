@@ -107,8 +107,6 @@ function message(message, type) {
 
 	messageCount = messageCount + 1;
 
-	var newMessageClass = '".message--' + messageCount + '"';
-
 	var $message = $('<div class="message--' + messageCount + ' message--' + type + ' message"><div class="message__ribbon"><i class="material-icons">error_outline</i></div><div class="message__close"><i class="material-icons">close</i></div><div class="message__float-fix"></div><span>' + message + '</span></div>');
 
 	$msgBoxIsotope.prepend($message).isotope('prepended', $message);
@@ -128,7 +126,7 @@ function message(message, type) {
 	});
 }
 
-// Feauture Detext Media Query prefered color scheme
+// Feauture Detects Media Query prefered color scheme
 function supportsPreferedColorScheme() {
 	if ($('.feature-detect--prefers-color-scheme--1').height() == 4 || $('.feature-detect--prefers-color-scheme--2').height() == 6) {
 		return true;
@@ -361,10 +359,6 @@ $(document).on('keypress', function(e) {
 
 
 $(document).ready(function() {
-	// Check Hash For Login and open it
-	if (window.location.hash === "#login") {
-		$('html').addClass('prompt--login--shown');
-	}
 	$('.prompt--login__login__form').submit(function(event) {
 		event.preventDefault();
 
@@ -520,7 +514,7 @@ function newArticle() {
 	}
 }
 
-// delete artilce
+// delete article
 function deleteArticle(aid, isCard) {
 	$('html').addClass('prompt--delete-post--shown');
 	$('body').scrollLock('enable');
@@ -536,7 +530,7 @@ function deleteArticle(aid, isCard) {
 				if (data.status != "successful") {
 					error("Es ist ein Fehler beim Löschen des Artikels aufgetreten (" + data.error['category'] + ": " + data.error['description'] + "). Überprüfe deine Internetverbindung und versuche es später erneut.");
 				} else {
-					$('.grid').masonry({
+					$grid.masonry({
 						transitionDuration: '0.4s'
 					});
 					var postClass = "." + aid
@@ -548,7 +542,7 @@ function deleteArticle(aid, isCard) {
 					$grid.masonry('reloadItems');
 					$grid.masonry('layout');
 					setTimeout(function() {
-						$('.grid').masonry({
+						$grid.masonry({
 							transitionDuration: 0
 						});
 					}, 450);

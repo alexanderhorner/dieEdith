@@ -9,11 +9,15 @@ setTimeout(function() {
 
 $(document).ready(function() {
 
-	//initialize Masonry
-	$grid = $('.grid').masonry({
+	//initialize Isotope
+	$grid = $('.grid').isotope({
 		itemSelector: '.card',
-		percentPosition: true,
-		transitionDuration: 0
+		transitionDuration: 0,
+		layoutMode: 'masonry',
+		// layout mode options
+		masonry: {
+			percentPosition: true
+		}
 	});
 
 	fetchPage("init");
@@ -36,19 +40,17 @@ function deletePost(pid) {
 				if (data.status != "successful") {
 					error("Es ist ein Fehler beim Löschen des Posts aufgetreten (" + data.error['category'] + ": " + data.error['description'] + "). Überprüfe deine Internetverbindung und versuche es später erneut.");
 				} else {
-					$('.grid').masonry({
+					$grid.isotope({
 						transitionDuration: '0.4s'
 					});
-					var postClass = "." + pid
-					$(postClass).remove()
+					var $post = $("." + pid);
+					
+					$grid.isotope('remove', $post).isotope('layout');
 
 					closePrompt('all');
 					
-
-					$grid.masonry('reloadItems');
-					$grid.masonry('layout');
 					setTimeout(function() {
-						$('.grid').masonry({
+						$grid.isotope({
 							transitionDuration: 0
 						});
 					}, 450);
@@ -133,38 +135,40 @@ function fetchPage(page) {
 
 				// check if data is empty
 				if (data.content != "") {
-
+					$items = $(data.content);
+					
 					// Append data
-					$(".grid").append(data.content).ready(function() {
+					$(".grid").append($items)
+						.isotope('appended', $items)
+						.ready(function() {
 
-						// after append when dom is ready to manipulate
-						// relayout items after appending
-						$grid.masonry('reloadItems');
-						$grid.masonry('layout');
+							// after append when dom is ready to manipulate
+							// relayout items after appending
+							$grid.isotope('reloadItems');
+							$grid.isotope('layout');
 
-						// Save next Page
-						window.nextPage = loadpage + 1;
+							// Save next Page
+							window.nextPage = loadpage + 1;
 
-						// Render time
-						var selector = '.' + data.requestIdentifier;
-						var nodes = document.querySelectorAll(selector);
-						timeago.render(nodes, 'de');
+							// Render time
+							var selector = '.' + data.requestIdentifier;
+							var nodes = document.querySelectorAll(selector);
+							timeago.render(nodes, 'de');
 
-						if (page == "init") {
-								// Mark init as complete
-								window.initComplete = true;
-						}
-
-					})
+							if (page == "init") {
+									// Mark init as complete
+									window.initComplete = true;
+							}
+						})
 
 					// set pageLoading state to false
 					window.pageLoading = false;
 
-					// layout masonry grid when images loaded
-					$grid.imagesLoaded().progress(function(instance) {
-						$grid.masonry('reloadItems');
-						$grid.masonry('layout');
-					})
+					// layout isotope grid when images loaded
+					// $grid.imagesLoaded().progress(function(instance) {
+					// 	$grid.isotope('reloadItems');
+					// 	$grid.isotope('layout');
+					// })
 
 				} else {
 					// Save next Page
@@ -190,5 +194,5 @@ function fetchPage(page) {
 
 
 $(window).on('resize', function() {
-	$grid.masonry('layout');
+	$grid.isotope('layout');
 });

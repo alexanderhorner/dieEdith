@@ -813,12 +813,14 @@ input {
 
 .side-menu-bg {
 	z-index: 900;
+	opacity: 0 !important;
+	pointer-events: none !important;
 }
 
 @media (max-width: 500px) {
 	.side-menu--shown .side-menu-bg {
-		opacity: 1;
-		pointer-events: all;
+		opacity: 1 !important;
+		pointer-events: all !important;
 	}
 }
 
@@ -1054,6 +1056,7 @@ input {
 	transform: translate(-50%, -50%);
 	border-radius: 8px;
 	background-color: var(--foreground);
+	box-shadow: 0 1px 12px 0 rgba(0, 0, 0, 0.05);
 }
 
 @media (max-width: 630px) {
@@ -1256,10 +1259,6 @@ input {
 	text-decoration: none;
 	cursor: pointer;
 	transition: background 150ms ease-in-out, transform 150ms ease;
-}
-
-.no-touchevents .prompt--login__login__form__submit:hover,
-.prompt--login__login__form__submit:focus {
 }
 
 .prompt--login__login__form__submit:focus {
