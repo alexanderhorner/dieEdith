@@ -439,7 +439,7 @@
 
 
 .card__delete:active {
-	transform: translateY(-50%) scale(0.94);
+	transform: translateY(-50%) scale();
 }
 
 .card__delete .material-icons {

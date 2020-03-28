@@ -3,8 +3,6 @@
 	max-width: 1100px;
 	margin: 64px auto 0;
 	padding-bottom: 15px;
-	transition: transform 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
-	;
 }
 
 .loading {
@@ -236,10 +234,10 @@
 	right: 19px;
 }
 
-.no-touchevents .card__delete:hover,
+/* .no-touchevents .card__delete:hover,
 .card__delete:focus {
 	opacity: 0.8;
-}
+} */
 
 .card__delete:focus {
 	box-shadow: 0 0 0 2px var(--teslablue);
@@ -247,7 +245,7 @@
 
 
 .card__delete:active {
-	transform: translateY(-50%) scale(0.94);
+	transform: translateY(-50%) scale(0.985);
 }
 
 .card__delete .material-icons {

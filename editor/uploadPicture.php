@@ -16,23 +16,19 @@ session_start();
 if (isset($_SESSION['UID'])) {
 	$UID = $_SESSION['UID'];
 } else {
-	error_log("User isn't logged in", 0);
 	goto end;
 }
 if (isTeamMember() == false) {
-	error_log("The logged in user isn't part of a permitted group", 0);
 	goto end;
 } 
 
 // Set up all input parameters
 if (!isset($_POST['AID'])) {
-	error_log("AID isn't set", 0);
 	goto end;
 } else {
 	$AID = $_POST['AID'];
 }
 if (!isset($_FILES['image'])) {
-	error_log("No file attached", 0);
 	goto end;
 } else {
 	$file = $_FILES['image'];
@@ -40,8 +36,6 @@ if (!isset($_FILES['image'])) {
 
 // Check Parameters
 if (validateID('A', $AID) == false) {
-	error_log('The parameter "AID" is wrong', 0);
-	error_log('AID: '.$AID, 0);
   goto end;
 }
 

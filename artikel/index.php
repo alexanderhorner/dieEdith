@@ -1,5 +1,7 @@
 <?php
+
 include '../framework/document-start.php';
+
 function encodeURIComponent($str) {
 	$revert = array('%21'=>'!', '%2A'=>'*', '%27'=>"'", '%28'=>'(', '%29'=>')');
 	return strtr(rawurlencode($str), $revert);
@@ -74,6 +76,16 @@ if (isset($_GET['article'])) {
 	die();
 }
 
+// check if user is owner of the page
+if (isset($_SESSION['UID'])) {
+	if ($_SESSION['UID'] == $owner) {
+		$isOwnerOfThisPage = true;
+	} else {
+		$isOwnerOfThisPage = false;
+	} 
+} else {
+	$isOwnerOfThisPage = false;
+}
 
 ?>
 
@@ -96,12 +108,12 @@ if (isset($_GET['article'])) {
 	<?php include '../framework/nav-overlay.php'?>
 
 	<div class="wrapper">
-
+		<?php if($isOwnerOfThisPage == true) : ?>
 		<div class="editor-information">
-			<button class="article-delete-btn" onclick=""><i class="material-icons">delete_forever</i></button>
+			<button class="article-delete-btn" onclick=""><span class="btn__text"><i class="material-icons">delete_forever</i></span></button>
 			<a href="../editor/<?php echo htmlspecialchars(encodeURIComponent($articleName), ENT_QUOTES, 'UTF-8'); ?>" class="edit-btn">Bearbeiten</a>
 		</div>
-
+		<?php endif;?>
 		<h1 data-AID="<?php echo $AID ?>" class="main-title">
 			<?php echo htmlspecialchars($articleName, ENT_QUOTES, 'UTF-8'); ?>
 		</h1>
@@ -112,13 +124,13 @@ if (isset($_GET['article'])) {
 				<div class="article__info__textbox__name">
 					<?php echo $fullname; ?>
 				</div>
-				<div class="article__info__textbox__time" data-timeago="<?php echo $publishedon ?>"></div>
+				<div class="article__info__textbox__time" data-timeago="<?php echo $publishedon ?>"><?php echo date('d.m.Y', strtotime($publishedon))?></div>
 			</div>
 		</div>
-		<script>
+		<!-- <script>
 			var nodes = document.querySelectorAll('.article__info__textbox__time');
 			timeago.render(nodes, 'de');
-		</script>
+		</script> -->
 
 		<p class="clear"></p>
 
