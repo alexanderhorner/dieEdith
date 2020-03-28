@@ -16,7 +16,6 @@ $responseString = '';
 
 if (isset($_POST["alreadyLoadedPosts"])) {
 	$alreadyLoadedPosts = json_decode($_POST["alreadyLoadedPosts"], true);
-	error_log(json_encode($alreadyLoadedPosts, JSON_PRETTY_PRINT));
 } else {
 	$response['error'] = 'Parameter \'alreadyLoadedPosts\' wrong';
 	goto end;
@@ -49,7 +48,6 @@ if ($pdo === false) {
 	// prepare IN condition: Insert parameter for each
 	$INparam = '';
 	$integerKey = 0;
-	$alreadyLoadedPosts = [];
 	if (sizeof($alreadyLoadedPosts) === 0) {
 		$INparam = '""';
 	} else {
@@ -59,7 +57,6 @@ if ($pdo === false) {
 		}
 		$INparam = substr($INparam, 0, -2);
 	}
-	error_log('"'.$INparam.'"');
 
 	// prepare statement
 	$stmntposts = $pdo->prepare("SELECT PID as ID, postedon as 'time', owner, 'post' as 'type', text, NULL as 'title'
@@ -83,12 +80,13 @@ if ($pdo === false) {
 
 	$stmntposts->execute();
 
-	ob_start();
-  $stmntposts->debugDumpParams();
-  $r = ob_get_contents();
-  ob_end_clean();
-  error_log($r);
-	error_log("--------------------------------------\n\n\n\n");
+	// // debug code for printin out mysql parameters
+	// ob_start();
+	// $stmntposts->debugDumpParams();
+	// $r = ob_get_contents();
+	// ob_end_clean();
+	// error_log($r);
+	// error_log("--------------------------------------\n\n\n\n");
 
 	// fetch
 	while ($row = $stmntposts->fetch()) {

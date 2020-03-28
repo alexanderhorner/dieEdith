@@ -6,7 +6,12 @@ $(document).ready(function() {
 		layoutMode: 'masonry',
 		masonry: {
 			percentPosition: true
-		}
+		},
+		getSortData: {
+			postedOn: '[data-postedon] parseInt'
+		},
+		sortBy: 'postedOn',
+		sortAscending: false
 	});
 
 	homescreen = new infiniteScroll;
