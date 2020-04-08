@@ -644,7 +644,9 @@ input {
 /* message */
 .message-box {
 	pointer-events: none;
-	padding-bottom: 200px;
+	/* max-height: calc(100vh - 50px) !important;
+	overflow-y: scroll;
+	overflow-x: hidden; */
 	z-index: 1400;
 	position: fixed;
 	top: 50px;
@@ -675,38 +677,18 @@ input {
 	background-color: hsla(3, 100%, 90%, 0.95);
 }
 
-.backdropfilter .message--error {
-	-webkit-backdrop-filter: saturate(180%) blur(20px);
-	backdrop-filter: saturate(180%) blur(20px);
-	background-color: hsla(3, 100%, 90%, 0.7);
-}
-
 .dark .message--error {
-	background-color: hsla(3, 100%, 5%, 0.98);
+	background-color: hsla(3, 100%, 7%, 0.98);
 	box-shadow: 0 1px 12px 0 rgba(0, 0, 0, 0.5);
-}
-
-.backdropfilter.dark .message--error {
-	background-color: hsla(3, 100%, 5%, 0.7);
 }
 
 .message--warning {
 	background-color: hsla(48, 100%, 90%, 0.95);
 }
 
-.backdropfilter .message--warning {
-	-webkit-backdrop-filter: saturate(180%) blur(20px);
-	backdrop-filter: saturate(180%) blur(20px);
-	background-color: hsla(48, 100%, 90%, 0.7);
-}
-
 .dark .message--warning {
 	background-color: hsla(48, 100%, 8%, 0.98);
 	box-shadow: 0 1px 12px 0 rgba(0, 0, 0, 0.5);
-}
-
-.backdropfilter.dark .message--warning {
-	background-color: hsla(48, 100%, 8%, 0.7);
 }
 
 .message__ribbon {

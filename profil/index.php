@@ -99,11 +99,11 @@ if (isset($_GET['user'])) {
 
 		<div class="selection__wrapper">
 			<div class="selection">
-				<button class="selection__button selection__button--selection selection__button--selection--posts" onclick="linkto('#beitraege')">Beiträge</button>
-				<button class="selection__button selection__button--selection selection__button--selection--articles" onclick="linkto('#artikel')">Nur Artikel</button>
+				<button class="selection__button selection__button--selection selection__button--selection--posts" onclick="linkTo('#beitraege')">Beiträge</button>
+				<button class="selection__button selection__button--selection selection__button--selection--articles" onclick="linkTo('#artikel')">Nur Artikel</button>
 
 				<?php if ($isOwnProfile == true && isTeamMember()) : ?>
-				<button class="selection__button selection__button--selection selection__button--selection--drafts" onclick="linkto('#entwuerfe')">Deine Entwürfe</button>
+				<button class="selection__button selection__button--selection selection__button--selection--drafts" onclick="linkTo('#entwuerfe')">Deine Entwürfe</button>
 				<button class="selection__button selection__button--new-article" onclick="newArticle()">Neuer Artikel</button>
 				<?php endif; ?>
 
@@ -170,13 +170,15 @@ if (isset($_GET['user'])) {
 					}
 
 					echo <<<HTML
-					<div data-postedOn="$unixTimeStamp" data-PID="$ID" class="card card--post $ID $isOwnedClass">
+					<div data-postedOn="$unixTimeStamp" data-pid="$ID" class="card card--post $ID $isOwnedClass">
 					HTML;
 					if ($isOwnProfile == true) {
 						echo <<<HTML
+
 							<div onclick="deletePost('$ID')" class="card__delete">
 								<i class="material-icons">delete_forever</i>
 							</div>
+
 						HTML;
 					}
 					echo <<<HTML
@@ -185,54 +187,54 @@ if (isset($_GET['user'])) {
 						</div>
 						<div data-timeago="$unixTimeStampMs" class="card__time"></div>
 					</div>
+
+
 					HTML;
 
 				} else if ($type == 'public') {
 					$ammountofPosts += 1;
 					$ammountofArticles += 1;
 
-					if (!isset($content_decoded['pic'])) {
-						$picture = 'card--article--no-picture';
-					} else {
-						$picture = '';
+					echo <<<HTML
+
+					<div data-aid="$ID" data-postedOn="$unixTimeStamp" onclick="linkTo('/artikel/$titleLink_sanitized')" class="card card--article card--article--released">
+						<h3 class="card--article__headline">$title_sanitized</h3>
+
+					HTML;
+
+					if (file_exists('../artikel/bilder/'.$ID.'/thumbnail.jpg')) {
+						echo "\t".'<img class="card--article__picture" src="../artikel/bilder/'.$ID.'/thumbnail.jpg" alt="">'."\n";
 					}
 
 					echo <<<HTML
-					 <div data-AID="$ID" data-postedOn="$unixTimeStamp" onclick="linkto('/artikel/$titleLink_sanitized')" class="card card--article card--article--released $picture">
-						<div class="card--article__information">
-							<h3 class="card--article__headline">$title_sanitized</h3>
-							<span class="card--article__text">$text_medium_sanitized... <a href="/artikel/$titleLink_sanitized">Weiter lesen</a></span>
-						</div>
+						<span class="card--article__text">$text_medium_sanitized... <a href="/editor/$titleLink_sanitized">Weiter lesen</a></span>
+
 					HTML;
-					if (isset($content_decoded['pic'])) {
-						echo '<img class="card--article__picture" src="/artikel/$titleLink_sanitized/thumbnail.jpg" alt="">'."\n";
-					}
-					echo '<div data-timeago="'.$unixTimeStampMs.'" class="card__time"></div>'."\n";
+					
+					echo "\t".'<div data-timeago="'.$unixTimeStampMs.'" class="card__time"></div>'."\n";
 					echo "</div>\n";
 
 				} else {
 					// draft
 					$ammountofDrafts += 1;
 
-					if (!isset($content_decoded['pic'])) {
-						$picture = 'card--article--no-picture';
-					} else {
-						$picture = '';
+					echo <<<HTML
+
+					<div data-aid="$ID" data-postedOn="$unixTimeStamp" onclick="linkTo('/editor/$titleLink_sanitized')" class="card card--article card--article--draft">
+						<h3 class="card--article__headline">$title_sanitized</h3>
+
+					HTML;
+
+					if (file_exists('../artikel/bilder/'.$ID.'/thumbnail.jpg')) {
+						echo "\t".'<img class="card--article__picture" src="../artikel/bilder/'.$ID.'/thumbnail.jpg" alt="">'."\n";
 					}
 
 					echo <<<HTML
-					 <div data-AID="$ID" data-postedOn="$unixTimeStamp" onclick="linkto('/editor/$titleLink_sanitized')" class="card card--article card--article--draft $picture">
-						<div class="card--article__information">
-							<h3 class="card--article__headline">$title_sanitized</h3>
-							<span class="card--article__text">$text_medium_sanitized... <a href="/editor/$titleLink_sanitized">Editieren</a></span>
-						</div>
+						<span class="card--article__text">$text_medium_sanitized... <a href="/editor/$titleLink_sanitized">Editieren</a></span>
+
 					HTML;
-					if (!file_exists('/artikel('.$ID.'/thumbnail.jpg')) {
-						// error_log('yee', 0);
-					} else {
-						// error_log('neeeow', 0);
-					}
-					echo '<div data-timeago="'.$unixTimeStampMs.'" class="card__time"></div>'."\n";
+					
+					echo "\t".'<div data-timeago="'.$unixTimeStampMs.'" class="card__time"></div>'."\n";
 					echo "</div>\n";
 				}
 
@@ -259,9 +261,6 @@ if (isset($_GET['user'])) {
 				HTML;
 			}
 			?>
-
-
-				 
 
 		</section>
 

@@ -227,50 +227,43 @@
 
 .card--article {
 	cursor: pointer;
-	display: flex;
-	align-items: flex-start;
-	height: 187px;
 	margin-bottom: 11px;
 	margin-top: 4px;
 }
 
 .card--article__headline {
 	margin-top: 0;
-	margin-bottom: 10px;
-	white-space: nowrap; 
-	overflow: hidden;
-	text-overflow: ellipsis;
+	margin-bottom: 8px;
 }
 
 .card--article__picture {
 	border-radius: 4px;
-	height: 100%;
-	margin-left: auto;
+	margin-left: 10px;
+	height: 120px;
+	float: right;
 }
 
-.card--article__information {
-	margin-right: 10px;
-	overflow: hidden;
-	max-width: 100%;
+.card--article__text {
 }
-
-.card--article__text {}
 
 @media (max-width: 400px) {
+
 	.card--article {
-		flex-direction: column-reverse;
+		flex-direction: column;
+		display: flex;
 		height: auto;
 	}
 
 	.card--article__picture {
+		order: -2;
+		border-radius: 8px 8px 0 0;
 		margin-bottom: 15px;
-		width: 100%;
+		width: calc(100% + 40px);
 		height: auto;
+		margin: -20px;
+		margin-bottom: 10px;
 	}
-}
 
-.card--article--no-picture {
-	height: auto;
 }
 
 .card--new-post {

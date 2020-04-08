@@ -44,7 +44,10 @@ if (validateID('A', $AID) == false) {
 $saveDirectory = '../artikel/bilder/'.$AID.'/';
 
 // create folder
-mkdir($saveDirectory);
+if (!file_exists($saveDirectory)) {
+	mkdir($saveDirectory);
+}
+
 
 // check how many files are in that folder
 $files = new FilesystemIterator($saveDirectory, FilesystemIterator::SKIP_DOTS);

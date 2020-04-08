@@ -4,7 +4,7 @@ function getCookie(name) {
 	if (parts.length == 2) return parts.pop().split(";").shift();
 }
 
-function linkto(x) {
+function linkTo(x) {
 	var selection = window.getSelection();
 	if (selection.toString().length === 0) {
 		window.location = x;

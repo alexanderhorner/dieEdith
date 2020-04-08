@@ -114,7 +114,7 @@ if (isset($_SESSION['UID'])) {
 			<a href="../editor/<?php echo htmlspecialchars(encodeURIComponent($articleName), ENT_QUOTES, 'UTF-8'); ?>" class="edit-btn">Bearbeiten</a>
 		</div>
 		<?php endif;?>
-		<h1 data-AID="<?php echo $AID ?>" class="main-title">
+		<h1 data-aid="<?php echo $AID ?>" class="main-title">
 			<?php echo htmlspecialchars($articleName, ENT_QUOTES, 'UTF-8'); ?>
 		</h1>
 

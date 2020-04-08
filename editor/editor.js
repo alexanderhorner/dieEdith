@@ -4,7 +4,7 @@ function uploadArticleData(saveData) {
 		type: 'POST',
 		url: 'uploadArticleData.php',
 		dataType: 'json',
-		data: 'AID=' + encodeURI($('.main-title').attr('data-AID')) + '&data=' + encodeURIComponent(JSON.stringify(saveData)),
+		data: 'AID=' + encodeURI($('.main-title').attr('data-aid')) + '&data=' + encodeURIComponent(JSON.stringify(saveData)),
 		timeout: 10000,
 		success: function(data) {
 			if (data.request == "success") {
@@ -49,7 +49,7 @@ function publishArticle() {
 		type: 'POST',
 		url: '/framework/publishArticle.php',
 		dataType: 'json',
-		data: 'AID=' + encodeURI($('.main-title').attr('data-AID')),
+		data: 'AID=' + encodeURI($('.main-title').attr('data-aid')),
 		timeout: 10000,
 		success: function(data) {
 			if (data.request == "failed" && data.error == "Article doesnt exist") {

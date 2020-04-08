@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set('Europe/Berlin');
 
 require_once __DIR__ . '/framework/randomID.php';
 
@@ -46,6 +47,7 @@ if ($pdo === false) {
 	unset($response['error']);
 
 	// prepare IN condition: Insert parameter for each
+	// $alreadyLoadedPosts = []; // DEBUG to return infinite posts
 	$INparam = '';
 	$integerKey = 0;
 	if (sizeof($alreadyLoadedPosts) === 0) {
@@ -95,7 +97,7 @@ if ($pdo === false) {
 		$ID = $row['ID'];
 		$owner = $row['owner'];
 		$unixTimeStamp = strtotime($row['time']);
-		$unixTimeStampMs = $unixTimeStamp * 1000 - 3600000;
+		$unixTimeStampMs = $unixTimeStamp * 1000;
 		$type = $row['type'];
 		$text = $row['text'];
 		$text_sanitized = htmlspecialchars($text);
@@ -130,8 +132,8 @@ if ($pdo === false) {
 
 		if ($type == "article") {
 				$responseString .= <<<HTML
-				<div data-PID="$ID" data-postedOn="$unixTimeStamp" onclick="linkto('artikel/$titleLink_sanitized')" class="card card--article">
-					<div class="card__info" onclick="linkto('/profil/$username')">
+				<div data-pid="$ID" data-titlelink="$titleLink_sanitized" data-username="$username" data-postedOn="$unixTimeStamp" class="card card--article">
+					<div class="card__info">
 						<img class="card__info__picture" src="user/$owner/pb-small.jpg" alt="profile picture">
 						<div class="card__info__textbox">
 							<div class="card__info__textbox__name">$fullname</div>
@@ -139,14 +141,16 @@ if ($pdo === false) {
 						</div>
 					</div>
 				HTML;
-				if (isset($content_decoded['pic'])) {
-					$responseString .=  '<img class="card__picture" src="artikel/{$content_decoded["name"]}/pic1.jpg" alt="">';
+				if (file_exists('artikel/bilder/'.$ID.'/thumbnail.jpg')) {
+					$responseString .= '<img class="card__picture" src="/artikel/bilder/'.$ID.'/thumbnail.jpg" alt="">'."\n";
 				}
 				$responseString .= <<<HTML
 					<h3>$title_sanitized</h3>
 					<span class="card__text">$text_short_sanitized... <a href="artikel/$titleLink_sanitized">Weiter lesen</a></span>
 				</div>\n
 				HTML;
+
+
 		} elseif ($type == "post") {
 			if (isset($UID)) {
 				if ($owner == $UID) {
@@ -166,8 +170,8 @@ if ($pdo === false) {
 			}
 
 			$responseString .= <<<HTML
-			<div data-PID="$ID" data-postedOn="$unixTimeStamp" class="$ID card card--post$isOwnerClass">
-				<div class="card__info" onclick="linkto('/profil/$username')">
+			<div data-pid="$ID" data-postedOn="$unixTimeStamp" class="$ID card card--post$isOwnerClass">
+				<div class="card__info" onclick="linkTo('/profil/$username')">
 					<img class="card__info__picture" src="user/$owner/pb-small.jpg" alt="profile picture">
 					<div class="card__info__textbox">
 						<div class="card__info__textbox__name">$fullname</div>

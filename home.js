@@ -10,7 +10,7 @@ $(document).ready(function() {
 		getSortData: {
 			postedOn: '[data-postedon] parseInt'
 		},
-		sortBy: 'postedOn',
+		sortBy: '',
 		sortAscending: false
 	});
 
@@ -71,7 +71,7 @@ class infiniteScroll {
 
 		self.pageLoading = true;
 
-		// // debug test to check if page load halting code works (so it waits for one page to be loaded to load the next)
+		// debug test to check if page load halting code works (so it waits for one page to be loaded to load the next)
 		// window.PosLast = window.PosNow;
 		// window.PosNow = $(window).scrollTop();
 		// console.log(window.PosNow - window.PosLast);
@@ -98,8 +98,6 @@ class infiniteScroll {
 						// insert data
 						$grid.isotope('insert', $items)
 							.ready(function() {
-								$grid.isotope('reloadItems');
-								$grid.isotope('layout');
 
 								// Render time
 								var selector = '.' + data.requestIdentifier;
@@ -111,10 +109,9 @@ class infiniteScroll {
 							})
 
 						// layout isotope grid when images loaded
-						// $grid.imagesLoaded().progress(function(instance) {
-						// 	$grid.isotope('reloadItems');
-						// 	$grid.isotope('layout');
-						// })
+						$grid.imagesLoaded().progress(function(instance) {
+							$grid.isotope('layout');
+						})
 					}
 				} else {
 					self.pageLoading = false;
@@ -122,7 +119,7 @@ class infiniteScroll {
 				}
 			},
 			error: function(jqXHR, textStatus, errorThrown) {
-				this.pageLoading = false;
+				self.pageLoading = false;
 				error("Es gab ein Problem beim Laden der Posts (" + textStatus + "). Überprüfe deine Internetverbindung und versuche es später erneut.");
 			}
 		});
@@ -130,9 +127,41 @@ class infiniteScroll {
 	
 }
 
+// browser debug for infinite scroll
+// var n = 1;
+// $(document).on('keypress', function(e) {
+// 	if (e.key === "m") {
+// 		window.postLast = window.postNow;
+// 		window.postNow = homescreen.loadedPosts.ammount();
+// 		var deltaPost = window.postNow - window.postLast;
+// 		console.log('Difference in posts: ' + deltaPost);
+// 		console.log("KEY PRESS " + n);
+// 		n += 1;
+// 		$("html, body").animate({ scrollTop: $(document).height() }, 0);
+// 	}
+// });
+
 $(window).on('resize', function() {
 	$grid.isotope('layout');
 });
+
+// card click
+$(document).on('click', '.card.card--article', function(event) {
+
+	// targets
+	var $target = $(event.target);
+	var $currentTarget = $(event.currentTarget);
+	
+	if ($target.parents('.card__info').length || $target.is('.card__info')) { // if card-info
+		var username = $currentTarget.data('username');
+		linkTo('/profil/' + username);
+	} else { // if card
+		var titleLink = $currentTarget.data('titlelink');
+		linkTo('/artikel/' + titleLink);
+	}
+
+});
+
 
 // delete Post
 function deletePost(pid) {
