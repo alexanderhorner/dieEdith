@@ -93,7 +93,8 @@ if (isset($_GET['article'])) {
 	<!-- link -->
 	<script src="https://cdn.jsdelivr.net/npm/@editorjs/link@latest"></script>
 
-	<link rel="stylesheet" type="text/css" href="/artikel/artikel.css">
+	<link rel="stylesheet" type="text/css" href="../artikel/artikel.css">
+	<script src="../artikel/artikel.js"></script>
 	<link rel="stylesheet" type="text/css" href="editor.css">
 	<script src="editor.js"></script>
 
@@ -134,13 +135,14 @@ if (isset($_GET['article'])) {
 				<span class="save-state__text">Ungespeicherte Änderungen</span>
 			</div>
 
+			<!-- Delete -->
+			<button class="article-delete-btn editor-information__btn" onclick="deleteArticle('<?php echo $AID ?>')"><span class="btn__text"><i class="material-icons">delete_forever</i></span></button>
 
 			<!-- Publiush -->
-			<button class="publish-btn" onclick="publishArticle()">Veröffentlichen</button>
-
+			<button class="editor-information__btn editor-information__btn--publish" onclick="setArticleState('<?php echo $AID ?>', 'public')"><span class="btn__text"><i class="material-icons">publish</i></span></button>
 		</div>
 
-		<h1 data-aid="<?php echo $AID ?>" class="main-title" contenteditable>
+		<h1 data-aid="<?php echo $AID ?>" class="main-title">
 			<?php echo htmlspecialchars($articleName, ENT_QUOTES, 'UTF-8'); ?>
 		</h1>
 
@@ -159,7 +161,7 @@ if (isset($_GET['article'])) {
 					} else if ($status == 'public') {
 						echo date('d.m.Y', strtotime($publishedon));
 					} else {
-						echo "Gelöscht. Diese Seite sollte nicht verfügbar sein. Kontaktiere einen Admin.";
+						echo "Gelöscht. Diese Seite sollte nicht verfügbar sein.";
 					}
 						
 					?>

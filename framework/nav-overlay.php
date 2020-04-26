@@ -19,6 +19,24 @@
 	</div>
 </div>
 
+<div class="prompt prompt--publish-article">
+	<h2 class="prompt__headline">Artikel veröffentlichen</h2>
+	<div class="prompt__description">Bist du dir sicher, dass du diesen Artikel veröffentlichen willst?</div>
+	<div class="prompt__btn-container">
+		<button onclick="closePrompt('all'); window.promptFunction = function() {return 'function unset'}" tabindex="0" class="prompt__btn-container__btn prompt__btn-container__btn--abort">Abbrechen</button>
+		<button onclick="promptFunction()" tabindex="0" class="prompt__btn-container__btn prompt__btn-container__btn--confirm">Veröffentlichen</button>
+	</div>
+</div>
+
+<div class="prompt prompt--delete-article">
+	<h2 class="prompt__headline">Beitrag löschen</h2>
+	<div class="prompt__description">Bist du dir sicher, dass du diesen Artikel löschen willst?</div>
+	<div class="prompt__btn-container">
+		<button onclick="closePrompt('all'); window.promptFunction = function() {return 'function unset'}" tabindex="0" class="prompt__btn-container__btn prompt__btn-container__btn--abort">Abbrechen</button>
+		<button onclick="promptFunction()" tabindex="0" class="prompt__btn-container__btn prompt__btn-container__btn--confirm--danger">Löschen</button>
+	</div>
+</div>
+
 <header class="header">
 	<a href="/"><img class="header__logo header__logo--big--light" src="/framework/icons/logo--big--light.svg" alt="Die Edith Logo"></a>
 	<a href="/"><img class="header__logo header__logo--big--dark" src="/framework/icons/logo--big--dark.svg" alt="Die Edith Logo"></a>

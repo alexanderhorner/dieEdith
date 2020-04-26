@@ -155,6 +155,9 @@ $(document).on('click', '.card.card--article', function(event) {
 	if ($target.parents('.card__info').length || $target.is('.card__info')) { // if card-info
 		var username = $currentTarget.data('username');
 		linkTo('/profil/' + username);
+	} else if ($target.parents('.card__delete').length || $target.is('.card__delete')) { // if card__delete
+		var aid = $currentTarget.data('pid');
+		deleteArticle(aid);
 	} else { // if card
 		var titleLink = $currentTarget.data('titlelink');
 		linkTo('/artikel/' + titleLink);
@@ -197,6 +200,55 @@ function deletePost(pid) {
 			},
 			error: function(jqXHR, textStatus, errorThrown) {
 				error("Es ist ein Fehler beim Löschen des Posts aufgetreten (" + textStatus + "). Überprüfe deine Internetverbindung und versuche es später erneut.");
+			}
+		});
+	}
+}
+
+// delete article
+function deleteArticle(aid) {
+	$('html').addClass('prompt--delete-article--shown');
+	$('body').scrollLock('enable');
+	
+
+	window.promptFunction = function() {
+		$('.prompt--delete-article .prompt__btn-container__btn').prop("disabled", true);
+		$.ajax({
+			type: 'POST',
+			url: '/framework/deleteArticle.php',
+			dataType: 'json',
+			data: 'AID=' + aid,
+			timeout: 10000,
+			success: function(data) {
+				if (data.status != "successful") {
+					$('.prompt--delete-article .prompt__btn-container__btn').prop("disabled", false);
+					error("Es ist ein Fehler beim Löschen des Artikels aufgetreten (" + data.error['category'] + ": " + data.error['description'] + "). Überprüfe deine Internetverbindung und versuche es später erneut.");
+				} else {
+					$('.prompt--delete-article .prompt__btn-container__btn').prop("disabled", false);
+					closePrompt('all');
+					var postClass = "." + aid;
+					$grid.isotope({
+						transitionDuration: '0.4s'
+					});
+					var $post = $("." + aid);
+					
+					$grid.isotope('remove', $post).isotope('layout');
+
+					closePrompt('all');
+					
+					setTimeout(function() {
+						$grid.isotope({
+							transitionDuration: 0
+						});
+					}, 450);
+					
+
+					closePrompt('all');
+				}
+			},
+			error: function(jqXHR, textStatus, errorThrown) {
+				$('.prompt--delete-article .prompt__btn-container__btn').prop("disabled", false);
+				error("Es ist ein Fehler beim Löschen des Artikels aufgetreten (" + textStatus + "). Überprüfe deine Internetverbindung und versuche es später erneut.");
 			}
 		});
 	}

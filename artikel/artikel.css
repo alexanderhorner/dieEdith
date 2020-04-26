@@ -61,35 +61,7 @@
 	overflow: hidden;
 }
 
-.edit-btn {
-	text-decoration: none !important;
-	color: #FFF !important;
-	text-align: center;
-	cursor: pointer;
-	padding: 1px 2em;
-	height: 38px;
-	line-height: 38px;
-	font-size: 16px;
-	box-sizing: content-box;
-	margin-right: 10px;
-	background-color: var(--teslablue);
-	border-radius: 20px;
-	box-shadow: 0 1px 8px 0 hsla(0, 0%, 0%, 0.1);
-	transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
-}
-
-.edit-btn:active {
-	transform: scale(0.985);
-	box-shadow: 0 1px 4px 0 hsla(0, 0%, 0%, 0.1);
-}
-
-.dark .edit-btn {
-	box-shadow: none;
-}
-
-.article-delete-btn {}
-
-.article-delete-btn {
+.editor-information__btn {
 	position: relative;
 	font-family: 'Lato', sans-serif;
 	border: none;
@@ -99,7 +71,7 @@
 	text-decoration: none;
 	background-color: var(--foreground);
 	box-shadow: 0 1px 8px 0 hsla(0, 0%, 0%, 0.1);
-	color: var(--error);
+	color: inherit;
 	font-family: sans-serif;
 	height: 38px;
 	width: 38px;
@@ -112,30 +84,32 @@
 	-moz-appearance: none;
 }
 
-.article-delete-btn:hover,
-.article-delete-btn:focus {
-}
-
-.article-delete-btn:focus {
+.editor-information__btn:focus {
 	box-shadow: 0 0 0 2px var(--teslablue);
 }
 
-.article-delete-btn:active {
+.editor-information__btn:active {
 	transform: scale(0.985);
 	box-shadow: 0 1px 4px 0 hsla(0, 0%, 0%, 0.1);
 }
 
-.article-delete-btn .material-icons {
+.editor-information__btn .material-icons {
 	display: block;
+	font-size: 20px;
 }
 
-.dark .article-delete-btn {
+.dark .editor-information__btn {
 	box-shadow: 0 1px 8px 0 hsla(0, 0%, 0%, 0.5);
 	padding: 0px;
 	border: 1px solid hsla(0, 0%, 50%, 0.2);
 }
-.dark .article-delete-btn:active {
+.dark .editor-information__btn:active {
 	box-shadow: 0 1px 4px 0 hsla(0, 0%, 0%, 0.5);
+}
+
+/* Error Button */
+.article-delete-btn {
+	color: var(--error);
 }
 
 /* Article Info  */

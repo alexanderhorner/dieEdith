@@ -228,7 +228,7 @@
 .card--article {
 	cursor: pointer;
 	margin-bottom: 11px;
-	margin-top: 4px;
+	margin-top: 22px;
 }
 
 .card--article__headline {
@@ -336,7 +336,7 @@
 }
 
 .card--new-post__submit:active {
-	transform: scale(0.98);
+	transform: scale(0.985);
 }
 
 /* form submit styles when disabled */
@@ -432,7 +432,7 @@
 
 
 .card__delete:active {
-	transform: translateY(-50%) scale();
+	transform: translateY(-50%) scale(0.985);
 }
 
 .card__delete .material-icons {

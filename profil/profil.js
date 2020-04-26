@@ -161,7 +161,6 @@ function deletePost(pid) {
 	$('body').scrollLock('enable');
 	$
 	window.promptFunction = function() {
-		console.log('deleteing ' + pid);
 		$.ajax({
 			type: 'POST',
 			url: '/framework/deletePost.php',
@@ -188,4 +187,64 @@ function deletePost(pid) {
 
 $(window).on('resize', function() {
 	$grid.isotope('layout');
+});
+
+// delete article
+function deleteArticle(aid) {
+	$('html').addClass('prompt--delete-article--shown');
+	$('body').scrollLock('enable');
+	
+
+	window.promptFunction = function() {
+		$('.prompt--delete-article .prompt__btn-container__btn').prop("disabled", true);
+		$.ajax({
+			type: 'POST',
+			url: '/framework/deleteArticle.php',
+			dataType: 'json',
+			data: 'AID=' + aid,
+			timeout: 10000,
+			success: function(data) {
+				if (data.status != "successful") {
+					$('.prompt--delete-article .prompt__btn-container__btn').prop("disabled", false);
+					error("Es ist ein Fehler beim Löschen des Artikels aufgetreten (" + data.error['category'] + ": " + data.error['description'] + "). Überprüfe deine Internetverbindung und versuche es später erneut.");
+				} else {
+					$('.prompt--delete-article .prompt__btn-container__btn').prop("disabled", false);
+					closePrompt('all');
+					var postClass = "." + aid;
+					$grid.isotope('remove', $(postClass));
+					$grid.isotope('layout');
+					
+
+					closePrompt('all');
+				}
+			},
+			error: function(jqXHR, textStatus, errorThrown) {
+				$('.prompt--delete-article .prompt__btn-container__btn').prop("disabled", false);
+				error("Es ist ein Fehler beim Löschen des Artikels aufgetreten (" + textStatus + "). Überprüfe deine Internetverbindung und versuche es später erneut.");
+			}
+		});
+	}
+}
+
+// card click
+$(document).on('click', '.card.card--article', function(event) {
+
+	// targets
+	var $target = $(event.target);
+	var $currentTarget = $(event.currentTarget);
+	
+	if ($target.parents('.card__delete').length || $target.is('.card__delete')) { // if card__delete
+		var aid = $currentTarget.data('aid');
+		deleteArticle(aid);
+	} else { // if card
+		if ($currentTarget.hasClass('card--article--draft')) {
+			var titleLink = $currentTarget.data('titlelink');
+			linkTo('/editor/' + titleLink);
+		} else {
+			var titleLink = $currentTarget.data('titlelink');
+			linkTo('/artikel/' + titleLink);
+		}
+		
+	}
+
 });

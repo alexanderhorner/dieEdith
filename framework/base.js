@@ -25,6 +25,13 @@ function closePrompt(prompt) {
 
 		// login
 		$("html").removeClass('prompt--login--shown');
+
+		// delete article
+		$("html").removeClass('prompt--delete-article--shown');
+
+		// publish article
+		$("html").removeClass('prompt--publish-article--shown');
+
 		// prompt functions
 		window.promptFunction = function() {return 'function unset'};
 
@@ -500,6 +507,7 @@ function newArticle() {
 					$(".prompt--new-article .prompt__btn-container__btn--confirm").prop("disabled", false);
 					$(".prompt--new-article .prompt__btn-container__btn--confirm").text("Erstellen");
 					closePrompt('all');
+					$('.prompt--new-article__text-field').val('');
 					window.location = '/editor/' + titleVal;
 				}
 			},
@@ -509,47 +517,6 @@ function newArticle() {
 				// Enable Button
 				$(".prompt--new-article .prompt__btn-container__btn--confirm").prop("disabled", false);
 				$(".prompt--new-article .prompt__btn-container__btn--confirm").text("Erstellen");
-			}
-		});
-	}
-}
-
-// delete article
-function deleteArticle(aid, isCard) {
-	$('html').addClass('prompt--delete-post--shown');
-	$('body').scrollLock('enable');
-	$('')
-	window.promptFunction = function() {
-		$.ajax({
-			type: 'POST',
-			url: '/framework/deleteArticle.php',
-			dataType: 'json',
-			data: 'aid=' + aid,
-			timeout: 10000,
-			success: function(data) {
-				if (data.status != "successful") {
-					error("Es ist ein Fehler beim Löschen des Artikels aufgetreten (" + data.error['category'] + ": " + data.error['description'] + "). Überprüfe deine Internetverbindung und versuche es später erneut.");
-				} else {
-					$grid.masonry({
-						transitionDuration: '0.4s'
-					});
-					var postClass = "." + aid
-					$(postClass).remove()
-
-					closePrompt('all');
-					
-
-					$grid.masonry('reloadItems');
-					$grid.masonry('layout');
-					setTimeout(function() {
-						$grid.masonry({
-							transitionDuration: 0
-						});
-					}, 450);
-				}
-			},
-			error: function(jqXHR, textStatus, errorThrown) {
-				error("Es ist ein Fehler beim Löschen des Artikels aufgetreten (" + textStatus + "). Überprüfe deine Internetverbindung und versuche es später erneut.");
 			}
 		});
 	}

@@ -6,38 +6,18 @@
   box-sizing: content-box;
 }
 
-.publish-btn {
-	font-family: 'Lato', sans-serif;
-  vertical-align: middle;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  display: inline-block;
-  width: 147px;
-  flex: none;
-  height: 38px;
-  border: none;
-  box-sizing: content-box;
-  border-radius: 25px;
-  background-color: var(--teslablue);
-  color: #FFF;
-  font-size: 16px;
-  text-align: center;
-  text-decoration: none;
-  cursor: pointer;
-  transition: background 150ms ease-in-out, transform 150ms ease;
+.article-delete-btn {
+  margin-left: auto;
+  margin-right: 15px;
 }
 
-.publish-btn:focus {
-  box-shadow: 0 0 0 2px var(--teslablue);
-}
-
-.publish-btn:active {
-  transform: scale(0.985);
+.editor-information__btn--publish {
+  color: var(--teslablue);
 }
 
 
 .save-state {
-  width: 227px;
+  width: 232px;
   position: relative;
   display: flex;
   align-items: center;

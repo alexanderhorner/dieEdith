@@ -21,8 +21,10 @@ require_once __DIR__ . '/framework/isTeamMember.php';
 	<?php include 'framework/nav-overlay.php'?>
 
 	<div class="wrapper">
-		<?php if (isTeamMember()) : ?>
+		
 		<div class="quickstart">
+
+			<?php if (isTeamMember()) : ?>
 			<h1 class="titles">Schnellstart</h1>
 			<div class="quickstart__options__wrapper">
 				<div class="quickstart__options">
@@ -32,9 +34,10 @@ require_once __DIR__ . '/framework/isTeamMember.php';
 					<a class="quickstart__options__option" href="/profil/<?php echo $_SESSION['username'] ?>#beitraege">Dein Profil</a>
 				</div>
 			</div> 
-			<h1 class="titles">Neuste Beiträge</h1>
+			<?php endif; ?>
+
+			<h1 class="titles">Beiträge</h1>
 		</div>
-		<?php endif; ?>
 		<div class="grid">
 		</div>
 

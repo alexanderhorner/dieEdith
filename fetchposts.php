@@ -131,24 +131,42 @@ if ($pdo === false) {
 
 
 		if ($type == "article") {
-				$responseString .= <<<HTML
-				<div data-pid="$ID" data-titlelink="$titleLink_sanitized" data-username="$username" data-postedOn="$unixTimeStamp" class="card card--article">
-					<div class="card__info">
-						<img class="card__info__picture" src="user/$owner/pb-small.jpg" alt="profile picture">
-						<div class="card__info__textbox">
-							<div class="card__info__textbox__name">$fullname</div>
-							<div data-timeago="$unixTimeStampMs" class="$randomRequestIdentifier card__info__textbox__time"></div>
-						</div>
+			if (isset($UID)) {
+				if ($owner == $UID) {
+					$isOwnerClass = " card--post--isOwner";
+					$isOwnerDiv = <<<HTML
+					<div onclick="deleteArticle('$ID')" class="card__delete">
+						<i class="material-icons">delete_forever</i>
 					</div>
-				HTML;
-				if (file_exists('artikel/bilder/'.$ID.'/thumbnail.jpg')) {
-					$responseString .= '<img class="card__picture" src="/artikel/bilder/'.$ID.'/thumbnail.jpg" alt="">'."\n";
+					HTML;
+				} else {
+				$isOwnerClass = "";
+				$isOwnerDiv = "";
 				}
-				$responseString .= <<<HTML
-					<h3>$title_sanitized</h3>
-					<span class="card__text">$text_short_sanitized... <a href="artikel/$titleLink_sanitized">Weiter lesen</a></span>
-				</div>\n
-				HTML;
+			} else {
+				$isOwnerClass = "";
+				$isOwnerDiv = "";
+			}
+
+			$responseString .= <<<HTML
+			<div data-pid="$ID" data-titlelink="$titleLink_sanitized" data-username="$username" data-postedOn="$unixTimeStamp" class="$ID card card--article $isOwnerClass">
+				<div class="card__info">
+					<img class="card__info__picture" src="user/$owner/pb-small.jpg" alt="profile picture">
+					<div class="card__info__textbox">
+						<div class="card__info__textbox__name">$fullname</div>
+						<div data-timeago="$unixTimeStampMs" class="$randomRequestIdentifier card__info__textbox__time"></div>
+					</div>
+				</div>
+				$isOwnerDiv
+			HTML;
+			if (file_exists('artikel/bilder/'.$ID.'/thumbnail.jpg')) {
+				$responseString .= '<img class="card__picture" src="/artikel/bilder/'.$ID.'/thumbnail.jpg" alt="">'."\n";
+			}
+			$responseString .= <<<HTML
+				<h3>$title_sanitized</h3>
+				<span class="card__text">$text_short_sanitized... <a href="artikel/$titleLink_sanitized">Weiter lesen</a></span>
+			</div>\n
+			HTML;
 
 
 		} elseif ($type == "post") {

@@ -5,6 +5,12 @@ require_once __DIR__ . '/../framework/isTeamMember.php';
 if (isset($_GET['user'])) {
 	$username = $_GET['user'];
 
+	if ($username == "myprofile") {
+		if (isset($_SESSION['UID'])) {
+			header("Location: /profil/".$_SESSION['username']);
+			die();
+		}
+	}
 
 	// Connenct to database
 	include '../framework/mysqlcredentials.php';
@@ -197,7 +203,18 @@ if (isset($_GET['user'])) {
 
 					echo <<<HTML
 
-					<div data-aid="$ID" data-postedOn="$unixTimeStamp" onclick="linkTo('/artikel/$titleLink_sanitized')" class="card card--article card--article--released">
+					<div data-aid="$ID" data-titleLink="$titleLink_sanitized" data-postedOn="$unixTimeStamp" class="$ID card card--article card--article--released">
+					HTML;
+					if ($isOwnProfile == true) {
+						echo <<<HTML
+
+							<div onclick="deleteArticle('$ID')" class="card__delete">
+								<i class="material-icons">delete_forever</i>
+							</div>
+						HTML;
+					}
+					echo <<<HTML
+						
 						<h3 class="card--article__headline">$title_sanitized</h3>
 
 					HTML;
@@ -207,12 +224,12 @@ if (isset($_GET['user'])) {
 					}
 
 					echo <<<HTML
-						<span class="card--article__text">$text_medium_sanitized... <a href="/editor/$titleLink_sanitized">Weiter lesen</a></span>
+						<span class="card--article__text">$text_medium_sanitized... <a href="/artikel/$titleLink_sanitized">Weiter lesen</a></span>
 
 					HTML;
 					
 					echo "\t".'<div data-timeago="'.$unixTimeStampMs.'" class="card__time"></div>'."\n";
-					echo "</div>\n";
+					echo "</div>\n\n";
 
 				} else {
 					// draft
@@ -220,7 +237,18 @@ if (isset($_GET['user'])) {
 
 					echo <<<HTML
 
-					<div data-aid="$ID" data-postedOn="$unixTimeStamp" onclick="linkTo('/editor/$titleLink_sanitized')" class="card card--article card--article--draft">
+					<div data-aid="$ID" data-titlelink="$titleLink_sanitized" data-postedOn="$unixTimeStamp" class="$ID card card--article card--article--draft">
+					HTML;
+						if ($isOwnProfile == true) {
+							echo <<<HTML
+	
+								<div onclick="deleteArticle('$ID')" class="card__delete">
+									<i class="material-icons">delete_forever</i>
+								</div>
+							HTML;
+						}
+						echo <<<HTML
+
 						<h3 class="card--article__headline">$title_sanitized</h3>
 
 					HTML;

@@ -100,8 +100,8 @@ if (isset($_SESSION['UID'])) {
 
 	<script src="/framework/timeago.js"></script>
 
-	<link rel="stylesheet" type="text/css" href="/artikel/artikel.css">
-
+	<link rel="stylesheet" type="text/css" href="../artikel/artikel.css">
+	<script src="../artikel/artikel.js"></script>
 </head>
 
 <body>
@@ -110,8 +110,8 @@ if (isset($_SESSION['UID'])) {
 	<div class="wrapper">
 		<?php if($isOwnerOfThisPage == true) : ?>
 		<div class="editor-information">
-			<button class="article-delete-btn" onclick=""><span class="btn__text"><i class="material-icons">delete_forever</i></span></button>
-			<a href="../editor/<?php echo htmlspecialchars(encodeURIComponent($articleName), ENT_QUOTES, 'UTF-8'); ?>" class="edit-btn">Bearbeiten</a>
+			<button class="article-delete-btn editor-information__btn" onclick="deleteArticle('<?php echo $AID ?>')"><span class="btn__text"><i class="material-icons">delete_forever</i></span></button>
+			<a href="../editor/<?php echo htmlspecialchars(encodeURIComponent($articleName), ENT_QUOTES, 'UTF-8'); ?>" class="editor-information__btn edit-btn"><span class="btn__text"><i class="material-icons">edit</i></span></a>
 		</div>
 		<?php endif;?>
 		<h1 data-aid="<?php echo $AID ?>" class="main-title">

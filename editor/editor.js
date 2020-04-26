@@ -40,16 +40,20 @@ function uploadArticleData(saveData) {
 	});
 }
 
-function publishArticle() {
+function setArticleState(aid, state) {
+
+	if (state != 'public' && state != 'draft') {
+		return false;
+	}
 	
 	saveData();
 
 	// Send data
 	$.ajax({
 		type: 'POST',
-		url: '/framework/publishArticle.php',
+		url: '/framework/setArticleState.php',
 		dataType: 'json',
-		data: 'AID=' + encodeURI($('.main-title').attr('data-aid')),
+		data: 'AID=' + aid + '&state=' + state,
 		timeout: 10000,
 		success: function(data) {
 			if (data.request == "failed" && data.error == "Article doesnt exist") {
