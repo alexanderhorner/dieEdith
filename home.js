@@ -10,14 +10,15 @@ $(document).ready(function() {
 		getSortData: {
 			postedOn: '[data-postedon] parseInt'
 		},
-		sortBy: '',
+		sortBy: 'postedOn',
 		sortAscending: false
 	});
 
-	homescreen = new infiniteScroll;
+	var infiniteScroll = new InfiniteScroll;
+	var cardMenu = new CardMenu;
 });
 
-class infiniteScroll {
+class InfiniteScroll {
 
   constructor() {
 		this.endOfPage = false;
@@ -90,10 +91,10 @@ class infiniteScroll {
 				if (data.request != "failed") {
 
 					// check if data is empty
-					if (data.content == "") {
+					if (data.content.posts == "") {
 						self.endOfPage = true;
 					} else {
-						var $items = $(data.content);
+						var $items = $(data.content.posts);
 						
 						// insert data
 						$grid.isotope('insert', $items)
@@ -112,6 +113,8 @@ class infiniteScroll {
 						$grid.imagesLoaded().progress(function(instance) {
 							$grid.isotope('layout');
 						})
+
+						$("body").append(data.content.cornerMenus);
 					}
 				} else {
 					self.pageLoading = false;
@@ -141,6 +144,64 @@ class infiniteScroll {
 // 	}
 // });
 
+class CardMenu {
+	
+	constructor() {
+
+		this.$openedMenu = "";
+		this.$openedMenuButton = "";
+
+		var self = this;
+
+		// open menu
+		$grid.on('click', '.card__corner-menu', function(event) {
+			self.$openedMenuButton = $(event.currentTarget);
+			
+			self.$openedMenu = $("." + $(self.$openedMenuButton).parent().data("id") + ".card__corner-menu__container-wrapper");
+			
+			self.renderMenu(self.$openedMenu)
+		});
+
+		// close menu
+		$('html').click(function() {
+			$(".card__corner-menu__container-wrapper").removeClass("card__corner-menu__container-wrapper--active")
+		});
+		$('html').on('click', '.card__corner-menu, .card__corner-menu__container-wrapper--active', function(event) {
+				event.stopPropagation();
+		});
+
+		this.btnPos = {
+			x: function() {
+				return self.$openedMenuButton.offset().left;
+			},
+			y: function() {
+				return self.$openedMenuButton.offset().top;
+			}
+		}
+
+	}
+
+	renderMenu(idOfPost) {
+		var self = this;
+		
+		// open active menu
+		self.$openedMenu.addClass("card__corner-menu__container-wrapper--active");
+
+		// render Position
+		this.updatePosition(idOfPost)
+
+		
+	}
+
+	updatePosition(idOfPost) {
+		var self = this;
+
+		self.$openedMenu.css("left", Math.round(self.btnPos.x()));
+		self.$openedMenu.css("top", Math.round(self.btnPos.y()));
+	}
+
+}
+
 $(window).on('resize', function() {
 	$grid.isotope('layout');
 });
@@ -155,9 +216,8 @@ $(document).on('click', '.card.card--article', function(event) {
 	if ($target.parents('.card__info').length || $target.is('.card__info')) { // if card-info
 		var username = $currentTarget.data('username');
 		linkTo('/profil/' + username);
-	} else if ($target.parents('.card__delete').length || $target.is('.card__delete')) { // if card__delete
-		var aid = $currentTarget.data('pid');
-		deleteArticle(aid);
+	} else if ($target.parents('.card__corner-menu').length || $target.is('.card__corner-menu')) { // if card__delete
+		// Nothing, class cards Contructor handles it
 	} else { // if card
 		var titleLink = $currentTarget.data('titlelink');
 		linkTo('/artikel/' + titleLink);

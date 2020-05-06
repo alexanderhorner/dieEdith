@@ -79,7 +79,7 @@
 
 .quickstart__options__option:active {
 	transform: scale(0.985);
-	box-shadow: 0 1px 4px 0 hsla(0, 0%, 0%, 0.05);
+	box-shadow: 0 1px 4px 1px hsla(0, 0%, 0%, 0.05);
 }
 
 .dark .quickstart__options__option {
@@ -113,11 +113,15 @@
 
 .quickstart__options__option--btn:active {
 	transform: scale(0.985);
-	box-shadow: 0 1px 4px 0 hsla(0, 0%, 0%, 0.05);
+	box-shadow: 0 1px 4px 1px hsla(0, 0%, 0%, 0.05);
 }
 
 .quickstart__options__option--btn .btn__text {
 	min-width: 96px;
+}
+
+.grid {
+	position: relative;
 }
 
 /* Card */
@@ -163,7 +167,7 @@
 	border: none;
 	border-radius: 18px;
 	background-color: var(--foreground);
-	box-shadow: 0 1px 4px 0 hsla(0, 0%, 0%, 0.1);
+	box-shadow: 0 1px 4px 1px hsla(0, 0%, 0%, 0.1);
 	white-space: nowrap;
 }
 
@@ -172,7 +176,7 @@
 	left: 39px;
 	padding: 0px 14px 0px 29px;
 	border: 1px solid hsla(0, 0%, 50%, 0.2);
-	box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.5);
+	box-shadow: 0 1px 4px 1px rgba(0, 0, 0, 0.5);
 }
 
 .card__info__picture {
@@ -183,12 +187,12 @@
 	height: 50px;
 	transform: translate(-50%, -50%);
 	border-radius: 25px;
-	box-shadow: 0 1px 4px 0 hsla(0, 0%, 0%, 0.1);
+	box-shadow: 0 1px 4px 1px hsla(0, 0%, 0%, 0.1);
 }
 
 .dark .card__info__picture {
 	left: -1px;
-	box-shadow: 0 1px 4px 0 hsla(0, 0%, 0%, 0.5);
+	box-shadow: 0 1px 4px 1px hsla(0, 0%, 0%, 0.5);
 }
 
 .card__info__textbox {}
@@ -211,7 +215,7 @@
 	position: absolute;
 	top: 0;
 	right: 20px;
-	box-shadow: 0 1px 4px 0 hsla(0, 0%, 0%, 0.1);
+	box-shadow: 0 1px 4px 1px hsla(0, 0%, 0%, 0.1);
 	color: var(--error);
 	cursor: pointer;
 
@@ -229,7 +233,7 @@
 .dark .card__delete {
 	padding: 0;
 	border: 1px solid hsla(0, 0%, 50%, 0.2);
-	box-shadow: 0 1px 4px 0 hsla(0, 0%, 0%, 0.5);
+	box-shadow: 0 1px 4px 1px hsla(0, 0%, 0%, 0.5);
 	top: -1px;
 	right: 19px;
 }
@@ -306,3 +310,112 @@
 	margin-top: 5px;
 	border-radius: 5px;
 }
+
+.card__corner-menu {
+	cursor: pointer;
+	position: absolute;
+	top: 0;
+	right: 20px;
+	transform: translateY(-50%);
+	width: 36px;
+	height: 36px;
+	background-color: var(--foreground);
+	border-radius: 50%;
+	box-shadow: 0 1px 4px 1px hsla(0, 0%, 0%, 0.1);
+}
+
+.card__corner-menu > .material-icons {
+	font-size: 30px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.card__corner-menu__container-wrapper {
+	z-index: 130;
+	position: absolute;
+	width: 36px;
+	height: 36px;
+	transform: scale(0.2) translateY(-100%);
+	pointer-events: none;
+	transition: background 0.2s, transform 0.2s;
+}
+
+.card__corner-menu__container-wrapper--active {
+	transform: scale(1) translateY(0%);
+	opacity: 1;
+}
+
+.card__corner-menu__container-wrapper * {
+	opacity: 0;
+	pointer-events: none;
+	transition: background 0.2s, opacity 0.2s;
+}
+
+.card__corner-menu__container-wrapper--active * {
+	opacity: 1;
+	pointer-events: all;
+}
+
+.card__corner-menu__container {
+	z-index: 150;
+	position: absolute;
+	top: 47px;
+	left: 50%;
+	transform: translateX(calc(-100% + 30px));
+	box-shadow: 0 1px 4px 1px hsla(0, 0%, 0%, 0.1);
+	background-color: var(--foreground);
+	border-radius: 5px;
+}
+
+.card__corner-menu__container-arrow {
+	z-index: 140;
+	box-shadow: 0 1px 4px 1px hsla(0, 0%, 0%, 0.1);
+	position: absolute;
+	top: 47px;
+	left: 50%;
+	transform: translate(-50%, -50%) rotate(45deg);
+	width: 10px;
+	height: 10px;
+}
+
+.card__corner-menu__container-arrow--shadow-blocker {
+	z-index: 160;
+	background-image: url(framework/arrow-shadow-blocker.svg);
+	position: absolute;
+	top: 47px;
+	left: 50%;
+	transform: translate(-50%, -50%) rotate(45deg);
+	width: 10px;
+	height: 10px;
+} 
+
+.card__corner-menu__container__item {
+	padding: 10px 15px;
+}
+
+.touchevents .card__corner-menu__container__item {
+	padding: 12px 20px;
+	font-size: 1.1em;
+}
+
+.card__corner-menu__container__item:first-of-type {
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+
+.card__corner-menu__container__item:last-of-type {
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+
+.card__corner-menu__container__item:hover {
+	background-color: hsla(0, 0%, 50%, 0.2);
+}
+
+.card__corner-menu__container__item__text {
+	line-height: 20px;
+	white-space: nowrap;
+}
+

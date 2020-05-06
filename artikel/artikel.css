@@ -90,7 +90,7 @@
 
 .editor-information__btn:active {
 	transform: scale(0.985);
-	box-shadow: 0 1px 4px 0 hsla(0, 0%, 0%, 0.1);
+	box-shadow: 0 1px 4px 1px hsla(0, 0%, 0%, 0.1);
 }
 
 .editor-information__btn .material-icons {
@@ -104,7 +104,7 @@
 	border: 1px solid hsla(0, 0%, 50%, 0.2);
 }
 .dark .editor-information__btn:active {
-	box-shadow: 0 1px 4px 0 hsla(0, 0%, 0%, 0.5);
+	box-shadow: 0 1px 4px 1px hsla(0, 0%, 0%, 0.5);
 }
 
 /* Error Button */
@@ -128,7 +128,7 @@
 	float: left;
 	border-radius: 22px;
 	background-color: var(--foreground);
-	box-shadow: 0 1px 4px 0 hsla(0, 0%, 0%, 0.1);
+	box-shadow: 0 1px 4px 1px hsla(0, 0%, 0%, 0.1);
 	white-space: nowrap;
 	user-select: none;
 }
@@ -136,7 +136,7 @@
 .dark .article__info {
 	margin-left: 29px;
 	border: 1px solid hsla(0, 0%, 50%, 0.2);
-	box-shadow: 0 1px 4px 0 hsla(0, 0%, 0%, 0.5);
+	box-shadow: 0 1px 4px 1px hsla(0, 0%, 0%, 0.5);
 }
 
 .article__info__picture {
@@ -147,11 +147,11 @@
 	height: 60px;
 	transform: translate(-50%, -50%);
 	border-radius: 30px;
-	box-shadow: 0 1px 4px 0 hsla(0, 0%, 0%, 0.1);
+	box-shadow: 0 1px 4px 1px hsla(0, 0%, 0%, 0.1);
 }
 
 .dark .article__info__picture {
-	box-shadow: 0 1px 4px 0 hsla(0, 0%, 0%, 0.5);
+	box-shadow: 0 1px 4px 1px hsla(0, 0%, 0%, 0.5);
 }
 
 .article__info__textbox {

@@ -3,3 +3,4 @@
 /vendor/
 
 /artikel/bilder/*
+.DS_Store

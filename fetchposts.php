@@ -11,8 +11,13 @@ $response['request'] = 'failed';
 $response['error'] = 'unknown';
 $response['requestIdentifier'] = $randomRequestIdentifier;
 
+$response['content'] = array();
+$response['content']['posts'];
+$response['content']['corner-menus'];
 
 $responseString = '';
+
+$responseCornerMenus = '';
 
 
 if (isset($_POST["alreadyLoadedPosts"])) {
@@ -133,10 +138,14 @@ if ($pdo === false) {
 		if ($type == "article") {
 			if (isset($UID)) {
 				if ($owner == $UID) {
+					addDropDownMenu($ID);
 					$isOwnerClass = " card--post--isOwner";
 					$isOwnerDiv = <<<HTML
-					<div onclick="deleteArticle('$ID')" class="card__delete">
+					<!-- <div onclick="deleteArticle('$ID')" class="card__delete">
 						<i class="material-icons">delete_forever</i>
+					</div> -->
+					<div class="card__corner-menu">
+						<i class="material-icons">more_horiz</i>
 					</div>
 					HTML;
 				} else {
@@ -149,7 +158,7 @@ if ($pdo === false) {
 			}
 
 			$responseString .= <<<HTML
-			<div data-pid="$ID" data-titlelink="$titleLink_sanitized" data-username="$username" data-postedOn="$unixTimeStamp" class="$ID card card--article $isOwnerClass">
+			<div data-pid="$ID" data-id="$ID" data-titlelink="$titleLink_sanitized" data-username="$username" data-postedOn="$unixTimeStamp" class="$ID card card--article $isOwnerClass">
 				<div class="card__info">
 					<img class="card__info__picture" src="user/$owner/pb-small.jpg" alt="profile picture">
 					<div class="card__info__textbox">
@@ -174,21 +183,20 @@ if ($pdo === false) {
 				if ($owner == $UID) {
 					$isOwnerClass = " card--post--isOwner";
 					$isOwnerDiv = <<<HTML
-					<div onclick="deletePost('$ID')" class="card__delete">
-						<i class="material-icons">delete_forever</i>
+					<div class="card__corner-menu">
+						<i class="material-icons">more_horiz</i>
 					</div>
 					HTML;
+					addDropDownMenu($ID);
 				} else {
 				$isOwnerClass = "";
-				$isOwnerDiv = "";
 				}
 			} else {
 				$isOwnerClass = "";
-				$isOwnerDiv = "";
 			}
 
 			$responseString .= <<<HTML
-			<div data-pid="$ID" data-postedOn="$unixTimeStamp" class="$ID card card--post$isOwnerClass">
+			<div data-pid="$ID" data-id="$ID" data-postedOn="$unixTimeStamp" class="$ID card card--post$isOwnerClass">
 				<div class="card__info" onclick="linkTo('/profil/$username')">
 					<img class="card__info__picture" src="user/$owner/pb-small.jpg" alt="profile picture">
 					<div class="card__info__textbox">
@@ -204,7 +212,30 @@ if ($pdo === false) {
 	}
 }
 
-$response['content'] = $responseString;
+function addDropDownMenu($ID)
+{
+	global $responseCornerMenus;
+
+	$responseCornerMenus .= <<<HTML
+		<div class="card__corner-menu__container-wrapper $ID" data-id="$ID">	
+			<div class="card__corner-menu__container-arrow"></div>
+			<div class="card__corner-menu__container-arrow--shadow-blocker"></div>
+			<div class="card__corner-menu__container">
+				<div class="card__corner-menu__container__item">
+					<div class="card__corner-menu__container__item__text">Löschen <i class="material-icons">delete_forever</i></div>
+				</div>
+				<div class="card__corner-menu__container__item">
+					<div class="card__corner-menu__container__item__text">Zum Profil <i class="material-icons">person</i></div>
+				</div>
+			</div>	
+		</div>
+	HTML;
+}
+
+$response['content']['posts'] = $responseString;
+
+$response['content']['cornerMenus'] = $responseCornerMenus;
+
 
 end:
 // Encode response array into json
