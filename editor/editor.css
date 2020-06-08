@@ -149,7 +149,7 @@
   position: relative;
 }
 
-.main-title::after {
+/* .main-title::after {
   transition: opacity 0.15s, background 0.2s, box-shadow 0.2s;
   pointer-events: none;
   content: "";
@@ -166,7 +166,7 @@
 
 .no-touchevents .main-title:hover::after, .main-title:focus::after {
   opacity: 1;
-}
+} */
 
 .ce-inline-tool--unlink .icon--unlink {
   margin-bottom: 10px !important;

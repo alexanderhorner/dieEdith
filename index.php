@@ -29,9 +29,9 @@ require_once __DIR__ . '/framework/isTeamMember.php';
 			<div class="quickstart__options__wrapper">
 				<div class="quickstart__options">
 					<button class="quickstart__options__option quickstart__options__option--btn" onclick="newArticle()"?><span class="btn__text">Neuer Artikel</span></button>
-					<a class="quickstart__options__option" href="/profil/<?php echo $_SESSION['username'] ?>#entwuerfe">Deine Entwürfe</a>
-					<a class="quickstart__options__option" href="/profil/<?php echo $_SESSION['username'] ?>#artikel">Deine Artikel</a>
-					<a class="quickstart__options__option" href="/profil/<?php echo $_SESSION['username'] ?>#beitraege">Dein Profil</a>
+					<a class="quickstart__options__option" href="/profil/<?php echo $_SESSION['username'] ?>#entwuerfe">Meine Entwürfe</a>
+					<a class="quickstart__options__option" href="/profil/<?php echo $_SESSION['username'] ?>#artikel">Meine Artikel</a>
+					<a class="quickstart__options__option" href="/profil/<?php echo $_SESSION['username'] ?>#beitraege">Mein Profil</a>
 				</div>
 			</div> 
 			<?php endif; ?>

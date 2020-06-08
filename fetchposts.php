@@ -12,8 +12,8 @@ $response['error'] = 'unknown';
 $response['requestIdentifier'] = $randomRequestIdentifier;
 
 $response['content'] = array();
-$response['content']['posts'];
-$response['content']['corner-menus'];
+$response['content']['posts'] = '';
+$response['content']['corner-menus'] = '';
 
 $responseString = '';
 
@@ -138,7 +138,7 @@ if ($pdo === false) {
 		if ($type == "article") {
 			if (isset($UID)) {
 				if ($owner == $UID) {
-					addDropDownMenu($ID);
+					addDropDownMenu($ID, 'article', $username, true);
 					$isOwnerClass = " card--post--isOwner";
 					$isOwnerDiv = <<<HTML
 					<!-- <div onclick="deleteArticle('$ID')" class="card__delete">
@@ -187,12 +187,14 @@ if ($pdo === false) {
 						<i class="material-icons">more_horiz</i>
 					</div>
 					HTML;
-					addDropDownMenu($ID);
+					addDropDownMenu($ID, 'post', $username, true);
 				} else {
 				$isOwnerClass = "";
+				$isOwnerDiv = '';
 				}
 			} else {
 				$isOwnerClass = "";
+				$isOwnerDiv = '';
 			}
 
 			$responseString .= <<<HTML
@@ -212,19 +214,32 @@ if ($pdo === false) {
 	}
 }
 
-function addDropDownMenu($ID)
+function addDropDownMenu($ID, $type, $username, $isOwner)
 {
 	global $responseCornerMenus;
+
+	if ($type == 'post')
+		$deleteFunction = 'deletePost';
+	else if ($type == 'article') {
+		$deleteFunction = 'deleteArticle';
+	} else {
+		error_log("fetchpost.php addDropDownMenu error");
+	}
 
 	$responseCornerMenus .= <<<HTML
 		<div class="card__corner-menu__container-wrapper $ID" data-id="$ID">	
 			<div class="card__corner-menu__container-arrow"></div>
 			<div class="card__corner-menu__container-arrow--shadow-blocker"></div>
 			<div class="card__corner-menu__container">
-				<div class="card__corner-menu__container__item">
+	HTML;
+	if ($isOwner == true) {
+	$responseCornerMenus .= <<<HTML
+				<div class="card__corner-menu__container__item" onclick="$deleteFunction('$ID')">
 					<div class="card__corner-menu__container__item__text">Löschen <i class="material-icons">delete_forever</i></div>
 				</div>
-				<div class="card__corner-menu__container__item">
+	HTML;}
+	$responseCornerMenus .= <<<HTML
+				<div class="card__corner-menu__container__item" onclick="linkTo('/profil/$username')">
 					<div class="card__corner-menu__container__item__text">Zum Profil <i class="material-icons">person</i></div>
 				</div>
 			</div>	

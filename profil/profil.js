@@ -248,3 +248,76 @@ $(document).on('click', '.card.card--article', function(event) {
 	}
 
 });
+
+class CardMenu {
+    
+    constructor() {
+
+        this.$openedMenu = "";
+        this.$openedMenuButton = "";
+
+        var self = this;
+
+        this.btnPos = {
+            x: function() {
+                return self.$openedMenuButton.offset().left;
+            },
+            y: function() {
+                return self.$openedMenuButton.offset().top;
+            }
+        }
+
+        // update position on resize
+        
+        // openMenuListener
+        $grid.on('click', '.card__corner-menu', function(event) {
+            self.$openedMenuButton = $(event.currentTarget);
+            self.$openedMenu = $("." + $(self.$openedMenuButton).parent().data("id") + ".card__corner-menu__container-wrapper");
+            self.renderMenu();
+        });
+
+    }
+
+
+    renderMenu() {
+        var self = this;
+        
+        // open active menu
+        self.$openedMenu.addClass("card__corner-menu__container-wrapper--active");
+
+        // render Position
+        this.updatePosition()
+
+
+        // closeMenuListener
+        $('html').click(function() {
+            $(".card__corner-menu__container-wrapper").removeClass("card__corner-menu__container-wrapper--active")
+            self.$openedMenuButton = '';
+            self.$openedMenu = '';
+        });
+        $('html').on('click', '.card__corner-menu', function(event) {
+            event.stopPropagation();
+            $(".card__corner-menu__container-wrapper").not(self.$openedMenu).removeClass("card__corner-menu__container-wrapper--active")
+        });
+        $('html').on('click', '.card__corner-menu__container-wrapper--active', function(event) {
+            event.stopPropagation();
+        });
+
+        $(window).on('resize', function(){
+            if (self.$openedMenu == '') {
+                return false
+            } else { 
+                self.updatePosition();
+            }
+        });
+        
+    }
+
+    updatePosition() {
+        var self = this;
+
+        self.$openedMenu.css("left", Math.round(self.btnPos.x()));
+        self.$openedMenu.css("top", Math.round(self.btnPos.y()));
+    }
+
+}

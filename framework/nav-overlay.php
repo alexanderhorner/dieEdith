@@ -29,7 +29,7 @@
 </div>
 
 <div class="prompt prompt--delete-article">
-	<h2 class="prompt__headline">Beitrag löschen</h2>
+	<h2 class="prompt__headline">Artikel löschen</h2>
 	<div class="prompt__description">Bist du dir sicher, dass du diesen Artikel löschen willst?</div>
 	<div class="prompt__btn-container">
 		<button onclick="closePrompt('all'); window.promptFunction = function() {return 'function unset'}" tabindex="0" class="prompt__btn-container__btn prompt__btn-container__btn--abort">Abbrechen</button>

@@ -31,12 +31,12 @@ if (validateID('A', $AID) == false) {
 // Check Permissions
 session_start();
 if (isset($_SESSION['UID'])) {
-		$UID = $_SESSION['UID'];
+	$UID = $_SESSION['UID'];
 } else {
-		$response['request'] = 'failed';
-		$response['error']['category'] = "No permission";
-		$response['error']['description'] = "User isn't logged in";
-		goto end;
+	$response['request'] = 'failed';
+	$response['error']['category'] = "No permission";
+	$response['error']['description'] = "User isn't logged in";
+	goto end;
 }
 
 // Request
@@ -55,7 +55,7 @@ if ($pdo === false) {
 		$statement = $pdo->prepare("UPDATE `articles` SET `title` = concat(`title`, ' - DELETED ', ?), `status` = 'deleted' WHERE `AID` = ? AND `owner` = ?");
 
 		// execute statement
-		$statement->execute(array('D'.random_str(10) ,$AID, $UID));
+		$statement->execute(array('D'.random_str(10), $AID, $UID));
 
 		// check response from statement
 		if($statement->errorCode() != 0) {
@@ -64,15 +64,15 @@ if ($pdo === false) {
 				$response['error']['description'] = $stmntError[2];
 				goto end;
 		} else {
-				// Check how many rows were affected
-				if ($statement->rowCount() <= 0) {
-					$response['error']['category'] = 'MySQL error';
-					$response['error']['description'] = 'No database entries were affected.';
-					goto end;
-				} else {
-					$response['status'] = 'successful';
-					unset($response['error']);
-				}
+			// Check how many rows were affected
+			if ($statement->rowCount() <= 0) {
+				$response['error']['category'] = 'MySQL error';
+				$response['error']['description'] = 'No database entries were affected.';
+				goto end;
+			} else {
+				$response['status'] = 'successful';
+				unset($response['error']);
+			}
 		}
 
 

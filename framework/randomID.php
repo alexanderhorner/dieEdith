@@ -1,7 +1,4 @@
 <?php
-
-header('Content-type: text/plain');
-
 /**
  * Generate a random string, using a cryptographically secure 
  * pseudorandom number generator (random_int)

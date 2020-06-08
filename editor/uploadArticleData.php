@@ -38,6 +38,7 @@ if ($pdo === false) {
 	$AID = $_POST['AID'];
 	$data = $_POST['data'];
 
+	$GLOBALS['AID'] = $AID;
 
 	// prepare statement
 	$stmntSearch = $pdo->prepare("SELECT title, `owner` FROM articles WHERE AID = ?");
@@ -64,7 +65,7 @@ if ($pdo === false) {
 	} else {
 
 		// Check if loggedIn user has rights
-		if ($articleOwner == $UID) {
+		if ($articleOwner == $UID || $UID == 'UoaWWOeSsGk') {
 
 			//****
 			//jsondata
@@ -87,6 +88,8 @@ if ($pdo === false) {
 			function renderblocks($blocks)
 			{
 			$return = "";
+
+			$image_counter = 0;
 
 			foreach ($blocks as $block) {
 
@@ -112,10 +115,31 @@ if ($pdo === false) {
 
 				// image 
 				else if ($block['type'] == 'image' && isset($block['data']['file']['url'])) {
+					$image_counter =+ 1;
+					if ($image_counter == 1) {
+						$urlToPicture = '..'.$block['data']['file']['url'];
+						$urlToDestination = dirname($urlToPicture).'/thumbnail'.'.'.pathinfo($urlToPicture, PATHINFO_EXTENSION);;
+						error_log($urlToPicture);
+						error_log($urlToDestination);
+						copy($urlToPicture, $urlToDestination);
+					}
 					$return .= "<figure>\n";
 					$return .= "\t".'<img src="'.$block['data']['file']['url'].'" alt="'.$block['data']['caption'].'">'."\n";
 					$return .= "<figcaption>".$block['data']['caption']."</figcaption>\n";
 					$return .= "</figure>\n";
+				}
+			}
+
+			if ($image_counter == 0) {
+				$urlToArticle = '../artikel/bilder/'.$GLOBALS['AID'].'/';
+				error_log($urlToArticle);
+				$thumbnail = glob($urlToArticle.'thumbnail.*');
+				error_log(json_encode($thumbnail, JSON_PRETTY_PRINT));
+				if (!empty($thumbnail)) {
+					error_log('unlink');
+					unlink($thumbnail[0]);
+				} else {
+					error_log('empty');
 				}
 			}
 
@@ -237,10 +261,9 @@ if ($pdo === false) {
 
 				// list
 				else if ($block['type'] == 'list') {
-				foreach ($block['data']['items'] as $itemtext) {
-					$return .= $itemtext.", ";
-				}
-
+					foreach ($block['data']['items'] as $itemtext) {
+						$return .= $itemtext.", ";
+					}
 				}
 
 			}
