@@ -118,7 +118,7 @@ if (isset($_SESSION['UID'])) {
 			<?php echo htmlspecialchars($articleName, ENT_QUOTES, 'UTF-8'); ?>
 		</h1>
 
-		<div class="article__info">
+		<div class="article__info" onclick="linkTo('../profil/<?php echo $username ?>')">
 			<img class="article__info__picture" src="/user/<?php echo $owner ?>/pb-small.jpg" alt="profile picture">
 			<div class="article__info__textbox">
 				<div class="article__info__textbox__name">
